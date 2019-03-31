@@ -13,7 +13,7 @@ var csvParseSync = require('csv-parse/lib/sync');
 // Globals.
 
 
-var streamingAssetsOutputDirectory = '../Libraries/UnityJS_Optionality/StreamingAssets/UnityJS_Optionality';
+var streamingAssetsOutputDirectory = '../../UnityJS_Optionality/Libraries/UnityJS_Optionality/StreamingAssets/UnityJS_Optionality';
 var sheetOutputDirectory = streamingAssetsOutputDirectory + '/sheets';
 
 var sheetsIndex = [];

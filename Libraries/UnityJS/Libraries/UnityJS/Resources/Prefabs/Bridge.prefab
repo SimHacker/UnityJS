@@ -6559,7 +6559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &410
 Transform:
   m_ObjectHideFlags: 0
@@ -6594,8 +6594,6 @@ MonoBehaviour:
   url: optionality.html
   spreadsheetID: 1m7FANuMTPAfugSTw20pHSSpTF-Ugj0Hg11Z52nRtuLY
   configuration: optionality
-  useSocketIO: 0
-  socketIOAddress: ws://localhost:3000/socket.io/?EIO=4&transport=websocket
   startedJS: 0
   restarting: 0
   transport: {fileID: 0}

@@ -1,0 +1,445 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8102525814C569D80022296D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8102525514C569D80022296D /* InfoPlist.strings */; };
+		81B8C53815108B89000C56DC /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B8C53715108B89000C56DC /* Carbon.framework */; };
+		81E2C20C14C5684A004CE5C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81E2C20B14C5684A004CE5C2 /* Cocoa.framework */; };
+		81F4B4D914C6888B001B4465 /* UnityJS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 81F4B4D814C6888B001B4465 /* UnityJS.mm */; };
+		81F81AED14D76D2400845D4C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81F81AEC14D76D2400845D4C /* OpenGL.framework */; };
+		FD368A541FD4E08E00A7A31E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD368A531FD4E05700A7A31E /* WebKit.framework */; };
+		FD8855481E18E03D007949A1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8855471E18E03D007949A1 /* SystemConfiguration.framework */; };
+		FDF05E0C1E2469D500898724 /* libz.1.2.8.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FDF05E0B1E2469D500898724 /* libz.1.2.8.tbd */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FD023FA91E17797A00379D37 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		8102525414C569D80022296D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = SOURCE_ROOT; };
+		8102525514C569D80022296D /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = Resources/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		8102525614C569D80022296D /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prefix.pch; path = Resources/Prefix.pch; sourceTree = SOURCE_ROOT; };
+		81B8C53715108B89000C56DC /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		81E2C20814C5684A004CE5C2 /* UnityJS.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnityJS.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		81E2C20B14C5684A004CE5C2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		81E2C20E14C5684A004CE5C2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		81E2C21014C5684A004CE5C2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		81F4B4D814C6888B001B4465 /* UnityJS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = UnityJS.mm; path = Sources/UnityJS.mm; sourceTree = "<group>"; };
+		81F81AEC14D76D2400845D4C /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		FD368A531FD4E05700A7A31E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		FD8855451E18DFC9007949A1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		FD8855471E18E03D007949A1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FDF05E0B1E2469D500898724 /* libz.1.2.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.8.tbd; path = usr/lib/libz.1.2.8.tbd; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		81E2C20514C5684A004CE5C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDF05E0C1E2469D500898724 /* libz.1.2.8.tbd in Frameworks */,
+				FD368A541FD4E08E00A7A31E /* WebKit.framework in Frameworks */,
+				FD8855481E18E03D007949A1 /* SystemConfiguration.framework in Frameworks */,
+				81B8C53815108B89000C56DC /* Carbon.framework in Frameworks */,
+				81F81AED14D76D2400845D4C /* OpenGL.framework in Frameworks */,
+				81E2C20C14C5684A004CE5C2 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8102525914C573EB0022296D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				81F4B4D814C6888B001B4465 /* UnityJS.mm */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		81E2C1FD14C5684A004CE5C2 = {
+			isa = PBXGroup;
+			children = (
+				8102525914C573EB0022296D /* Sources */,
+				81E2C21114C5684A004CE5C2 /* Resources */,
+				81E2C20A14C5684A004CE5C2 /* Frameworks */,
+				81E2C20914C5684A004CE5C2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		81E2C20914C5684A004CE5C2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				81E2C20814C5684A004CE5C2 /* UnityJS.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		81E2C20A14C5684A004CE5C2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD368A531FD4E05700A7A31E /* WebKit.framework */,
+				FDF05E0B1E2469D500898724 /* libz.1.2.8.tbd */,
+				FD8855471E18E03D007949A1 /* SystemConfiguration.framework */,
+				FD8855451E18DFC9007949A1 /* libz.tbd */,
+				81B8C53715108B89000C56DC /* Carbon.framework */,
+				81F81AEC14D76D2400845D4C /* OpenGL.framework */,
+				81E2C20E14C5684A004CE5C2 /* AppKit.framework */,
+				81E2C21014C5684A004CE5C2 /* Foundation.framework */,
+				81E2C20B14C5684A004CE5C2 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		81E2C21114C5684A004CE5C2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8102525414C569D80022296D /* Info.plist */,
+				8102525514C569D80022296D /* InfoPlist.strings */,
+				8102525614C569D80022296D /* Prefix.pch */,
+			);
+			name = Resources;
+			path = WebView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		81E2C20714C5684A004CE5C2 /* UnityJS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81E2C21A14C5684A004CE5C2 /* Build configuration list for PBXNativeTarget "UnityJS" */;
+			buildPhases = (
+				81E2C20414C5684A004CE5C2 /* Sources */,
+				81E2C20514C5684A004CE5C2 /* Frameworks */,
+				81E2C20614C5684A004CE5C2 /* Resources */,
+				FD023FA91E17797A00379D37 /* CopyFiles */,
+				FD7F9AFE1ED91DC20044D9E3 /* Run - Installing bundle into DerivedData */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnityJS;
+			productName = WebView;
+			productReference = 81E2C20814C5684A004CE5C2 /* UnityJS.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		81E2C1FF14C5684A004CE5C2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 81E2C20214C5684A004CE5C2 /* Build configuration list for PBXProject "UnityJS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				am,
+				ar,
+				bg,
+				bn,
+				ca,
+				cs,
+				da,
+				de,
+				el,
+				en_GB,
+				es,
+				es_419,
+				et,
+				fa,
+				fi,
+				fil,
+				fr,
+				gu,
+				he,
+				hi,
+				hr,
+				hu,
+				id,
+				it,
+				ja,
+				kn,
+				ko,
+				lt,
+				lv,
+				ml,
+				mr,
+				ms,
+				nb,
+				nl,
+				pl,
+				pt_BR,
+				pt_PT,
+				ro,
+				ru,
+				sk,
+				sl,
+				sr,
+				sv,
+				sw,
+				ta,
+				te,
+				th,
+				tr,
+				uk,
+				vi,
+				zh_CN,
+				zh_TW,
+				Base,
+			);
+			mainGroup = 81E2C1FD14C5684A004CE5C2;
+			productRefGroup = 81E2C20914C5684A004CE5C2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				81E2C20714C5684A004CE5C2 /* UnityJS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		81E2C20614C5684A004CE5C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8102525814C569D80022296D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FD7F9AFE1ED91DC20044D9E3 /* Run - Installing bundle into DerivedData */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run - Installing bundle into DerivedData";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"=================================================\"\necho BUILT_PRODUCTS_DIR $BUILT_PRODUCTS_DIR\necho DESTINATION_FILENAME $DESTINATION_FILENAME\necho PRODUCT_NAME $PRODUCT_NAME\necho SRCROOT $SRCROOT\necho \"=================================================\"\necho \"Renaming path to libmono with install_name_tool...\"\necho $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME\ncp -r $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS.bundle $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS_Editor.bundle\nls -l $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS_Editor.bundle/Contents/MacOS/UnityJS\necho \"BEFORE\"\notool -L $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS_Editor.bundle/Contents/MacOS/UnityJS\n\necho install_name_tool -change @executable_path/../Frameworks/MonoEmbedRuntime/osx/libmono.0.dylib @executable_path/../Frameworks/Mono/MonoEmbedRuntime/osx/libmono.0.dylib $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS_Editor.bundle/Contents/MacOS/UnityJS\ninstall_name_tool -change @executable_path/../Frameworks/MonoEmbedRuntime/osx/libmono.0.dylib @executable_path/../Frameworks/Mono/MonoEmbedRuntime/osx/libmono.0.dylib $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS_Editor.bundle/Contents/MacOS/UnityJS\necho \"AFTER\"\notool -L $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS_Editor.bundle/Contents/MacOS/UnityJS\n\necho \"=================================================\"\necho \"Installing bundle into DerivedData...\"\nDESTINATION_DIR=\"$SRCROOT/DerivedData\"\necho DESTINATION_DIR $DESTINATION_DIR\nDESTINATION_FILENAME1=\"${PRODUCT_NAME}.bundle\"\nDESTINATION_FILENAME2=\"${PRODUCT_NAME}_Editor.bundle\"\necho DESTINATION_FILENAME1 $DESTINATION_FILENAME1 DESTINATION_FILENAME2 $DESTINATION_FILENAME2\necho Removing \"$DESTINATION_DIR\"\nrm -rf \"$DESTINATION_DIR\"\nmkdir -p \"$DESTINATION_DIR\"\necho Copying \"$BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME1\" to \"$DESTINATION_DIR\"\ncp -r \"$BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME1\" \"$DESTINATION_DIR\"\necho Copying \"$BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME2\" to \"$DESTINATION_DIR\"\ncp -r \"$BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME2\" \"$DESTINATION_DIR\"\necho NOW\nls -l \"$DESTINATION_DIR\"\n\necho \"=================================================\"\necho \"Installing bundle into UnityJS project...\"\nDESTINATION_DIR=\"$SRCROOT/../../Libraries/UnityJS/Plugins/macOS\"\necho DESTINATION_DIR $DESTINATION_DIR\nDESTINATION_FILENAME1=\"${PRODUCT_NAME}.bundle\"\nDESTINATION_FILENAME2=\"${PRODUCT_NAME}_Editor.bundle\"\necho DESTINATION_FILENAME1 $DESTINATION_FILENAME1 DESTINATION_FILENAME2 $DESTINATION_FILENAME2\necho Removing \"$DESTINATION_DIR/$DESTINATION_FILENAME1\" \"$DESTINATION_DIR/$DESTINATION_FILENAME2\"\nrm -rf \"$DESTINATION_DIR/$DESTINATION_FILENAME1\" \"$DESTINATION_DIR/$DESTINATION_FILENAME2\"\necho Copying \"$BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME1\" to \"$DESTINATION_DIR\"\ncp -r \"$BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME1\" \"$DESTINATION_DIR\"\necho Copying \"$BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME2\" to \"$DESTINATION_DIR\"\ncp -r \"$BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME2\" \"$DESTINATION_DIR\"\necho NOW\nls -l \"$DESTINATION_DIR\"\n\necho \"=================================================\"\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		81E2C20414C5684A004CE5C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81F4B4D914C6888B001B4465 /* UnityJS.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		81E2C21814C5684A004CE5C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-L/Applications/Unity/Unity.app/Contents/Frameworks/Mono/MonoEmbedRuntime/osx",
+					"-lmono.0",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		81E2C21914C5684A004CE5C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = (
+					"-L/Applications/Unity/Unity.app/Contents/Frameworks/Mono/MonoEmbedRuntime/osx",
+					"-lmono.0",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		81E2C21B14C5684A004CE5C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Resources/Prefix.pch;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = Resources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				OTHER_LDFLAGS = (
+					"-L/Applications/Unity/Unity.app/Contents/Frameworks/Mono/MonoEmbedRuntime/osx",
+					"-lmono.0",
+					"-headerpad_max_install_names",
+				);
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ground-up-software.unityjs.UnityJS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		81E2C21C14C5684A004CE5C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Resources/Prefix.pch;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = Resources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				OTHER_LDFLAGS = (
+					"-L/Applications/Unity/Unity.app/Contents/Frameworks/Mono/MonoEmbedRuntime/osx",
+					"-lmono.0",
+					"-headerpad_max_install_names",
+				);
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ground-up-software.unityjs.UnityJS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		81E2C20214C5684A004CE5C2 /* Build configuration list for PBXProject "UnityJS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81E2C21814C5684A004CE5C2 /* Debug */,
+				81E2C21914C5684A004CE5C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		81E2C21A14C5684A004CE5C2 /* Build configuration list for PBXNativeTarget "UnityJS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81E2C21B14C5684A004CE5C2 /* Debug */,
+				81E2C21C14C5684A004CE5C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 81E2C1FF14C5684A004CE5C2 /* Project object */;
+}

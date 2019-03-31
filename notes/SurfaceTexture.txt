@@ -1,0 +1,43 @@
+https://android.googlesource.com/platform/cts/+/kitkat-release/tests/tests/media/src/android/media/cts/TextureRender.java
+https://coderwall.com/p/6koh_g/rendering-any-android-view-directly-to-an-opengl-texture
+https://anuraagsridhar.wordpress.com/2013/03/13/rendering-an-android-webview-or-for-that-matter-any-android-view-directly-to-opengl/
+https://forums.oculus.com/developer/discussion/20347/android-webview-as-texture-in-unity
+http://www.felixjones.co.uk/neo%20website/Android_View/
+https://github.com/ggarri/cardboard/blob/master/CardboardSample/src/main/java/com/google/vrtoolkit/cardboard/samples/treasurehunt/MainActivity.java
+http://blog.csdn.net/u010949962/article/details/41865777
+https://github.com/ArtemBogush/AndroidViewToGLRendering
+http://stackoverflow.com/questions/12499396/is-it-possible-to-render-an-android-view-to-an-opengl-fbo-or-texture/29066625#29066625
+http://stackoverflow.com/questions/19273437/android-draw-youtube-video-on-surfacetexture
+https://play.google.com/store/apps/details?id=in.fulldive.shell
+http://www.voidcn.com/blog/sno_guo/article/p-5766567.html
+
+http://answers.unity3d.com/questions/216839/issue-with-gldrawarrays-in-plugin.html
+https://github.com/robertcastle/UnityFBO/blob/master/FBOPlugin/FBOPlugin/FBOPlugin.mm
+
+https://android.googlesource.com/platform/cts/+/kitkat-release/tests/tests/media/src/android/media/cts/TextureRender.java
+
+https://gist.github.com/rexguo/6696123
+rexguo/Using GL_OES_EGL_image_external on Android
+
+1. The texture target needs to be GLES20.GL_TEXTURE_EXTERNAL_OES instead of GL_TEXTURE_2D, e.g. in the glBindTexture calls and glTexParameteri calls.
+
+2. In the fragment shader define a requirement to use the extension:
+#extension GL_OES_EGL_image_external : require
+
+3. For the texture sampler used in the fragment shader, use samplerExternalOES instead of sampler2D.
+
+Everything below here is all in the C code, no more Java.
+
+4. In the C code, use glEGLImageTargetTexture2DOES(GL_TEXTURE_EXTERNAL_OES, eglImage) to specify where the data is, instead of using glTexImage2D family of functions.
+
+5. Now, this is android specific, as GraphicBuffer.h is defined in the android native source code. new a GraphicBuffer object, and init with with the width, height, pixel format, etc... this is where we'll be writing the pixels to. Also, the android's GraphicBuffer object is the one that will allocate the memory for us i.e. call gralloc.
+
+6. To write pixels to the GraphicBuffer, lock it via graphicBuffer->lock(GRALLOC_USAGE_SW_WRITE_RARELY, (void **) &pixels), lock() will give you the address to write the pixels to in the 2nd parameter. Once you have the address, now, you can freely write the data to the address pixels.
+
+7. After you finish writing, unlock it, graphicBuffer->unlock().
+
+8. Now, you need the eglImage object to pass into glEGLImageTargetTexture2DOES in step 4. To create the eglImage using createEGLImageKHR(). http://www.khronos.org/registry/egl/extensions/KHR/EGL_KHR_image_base.txt. 4th parameter to eglCreateImageKHR() takes in a EGLClientBuffer, use this (EGLClientBuffer) graphicBuffer->getNativeBuffer();
+
+9. To clean up, use eglDestroyImageKHR().
+
+I think that's about it. Everything is public API: glEGLImageTargetTexture2DOES(), eglCreateEGLImageKHR(), eglDestroyImageKHR(). gralloc is used, and the implementation of GraphicsBuffer object in the android native source code does that for us.

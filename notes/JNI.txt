@@ -1,0 +1,4 @@
+http://android-developers.blogspot.nl/2011/07/debugging-android-jni-with-checkjni.html
+adb shell setprop debug.checkjni 1
+
+http://android-developers.blogspot.nl/2011/11/jni-local-reference-changes-in-ics.html

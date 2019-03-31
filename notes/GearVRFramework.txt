@@ -1,0 +1,2 @@
+http://www.gearvrf.org/
+https://github.com/Samsung/GearVRf

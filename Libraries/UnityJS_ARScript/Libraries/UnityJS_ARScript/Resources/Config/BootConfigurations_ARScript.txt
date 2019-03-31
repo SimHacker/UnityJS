@@ -1,0 +1,22 @@
+[
+    {
+        "gameID": "ARScript",
+        "name": "ARScript Hello World",
+        "description": "ARScript Hello World",
+        "spreadsheetID": "",
+        "configuration": "",
+        "editable": false,
+        "handleStartedScript": "bridge.createPlace();\n",
+        "handleLoadedScript": "bridge.world.ball = bridge.createPrefab({\n    prefab: 'Prefabs/Ball', \n    update: {\n        'transform/localPosition': {x: 0, y: 5, z: 0},\n        'transform/localScale': {x: 5, y: 5, z: 5}\n    },\n});\n"
+    },
+    {
+        "gameID": "ARScript",
+        "name": "Sandbox",
+        "description": "ARScript Sandbox",
+        "spreadsheetID": "",
+        "configuration": "",
+        "editable": true,
+        "handleStartedScript": "bridge.createPlace();\n",
+        "handleLoadedScript": "bridge.world.ball = bridge.createPrefab({\n    prefab: 'Prefabs/Ball', \n    update: {\n        'transform/localPosition': {x: 0, y: 5, z: 0},\n        'transform/localScale': {x: 5, y: 5, z: 5}\n    },\n});\n"
+    }
+]

@@ -1,0 +1,8 @@
+To make a C# function you can pass into and call from C:
+
+https://github.com/SoylentGraham/PopUnity/blob/master/Unity/Assets/PopUnity/PopUnity.cs
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	private delegate void DebugLogDelegate(string str);
+
+		bool More = PopJob (Marshal.GetFunctionPointerForDelegate (mOnJobDelegate));

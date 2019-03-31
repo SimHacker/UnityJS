@@ -1,0 +1,15 @@
+https://github.com/google-ar
+
+https://developers.google.com/ar/develop/web/getting-started
+
+https://blog.google/products/google-vr/arcore-developer-preview-2/
+
+https://github.com/google-ar/three.ar.js
+
+https://github.com/google-ar/arcore-unity-sdk
+
+https://github.com/google-ar/WebARonARKit
+https://github.com/google-ar/WebARonARKit#HowWebARonARKitWorks
+
+https://github.com/google-ar/WebARonARCore
+https://github.com/google-ar/WebARonARCore#how-webaronarcore-works

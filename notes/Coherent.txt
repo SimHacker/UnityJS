@@ -1,0 +1,36 @@
+http://coherent-labs.com
+http://coherent-labs.com/features/
+http://coherent-labs.com/Documentation/unity/d8/daf/_unity_introduction.html
+https://forums.coherent-labs.com/index.php?board=10.0
+http://coherent-labs.com/download-coherent-gt/?utm_source=blog&utm_medium=post&utm_campaign=1.9release
+
+Coherent GT Unity3D SDK
+  Windows x86, Windows x64 and Mac OS X.
+  Support for other operating systems and platforms will be added in the future.
+
+Coherent GT for Native Platforms
+  Windows x86, Windows x64, Mac OS X 10.6+, as well as, XBOX One and PlayStation 4.
+
+Coherent GT for Unreal Engine 4
+  Windows x86 and Windows x64, Mac OS X, as well as, XBOX One and PlayStation 4. 
+
+Data binding API
+  http://coherent-labs.com/blog/introducing-the-new-data-binding-api/
+
+http://coherent-labs.com/product-hummingbird/
+
+Coherent UI Mobile Open Source
+https://github.com/CoherentLabs/CoherentUIMobileOpenSource
+
+Not compatible with unity 5 because of this bug:
+http://fogbugz.unity3d.com/default.asp?679875_o1li58umnfjk9jhr
+
+https://github.com/CoherentLabs/CoherentUIMobileOpenSource/blob/master/Src/Android/com/coherentlabs/ui/CoherentAndroidViewBridge.java
+
+----
+
+Fun JS glue code:
+
+~/Jaunt/git/CoherentTest/Assets/CoherentUIGT/JavaScriptBinding.zip coherent.js
+
+----

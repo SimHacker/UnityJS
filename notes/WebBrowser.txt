@@ -1,0 +1,63 @@
+Windows web browser component.
+
+https://news.ycombinator.com/item?id=10089645
+
+Stratoscope 446 days ago | parent | favorite | on: CefSharp – Embedded Chromium for .NET
+
+I've done a fair amount of work with CEF (the native version, not
+CefSharp), Awesomium, Coherent UI, and the native WinForms WebBrowser
+control.
+
+If you are targeting Windows and don't need features that are specific
+to Chromium, I recommend the WebBrowser control above the others,
+because it will save you quite a bit of file size in your application,
+along with less memory usage.
+
+Unfortunately, the WebBrowser control defaults to an IE7 compatibility
+mode, which is where it's gotten much of its bad reputation. However,
+you can force it into IE11 mode, assuming that the user's machine does
+have IE11 installed. (And if you are producing a Windows app,
+customers who have refused to update their systems to IE11 are
+probably customers not worth supporting.)
+
+Oddly enough, there is no API to do this. You have to write a value to
+the registry listing your .exe filename and the IE version you want to
+use. But this value is in HKEY_CURRENT_USER, so you don't need
+administrator privileges or a UAC prompt to do this.
+
+WebBrowser also sends an IE7 UserAgent string by default, but you can
+easily override that.
+
+I posted the code for both of these tweaks in the MarkdownPad forum,
+where I was encouraging the author to use the WebBrowser control
+instead of Awesomium which the product currently uses:
+
+http://forums.apricitysoftware.com/t/why-is-markdownpad-spaw...
+
+(Friends at Awesomium, don't take offense! I just think WebBrowser is
+a better match for MarkdownPad, since it doesn't need Chromium
+features and IE11 compatibility would be plenty good for their needs.
+They actually used the WebBrowser originally but switched to Awesomium
+because the author didn't know how to force WebBrowser into IE11
+mode!)
+
+The problem I have with both Awesomium and Coherent UI, besides the
+large file size, is that they are both stuck on old versions of
+Chromium: IIRC Coherent is somewhere around Chromium 31 and Awesomium
+is in the upper 20's. (Sounds like there is a new version coming out
+though.) CEF keeps much more up to date on the Chromium versions; not
+sure about CefSharp.
+
+Coherent has nice integrations for Unity and Unreal Engine, including
+hardware acceleration, which was a real problem when I tried to
+integrate CEF into Unity a year ago. (This has no doubt been resolved
+by now, but at the time Chromium was going through a restructuring of
+the hardware rendering pipeline and CEF just bailed out on it for a
+while.)
+
+I did a fun little project with Awesomium (originally for the late
+great OnLive) that composited multiple WebViews transparently on top
+of each other so each one ran in its own thread. Kind of like stacking
+transparent iframes but without the single-thread limitation:
+
+https://github.com/geary/awestack

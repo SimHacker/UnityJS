@@ -1,0 +1,15 @@
+#!/bin/sh
+echo "========"
+echo `pwd`/install-libs.sh
+DST="../build/Packager/Assets"
+LIBDSTDIR="$DST/Libraries"
+#DSTDIR="$LIBDSTDIR/UnityJS"
+SRC="../UnityJS/Assets"
+LIBSRCDIR="$ASSETSSRCDIR/Libraries"
+#SRCDIR="$LIBSRCDIR/UnityJS"
+rm -rf "$LIBDSTDIR"
+#mkdir -p "$DSTDIR"
+echo "Installing from $SRC into $DST"
+cp -a "$SRC/Libraries" "$SRC/StreamingAssets" "$SRC/StreamingAssets.meta" "$DST"
+ls -l "$DST"
+echo "========"

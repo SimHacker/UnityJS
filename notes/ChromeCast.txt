@@ -1,0 +1,26 @@
+https://en.wikipedia.org/wiki/Google_Cast
+https://en.wikipedia.org/wiki/List_of_apps_with_Google_Cast_support
+
+https://developers.googleblog.com/2015/12/google-cast-remote-display-plugin-for.html
+
+https://developers.google.com/cast/
+https://developers.google.com/cast/docs/receiver_apps
+https://developers.google.com/cast/docs/reference/
+
+https://github.com/thibauts/node-castv2-client
+https://github.com/thibauts/node-castv2#protocol-description
+https://github.com/googlecast/CastReferencePlayer
+https://github.com/googlecast/RemoteDisplayUnitySample
+https://github.com/googlecast/CastHelloVideoPlayer
+
+DIAL: Discovery and Launch protocol
+https://en.wikipedia.org/wiki/Discovery_and_Launch
+http://www.dial-multiscreen.org/
+http://stackoverflow.com/questions/14975028/why-dial-discovery-and-launch-when-we-have-upnp
+http://www.theregister.co.uk/2013/01/28/dial_youtube_netflix/
+https://gigaom.com/2013/01/23/dial-open-airplay-competitor/
+http://wiki.socialisingaroundmedia.com/index.php/Multiscreen_(App-to-app)_Communication
+https://forum.xda-developers.com/android-tv/chromecast
+
+rPlay turns iPhone into ChromeCast receiver
+https://itunes.apple.com/us/app/rplay/id692511073?mt=8

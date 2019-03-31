@@ -1,0 +1,5 @@
+WebViewObject:
+NSAppTransportSecurity isn't configured to allow HTTP.
+If you need to allow any HTTP access, please shutdown Unity and invoke:
+
+/usr/libexec/PlistBuddy -c "Add NSAppTransportSecurity:NSAllowsArbitraryLoads bool true" /Applications/Unity/Unity.app/Contents/Info.plist

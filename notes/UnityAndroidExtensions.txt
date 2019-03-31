@@ -1,0 +1,104 @@
+----
+
+libOculusMediaSurface
+
+./ovr_sdk_mobile_1.0.3/VrAppSupport/MediaSurfacePlugin
+
+----
+https://github.com/googlevr/gvr-unity-sdk/issues/72
+
+SoylentGraham commented on Aug 28, 2015
+
+It calls the function for all libraries (I worked at unity, I know how it
+works internally, it's easy for external libs, much more awkward on static
+linked iOS projects  :)
+I have a unique id and ignore other plugins' plugin events. (If the
+cardboard sdk doesn't have a unique IssuePluginEvent id I'd highly
+recommend one)
+IIRC the first loaded lib is called first, but that order, I can't
+remember. The important thing is that they ARE all called.
+
+I'll try this in the morning... Can you elaborate at all on what the Google
+lib does when distortion is enabled? I assume it must change a state I
+don't handle. PluginEvent work is still synchronous on the render thread
+(in the cardboard sdk case this obviously has to be on the main thread), so
+something must be change in the state that possibly I can revert?
+
+----
+
+~/Jaunt/git/GoogleVR/gvr-unity-sdk/GoogleVR/Legacy/Scripts/Internal/VRDevices/GvrDevice.cs
+
+#if UNITY_IOS
+    private const string dllName = "__Internal";
+#elif UNITY_HAS_GOOGLEVR
+    private const string dllName = "gvr";
+#else
+    private const string dllName = "gvrunity";
+#endif  // UNITY_IOS
+
+    [DllImport(dllName)]
+    private static extern void Start();
+
+    [DllImport(dllName)]
+    private static extern void SetTextureId(int id);
+
+----
+
+~/Jaunt/git/GoogleVR/gvr-unity-sdk/GoogleVR/Scripts/Controller/Internal/ControllerProviders/AndroidNativeControllerProvider.cs
+
+    private const string dllName = "gvr";
+
+    [DllImport(dllName)]
+    private static extern int gvr_controller_get_default_options();
+
+----
+
+https://www.khronos.org/registry/gles/extensions/OES/OES_EGL_image_external.txt
+
+----
+
+https://github.com/wadetb/shellspace/blob/master/external/ovr_mobile_sdk_0.4.3.1/VRLib/jni/Integrations/Unity/UnityPlugin.cpp
+https://github.com/wadetb/shellspace/tree/master/external/ovr_mobile_sdk_0.5.0/VRLib/jni/Integrations/Unity
+
+----
+
+Secure Texture Video Playback
+
+http://source.android.com/devices/graphics/arch-st.html
+
+----
+
+https://docs.unity3d.com/Manual/NativePluginInterface.html
+
+----
+
+When can GL.IssuePluginEvent be called?
+http://answers.unity3d.com/questions/933617/when-can-glissuepluginevent-be-called.html
+
+Gl.IssuePluginEvent in Android Java Plugin?
+https://forum.unity3d.com/threads/gl-issuepluginevent-in-android-java-plugin.277066/
+
+New low-level native plugin API - I'd love to know more!
+https://forum.unity3d.com/threads/new-low-level-native-plugin-api-id-love-to-know-more.343273/
+
+----
+
+https://bitbucket.org/Unity-Technologies/graphicsdemos/src/548c5251ddbe/NativeRenderingPlugin/?at=default
+
+----
+
+http://www.felixjones.co.uk/neo%20website/Android_View/
+
+----
+
+http://stackoverflow.com/questions/6414003/using-surfacetexture-in-android
+
+----
+
+https://github.com/googlesamples/tango-examples-unity
+
+----
+
+../../shellspace/external/ovr_mobile_sdk_0.5.0/VRLib/jni/GlGeometry.cpp
+
+----

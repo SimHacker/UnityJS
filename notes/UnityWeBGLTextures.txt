@@ -1,0 +1,224 @@
+====
+
+http://docs.unity3d.com/Manual/webgl-interactingwithbrowserscripting.html
+
+====
+
+https://kripken.github.io/emscripten-site/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html
+
+====
+
+https://github.com/atteneder/UnityJavascriptInteraction
+
+		var dataPtr = Module._malloc(24);
+		Module.setValue(dataPtr,vector3.x,'float');
+		Module.setValue(dataPtr+4,vector3.y,'float');
+		Module.setValue(dataPtr+8,vector3.z,'float');
+		
+		Module.setValue(dataPtr+12,vector3_2.x,'float');
+		Module.setValue(dataPtr+16,vector3_2.y,'float');
+		Module.setValue(dataPtr+20,vector3_2.z,'float');
+
+		c_vx(int1,int2,dataPtr,dataPtr+12);
+
+		Module._free(dataPtr);
+
+====
+
+https://github.com/Planeshifter/emscripten-examples/tree/master/01_PassingArrays
+
+function _arrayToHeap(typedArray){
+  var numBytes = typedArray.length * typedArray.BYTES_PER_ELEMENT;
+  var ptr = Module._malloc(numBytes);
+  var heapBytes = new Uint8Array(Module.HEAPU8.buffer, ptr, numBytes);
+  heapBytes.set(new Uint8Array(typedArray.buffer));
+  return heapBytes;
+}
+
+====
+
+https://kapadia.github.io/emscripten/2013/09/13/emscripten-pointers-and-pointers.html
+
+====
+
+https://forum.unity.com/threads/c-jslib-2-way-communication.323629/
+
+using System;
+using System.Runtime.InteropServices;
+using AOT;
+using UnityEngine;
+ 
+public class JsCallCsTest : MonoBehaviour
+{
+    [DllImport("__Internal")]
+    public static extern void ProvideCallback(Action action);
+ 
+    public void Start()
+    {
+        ProvideCallback(Callback);
+    }
+ 
+    [MonoPInvokeCallback(typeof(Action))]
+    public static void Callback()
+    {
+        Debug.Log("Callback called");
+    }
+}
+
+var LibraryJsCallCsTest = {
+    $JsCallCsTest: {},
+ 
+    ProvideCallback: function(obj)
+    {
+        console.log("ProvideCallback");
+        console.log(obj);
+        JsCallCsTest.callback = obj;
+        Runtime.dynCall('v', obj, 0);
+    },
+};
+ 
+autoAddDeps(LibraryJsCallCsTest, '$JsCallCsTest');
+mergeInto(LibraryManager.library, LibraryJsCallCsTest);
+
+====
+
+https://forum.unity.com/threads/super-fast-javascript-interaction-on-webgl.382734/
+
+====
+
+https://stackoverflow.com/questions/35183253/unity3d-upload-a-image-from-pc-memory-to-webgl-app
+
+Unity3D - Upload a image from PC memory to WebGL app
+
+          var dataUrl = g.ctx.canvas.toDataURL();
+
+send data url to unity
+
+    static string s_dataUrlPrefix = "data:image/png;base64,";
+    public void ReceiveImage(string dataUrl)
+    {
+        if (dataUrl.StartsWith(s_dataUrlPrefix))
+        {
+            byte[] pngData = System.Convert.FromBase64String(dataUrl.Substring(s_dataUrlPrefix.Length));
+
+            // Create a new Texture (or use some old one?)
+            Texture2D tex = new Texture2D(1, 1); // does the size matter?
+            if (tex.LoadImage(pngData))
+            {
+                Renderer renderer = GetComponent<Renderer>();
+
+                renderer.material.mainTexture = tex;
+            }
+            else
+            {
+                Debug.LogError("could not decode image");
+            }
+        }
+        else
+        {
+            Debug.LogError("Error getting image:" + dataUrl);
+        }
+    }
+
+====
+
+https://docs.unity3d.com/Manual/webgl-interactingwithbrowserscripting.html
+
+        BindWebGLTexture(texture.GetNativeTextureID());
+
+  BindWebGLTexture: function (texture) {
+    GLctx.bindTexture(GLctx.TEXTURE_2D, GL.textures[texture]);
+  },
+
+====
+
+/Applications/Unity/PlaybackEngines/WebGLSupport/BuildTools/lib/
+/Applications/Unity/PlaybackEngines/WebGLSupport/BuildTools/prejs/
+
+====
+
+    Module.ccall("SetFullscreen", null, ["number"], [fullscreen]);
+
+					dynCall('vi', callback, [userData]);
+
+JS_Eval_OpenURL: function(ptr)
+{
+	var str = Pointer_stringify(ptr);
+	location.href = str;
+},
+
+JS_Eval_SetTimeout: function(func, arg, millis)
+{
+    Module['noExitRuntime'] = true;
+
+    function wrapper() {
+      getFuncWrapper(func, 'vi')(arg);
+    }
+
+	return Browser.safeSetTimeout(wrapper, millis);
+},
+
+function SendMessage(gameObject, func, param)
+{
+    if (param === undefined)
+        Module.ccall("SendMessage", null, ["string", "string"], [gameObject, func]);
+    else if (typeof param === "string")
+        Module.ccall("SendMessageString", null, ["string", "string", "string"], [gameObject, func, param]);
+    else if (typeof param === "number")
+        Module.ccall("SendMessageFloat", null, ["string", "string", "number"], [gameObject, func, param]);
+    else
+        throw "" + param + " is does not have a type which is supported by SendMessage.";
+}
+Module["SendMessage"] = SendMessage; // to avoid emscripten stripping
+
+autoAddDeps(LibraryFileSystemWebGL, '$fs');
+mergeInto(LibraryManager.library, LibraryFileSystemWebGL);
+
+	JS_SystemInfo_GetGPUInfo : function(buffer, bufferSize)
+	{
+		var gpuinfo = UnityLoader.SystemInfo.gpu;
+		if (buffer)
+			stringToUTF8(gpuinfo, buffer, bufferSize);
+		return lengthBytesUTF8(gpuinfo);
+	}
+
+/Applications/Unity/PlaybackEngines/WebGLSupport/BuildTools/lib/Video.js
+
+JS_Video_UpdateToTexture: function(video, tex)
+{
+	if (videoInstances[video].lastUpdateTextureTime === videoInstances[video].currentTime)
+		return false;
+	GLctx.bindTexture(GLctx.TEXTURE_2D, GL.textures[tex]);
+	GLctx.pixelStorei(GLctx.UNPACK_FLIP_Y_WEBGL, true);
+	GLctx.texSubImage2D(GLctx.TEXTURE_2D, 0, 0, 0, GLctx.RGBA, GLctx.UNSIGNED_BYTE, videoInstances[video]);
+	GLctx.pixelStorei(GLctx.UNPACK_FLIP_Y_WEBGL, false);
+	videoInstances[video].lastUpdateTextureTime = videoInstances[video].currentTime;
+	return true;
+},
+
+/Applications/Unity/PlaybackEngines/WebGLSupport/BuildTools/lib/WebCam.js
+
+	JS_WebCamVideo_GrabFrame: function (deviceId, buffer, destWidth, destHeight)
+	{
+		if (!MediaDevices[deviceId].video)
+		{
+			console.error("WebCam not initialized.");
+			return;
+		}
+	
+		var context = webcam.canvas.getContext('2d');
+		if (context)
+		{
+			canvas.width = destWidth;
+			canvas.height = destHeight;
+			context.drawImage(MediaDevices[deviceId].video, 0, 0, MediaDevices[deviceId].video.videoWidth, MediaDevices[deviceId].video.videoHeight, 0, 0, destWidth, destHeight);
+
+			var imageData = context.getImageData(0, 0, destWidth, destHeight);
+
+			writeArrayToMemory(imageData.data, buffer);
+		}
+		else
+		{
+			 console.log("2d Context is null");
+		}
+	}

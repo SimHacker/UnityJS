@@ -1,0 +1,21 @@
+https://www.npmjs.com/package/v8-natives
+
+https://github.com/petkaantonov/bluebird/wiki/Optimization-killers
+
+http://dailyjs.com/2014/06/25/optimization-killers/
+
+https://github.com/vhf/v8-bailout-reasons
+
+Common code for V8 native methods
+http://luismreis.github.io/node-bindings-guide/docs/native-common-code.html
+http://luismreis.github.io/node-bindings-guide/docs/arguments.html
+http://luismreis.github.io/node-bindings-guide/docs/returning.html
+
+Embedder's Guide
+https://developers.google.com/v8/embed
+
+Getting Started with Embedding
+https://github.com/v8/v8/wiki/Getting%20Started%20with%20Embedding
+
+V8 API Reference Guide
+http://v8.paulfryzel.com/docs/master/

@@ -1,0 +1,448 @@
+UnityJS Architecture
+
+Classes
+
+    - Means root object (with name of superclass in parens).
+    + Means subclass of parent in outline.
+    * Means sub-object of parent in outline (with name of superclass in parens).
+
+    - Accessor (none)
+
+    - Bridge (MonoBehaviour)
+
+    - BridgeTransport (MonoBehaviour)
+        + BridgeTransportCEF
+            * UnityJSWindow (EditorWindow)
+            * WebProvider (none)
+        + BridgeTransportSocketIO
+        + BridgeTransportWebGL
+        + BridgeTransportWebView
+            * UnityJSPlugin (MonoBehaviour)
+
+    - BridgeExtensions (none)
+    - BridgeJsonConverter (JsonConverter)
+
+    - BridgeObject (MonoBehaviour)
+        + Tracker
+            * TrackerProxy (MonoBehaviour)
+            + PieTracker
+            + Cuboid
+                * Tile (MonoBehaviour)
+            + ParticleSystemHelper
+        + LeanTweenBridge
+        + TextOverlays
+        + ToolbarButton
+        + TextureViewer
+        + HexTile
+        + KineticText
+        + Rainbow
+          * Bow (BridgeObject)
+        + BridgeTest
+
+    - ProxyGroup (MonoBehaviour)
+
+    - NamedAssetManager (MonoBehavior)
+        * NamedAsset (ScriptableObject)
+
+    - Loader (MonoBehavior)
+
+    - MonoPInvokeCallbackAttribute (System.Attribute)
+
+JSON Converters
+
+    Vector2
+
+        { // 2d vector
+            x: 0,
+            y: 0
+        }
+
+    Vector3
+
+        { // 3d vector
+            x: 0,
+            y: 0,
+            z: 0
+        }
+
+    Vector4
+
+        { // 4d vector
+            x: 0,
+            y: 0,
+            z: 0,
+            w: 0
+        }
+
+    Quaternion
+
+        { // 4d quaternion
+            x: 0,
+            y: 0,
+            z: 0,
+            w: 0
+        }
+
+        { // 3d euler angles: degrees
+            roll: 0,
+            pitch: 0,
+            yaw: 0
+        }
+
+    Color
+
+        "#00000000" // html color string
+
+        { // rgb color (alpha defaults to 1)
+            r: 0,
+            g: 0,
+            b: 0
+        }
+        
+        { /// rgba color
+            r: 0,
+            g: 0,
+            b: 0,
+            a: 1
+        }
+        
+    Matrix4x4
+
+        [ // 16 element matrix array
+            1, 0, 0, 0, 
+            0, 1, 0, 0, 
+            0, 0, 1, 0, 
+            0, 0, 0, 1
+        ]
+
+    ParticleSystem.MinMaxCurve
+
+        null // null value
+
+        0 // constant
+
+        { // constant
+            minMaxCurveType: "Constant",
+            constant: 0
+        }
+
+        { // curve
+            minMaxCurveType: "Curve",
+            multiplier: 1,
+            curve: AnimationCurve
+        }
+
+        { // random curves
+            minMaxCurveType: "RandomCurves",
+            multiplier: 1,
+            min: AnimationCurve,
+            max: AnimationCurve
+        }
+
+        { // random constants
+            minMaxCurveType: "RandomConstants",
+            min: 0,
+            max: 1
+        }
+
+    ParticleSystem.MinMaxGradient
+
+        null // null value
+
+        { // constant color
+            r: 0,
+            g: 0,
+            b: 0,
+            a: 1
+        }
+
+        { // constant color
+            minMaxGradientType: "Color",
+            color: Color
+        }
+
+        { // gradient
+            minMaxGradientType: "Gradient",
+            gradient: Gradient
+        }
+
+        { // two colors
+            minMaxGradientType: "TwoColors",
+            min: Color,
+            max: Color
+        }
+
+        { // two gradients
+            minMaxGradientType: "TwoGradients",
+            min: Gradient,
+            max: Gradient
+        }
+
+        { // random color
+            minMaxGradientType: "RandomColor",
+            gradient: Gradient
+        }
+
+    Gradient
+
+        null // null value
+
+        { // gradient
+            alphaKeys: [GradientAlphaKey, ...],
+            colorKeys: [GradientColorKey, ...],
+            mode: "GradientMode" // Blend, Fixed
+        }
+
+    AnimationCurve
+
+        null // null value
+
+        { // constant
+            animationCurveType: "Constant",
+            timeStart: 0,
+            timeEnd: 0,
+            value: 0,
+            preWrapMode: "WrapMode", // Once, Loop, Default, PingPong, Default, ClampForever
+            postWrapMode: "WrapMode" // Once, Loop, Default, PingPong, Default, ClampForever
+        }
+
+        { // ease in out
+            animationCurveType: "Constant",
+            timeStart: 0,
+            timeEnd: 0,
+            valueStart: 0,
+            valueEnd: 0,
+            preWrapMode: "WrapMode", // Once, Loop, Default, PingPong, Default, ClampForever
+            postWrapMode: "WrapMode" // Once, Loop, Default, PingPong, Default, ClampForever
+        }
+
+        { // linear
+            animationCurveType: "Linear",
+            timeStart: 0,
+            timeEnd: 0,
+            valueStart: 0,
+            valueEnd: 0,
+            preWrapMode: "WrapMode", // Once, Loop, Default, PingPong, Default, ClampForever
+            postWrapMode: "WrapMode" // Once, Loop, Default, PingPong, Default, ClampForever
+        }
+
+        { // keys
+            animationCurveType: "Keys",
+            keys: [Keyframe, ...],
+            preWrapMode: "WrapMode", // Once, Loop, Default, PingPong, Default, ClampForever
+            postWrapMode: "WrapMode" // Once, Loop, Default, PingPong, Default, ClampForever
+        }
+
+    Keyframe
+
+        null // null value
+
+        {
+            time: 0,
+            value: 0,
+            inTangent: 1,
+            outTangent: 1
+        }
+
+    GradientColorKey
+
+        null // null value
+
+        {
+            color: Color,
+            time: 0
+        }
+
+    GradientAlphaKey
+
+        null // null value
+
+        {
+            alpha: 1,
+            time: 0
+        }
+
+    Texture
+
+        null
+
+        "ResourcePath"
+
+    Material
+
+        null
+
+        "ResourcePath"
+
+    Shader
+
+        null
+
+        "ShaderName"
+
+    ComputeBuffer
+
+        null
+
+        "ComputerBufferName" // TODO
+
+Accessor Path Expressions
+
+    Path
+
+        A Path consists of a series of steps separated by slashes, like "foo/bar/baz".
+
+    Step
+
+        A Step consists of an optional type (defaulting to "member")
+        followed by a colon, then a type specific string.
+
+        A Step may not contain slashes, question marks or exclamation
+        marks, but they be represented with URL percent encoding.
+
+        A Step may include ? or ! modifiers.
+
+            ? makes a step conditional, so it returns null instead of
+            raising an error.
+
+            ! makes a step excited, so it evaluates the value when setting
+            instead of treating it as a literal.
+
+    Step Types:
+
+        string
+        float
+        integer, int
+        boolean, bool
+        null
+        json
+        index, jarray, array, list
+        map, dict, dictionary, jobject
+        transform
+        component
+        resource
+        member, field, propery
+        object
+        method
+
+----
+
+Extension Methods
+
+    Material.UpdateMaterial(this Material material, JToken materialData)
+
+        This method modifies the material based on the keys of a JSON object. 
+        The materialData is an object with keys describing how to update the material.
+        Some of the keys are prefixes that can be followed by name of a property,
+        so setting "texture_MainTex" calls material.SetTexture("_MainTex", texture).
+
+        https://docs.unity3d.com/Manual/MaterialsAccessingViaScript.html
+
+            copyPropertiesFromMaterial: "MaterialResourceName"
+                Material value;
+                material.CopyPropertiesFromMaterial(value);
+            doubleSidedGI: true
+                bool value;
+                material.doubleSidedGI = value;
+            enableInstancing: true
+                bool value;
+                material.enableInstancing = value;
+            globalIlluminationFlags: "None"
+                MaterialGlobalIlluminationFlags value; // string or number
+                globalIlluminationFlags = value;
+            mainTextureOffset: {x: 0, y: 0}
+                Vector2 value;
+                material.mainTextureOffset = value;
+            mainTextureScale: {x: 1, y: 1}
+                Vector2 value;
+                material.mainTextureScale = value;
+            mainTexture: "TextureResourceName"
+                Texture value; // texture resource name
+                material.mainTexture = value;
+            renderQueue: 1
+                int value;
+                material.renderQueue = value;
+            shader: "ShaderName"
+                Shader value; // shader name
+                material.shader = value;
+            shaderKeywords: ["key", ...]
+                string[] value;
+            texture<name>: "TextureResourceName"
+                Texture value; // texture resource name
+                material.SetTexture(name, value);
+            textureOffset<name>: {x:0, y:0}
+                Vector2 value;
+                material.SetTextureOffset(name, value);
+            textureScale<name>: {x:1, y:1}
+                Vector2 value;
+                material.SetTextureScale(name, value);
+            keyword<name>: true
+                bool value;
+                material.(value ? Enable : Disable)Keyword(<name>);
+            overrideTag<name>: true
+                bool value;
+                material.SetOverrideTag(name, value);
+            shaderPass<name>: true
+                bool value;
+                material.SetShaderPassEnabled(name, value);
+            buffer<name>: "BufferName"
+                ComputeBuffer value;
+                material.SetComputeBuffer(name, value);
+            color: {r:1, b:1, g:1, a: 1}
+                Color value;
+                material.color = value;
+            color<name>: {r:1, b:1, g:1, a: 1}
+                Color value;
+                material.SetColor(name, value);
+            colorArray<name>: [{r:1, b:1, g:1, a: 1}, ...]
+                Color[] value;
+                material.SetColorArray(name, value);
+            float<name>: 0.1
+                float value;
+                material.SetFloat(name, value);
+            floatArray<name>: [0.1, ...]
+                float[] value;
+                material.SetFloatArray(name, value);
+            int<name>: 0
+                int value;
+                material.SetInt(name, value);
+            matrix<name>: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
+                Matrix4x4 value;
+                material.SetMatrix(name, value);
+            matrixArray<name> [[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1], ...]
+                Matrix4x4[] value;
+                material.SetMatrixArray(name, value);
+            vector<name>: {x:0, y:0, z:0, w:0}
+                Vector4 value;
+                material.SetVector(name, value);
+            vectorArray<name>: [{x:0, y:0, z:0, w:0}, ...]
+                Vector4[] value;
+                material.SetVectorArray(name, value);
+
+----
+
+Tracker
+
+----
+
+PieMenuTracker
+
+JavaScript pie JSON API.
+
+----
+
+JavaScript API
+
+CreatePrefab(template)
+
+    template.obj
+    template.prefab
+    template.component
+    template.preEvents
+    template.parent
+    template.worldPositionStays
+    template.update
+    template.interests
+    template.postEvents
+
+----

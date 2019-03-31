@@ -1,0 +1,19 @@
+https://github.com/Syphon/Unity3D/issues/17
+https://github.com/Syphon/Unity3D/issues/21
+https://github.com/Syphon/Unity3D/issues/20
+
+http://v002.info/forums/topic/google-chrome-to-syphon/
+
+I’m actively working on this now. I’ll be building a two part app… one
+is a chrome extension to send video out via the new Tab Capture api.
+Then, I’ll have a receiver app which can send the output to Syphon,
+Blackmagic cards, or Tricaster.
+
+http://www.sigmasix.ch/syphoner/
+
+https://github.com/vibber/CefWithSyphon
+
+https://github.com/mkernel/EWProxyFramebuffer
+
+https://github.com/andreacremaschi/Syphon-virtual-screen
+

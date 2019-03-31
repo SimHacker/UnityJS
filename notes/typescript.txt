@@ -1,0 +1,11 @@
+Good TypeScript code examples to read:
+
+https://news.ycombinator.com/item?id=15662394
+https://github.com/microsoft/vscode
+https://github.com/palantir/tslint
+https://github.com/inversify/InversifyJS
+https://github.com/typeorm/typeorm
+https://github.com/searchkit/searchkit
+https://github.com/ionic-team/ionic
+https://github.com/ionic-team/stencil
+

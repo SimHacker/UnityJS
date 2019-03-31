@@ -1,0 +1,20 @@
+https://github.com/floatinghotpot/socket.io-unity
+socket.io-unity
+
+Socket.IO Client Library for Unity (mono / .NET 2.0), which is ported from the JavaScript client version 1.1.0.
+
+SocketIoClientDotNet by Quobject is a very good project, but it does not support Unity. So I spent a few overnights to port it to mono/.NET 2.0.
+
+Now game developers can:
+
+use node.js to develop game server, enjoy the powerful ecosystem of network and database, easily deploy to cloud;
+use Unity to develop game client, enjoy the poweful game engine and IDE.
+use websocket / socket.io to communicate between server/client.
+
+It's available on Unity Asset Store for $10, but you can also download it for FREE here.
+
+https://www.assetstore.unity3d.com/en/#!/content/92068
+
+If you are interested to dig into the source code, welcome to fork the SocketIoClientDotNet for .NET 2.0.
+
+https://github.com/floatinghotpot/SocketIoClientDotNet/tree/net20

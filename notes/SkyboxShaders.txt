@@ -1,0 +1,9 @@
+https://en.wikibooks.org/wiki/Cg_Programming/Unity/Skyboxes
+https://unity3d.com/learn/tutorials/topics/graphics/using-skyboxes
+https://forum.unity3d.com/threads/skybox-shader.47001/
+https://github.com/SoylentGraham/PopSkybox/tree/master/Assets/Skyboxes
+https://github.com/SoylentGraham/PopSkybox/blob/master/Assets/Skyboxes/Spheres.shader
+https://github.com/NewChromantics/PopMovieTexture_Release/blob/master/Example%20Projects/Assets/Demo_360/Sphere360.shader
+https://github.com/NewChromantics/PopMovieTexture_Release/blob/master/Example%20Projects/Assets/Demo_360/Skybox360.shader
+https://github.com/JauntVR/clientsdk/blob/55bdbfff2297e582fbb2108420105efffba9be04/libs/media/src/JM_Geometry.cpp#L126
+https://github.com/JauntVR/clientsdk/blob/master/unity/package/Assets/Scripts/JM_Player.cs#L348

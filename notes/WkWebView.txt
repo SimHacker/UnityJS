@@ -1,0 +1,213 @@
+Installed Safari:
+Version 11.0.1 (13604.3.5)
+
+using private safari framework:
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/604.3.5 (KHTML, like Gecko)
+
+----
+
+http://nshipster.com/wkwebkit/
+
+----
+
+https://stackoverflow.com/questions/31969950/wkwebview-cachedisplayinrect-screenshot-in-os-x
+
+I try to make a screenshot of WKWebView is OS X app and get completely empty screenshot. This code works fine with original WebView but does not works with WKWebView.
+
+NSView *view = webView;
+NSRect bounds = [view bounds];
+
+NSBitmapImageRep *bitmapdata = [view bitmapImageRepForCachingDisplayInRect: bounds];
+[webView cacheDisplayInRect: bounds toBitmapImageRep: bitmapdata];
+Any ideas how to fix?
+
+----
+
+Now you can take the screenshot using WKWebView.
+
+Apple added a new method,
+
+//iOS
+func takeSnapshot(with snapshotConfiguration: WKSnapshotConfiguration?, completionHandler: @escaping (UIImage?, Error?) -> Void)
+
+//macOS
+func takeSnapshot(with snapshotConfiguration: WKSnapshotConfiguration?, completionHandler: @escaping (NSImage?, Error?) -> Void)
+
+But its still in Beta.
+
+----
+
+https://stackoverflow.com/questions/46842384/wkwebkit-takesnapshotwith-snapshotconfiguration-not-working-on-ios-device
+
+http://www.openradar.me/33812691
+iOS 11 takeSnapshot method on WKWebView not usable
+
+Originator:	Josh.Lieberman92	
+Number:	rdar://33812691	Date Originated:	August 9 2017
+Status:	Open	Resolved:	
+Product:	iOS + SDK	Product Version:	Xcode 9 beta 5
+Classification:	Serios Bug	Reproducible:	Always
+ 
+Area:
+WebKit
+
+Summary:
+Because the header WKSnapshotConfiguration.h is not public, the method
+
+takeSnapshot(with snapshotConfiguration: WKSnapshotConfiguration?, completionHandler: @escaping (UIImage?, Error?) -> Swift.Void)
+
+is not visible on an instance of WKWebView.
+
+Steps to Reproduce:
+Try to use takeSnapshot(with snapshotConfiguration: WKSnapshotConfiguration?, completionHandler: @escaping (UIImage?, Error?) -> Swift.Void) in a Swift project.
+
+Observe the method is not visible to the compiler.
+
+Expected Results:
+The method should be usable in the latest Xcode 9 beta.
+
+Observed Results:
+The method is not usable in the latest Xcode 9 beta.
+
+Version:
+Xcode 9 beta 5
+
+----
+
+Add #import <WebKit/WKSnapshotConfiguration.h> to your bridging header.
+
+https://stackoverflow.com/q/45600451/2415822
+
+----
+
+https://bugs.webkit.org/show_bug.cgi?id=161450
+
+Bug 161450
+Summary: [Cocoa] No reliable way to get a snapshot of WKWebView
+
+The cocoa API -[NSView cacheDisplayInRect:(NSRect)rect
+toBitmapImageRep:(NSBitmapImageRep *)bitmapImageRep] does not work for
+WKWebView, it only returns an empty image. We need a way to get the
+visible contents of the web page on macOS. The UI is rendered in a
+separate process, there should be an API to grab the visible bitmap
+from the UI process and expose it as a method on WKWebView that the
+embedding application can consume. We need to be able to grab the web
+page contents regardless if the WKWebView is hidden or overlapped by
+other views, CGWindowListCreateImage will not work for that scenario.
+
+For iOS, you can use the -[UIView drawViewHierarchyInRect:(CGRect)rect
+afterScreenUpdates:(BOOL)afterUpdates] API to get the web page
+contents.
+
+...
+
+This is a software painted snapshot, meaning that 3D transforms will
+be flattened and ugly, and video/WebGL may-or-may-not work. So, it's
+not great.
+
+We have code (WebViewImpl::takeViewSnapshot) that shows how to do a
+window-server snapshot, which captures all of those things, but it has
+a downside: if the web view is obscured, the thing it's obscured will
+will end up in the snapshot as well.
+
+_snapshotRect:intoImageOfWidth:completionHandler: gets around this,
+but uses functions that are only available/possible on iOS. We should
+definitely make use of that to implement this method on iOS, though,
+since it is much, much better than a software snapshot.
+
+...
+
+Thanks for taking a look Darin. I have searched for solutions using
+AppKit API, and it looks like other developers are having the same
+issue where none of the AppKit API will capture the contents of
+WKWebView. Many people refer to a private API solution, which is no
+good for store apps. With iOS UIKit, we are able to get the contents
+with (- (BOOL)drawViewHierarchyInRect:(CGRect)rect
+afterScreenUpdates:(BOOL)afterUpdates), but a solution does not seem
+to be available for Mac. The reason I was adding the API was for Mac,
+but to be consistent and allow for developer code reuse I am making it
+available for both Mac and iOS. If you know of a different method that
+I did not try, please let me know. Below are some examples I have
+tried and verified they cannot get the WKWebView snapshot on OSX,
+while most of them work on the legacy WebVew.
+
+
+- (NSImage *)snapshotView1:(NSView *)view
+{
+    // WebView returns the correct content, WKWebView returns white snapshot.
+    NSImage *image = [[NSImage alloc] initWithSize:view.bounds.size];
+    NSBitmapImageRep *imageRep = [view bitmapImageRepForCachingDisplayInRect:view.bounds];
+    [view cacheDisplayInRect:view.bounds toBitmapImageRep:imageRep];
+    [image addRepresentation:imageRep];
+
+    return image;
+}
+
+
+- (NSImage *)snapshotView2:(NSView *)view
+{
+    // WebView returns the correct content, WKWebView returns white snapshot.
+    NSImage *image = [[NSImage alloc] initWithSize:view.bounds.size];
+    [image lockFocus];
+    CGContextRef ctx = [NSGraphicsContext currentContext].graphicsPort;
+    [view.layer renderInContext:ctx];
+    [image unlockFocus];
+    
+    return image;
+
+}
+
+- (NSImage *)snapshotView3:(NSView *)view
+{
+    // Returns an empty image with both WKWebView and WebView.
+    [view lockFocus];
+    NSImage *image = [[NSImage alloc] initWithData:[view dataWithPDFInsideRect:view.bounds]];
+    [view unlockFocus];
+    
+    return image;
+    
+}
+
+- (CGImageRef)snapshotView4:(NSView *)view
+{
+    // CGWindowListCreateImage can get WKWebView content, but only the visible portions in the parented window. If the view is inside a scrollview, clipped by the window, or overlapped with another view, it cannot access the full WKWebView viewport.
+    CGImageRef image = CGWindowListCreateImage(CGRectNull, kCGWindowListOptionIncludingWindow, (CGWindowID)self.view.window.windowNumber, kCGWindowImageDefault);
+
+    return image;
+}
+
+----
+
+https://forums.developer.apple.com/message/117074#117074
+
+umigliore
+Feb 22, 2016 8:54 AM
+(in response to chinrock)
+It works with a delay :
+ 
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [self performSelector:@selector(snapshot:) withObject:webView afterDelay:0.1];
+}
+ 
+... and first form of screenshot, i.e. not using snapshotViewAfterScreenUpdates
+ 
+- (UIImage *)snapshot:(UIView *)view  
+{  
+  UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0);  
+  [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];  
+  UIImage *image = UIGraphicsGetImageFromCurrentImageContext();  
+  UIGraphicsEndImageContext();    
+  return image;  
+}
+
+----
+
+https://github.com/lemonmojo/WKWebView-Screenshot
+
+https://developer.apple.com/documentation/webkit/wkwebview/2873260-takesnapshotwithconfiguration
+
+https://bugs.webkit.org/show_bug.cgi?id=161450
+
+https://github.com/WebKit/webkit/blob/c637754ee7dfca6142e441d2040026903fee0c1f/Source/WebKit/UIProcess/API/Cocoa/WKSnapshotConfiguration.h
+https://github.com/WebKit/webkit/blob/c637754ee7dfca6142e441d2040026903fee0c1f/Source/WebKit/UIProcess/API/Cocoa/WKSnapshotConfiguration.mm
+https://github.com/WebKit/webkit/blob/5e250ba19a76ccf164d1d31e6a49700bab34826e/Tools/TestWebKitAPI/Tests/WebKitCocoa/WKWebViewSnapshot.mm

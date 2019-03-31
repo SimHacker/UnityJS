@@ -1,0 +1,592 @@
+Accessibility.
+
+Localization.
+
+Displaying pie menus as linear menus.
+
+Handling large numbers of items.
+
+Customizability.
+
+Notifications.
+    Delegation notification from item => slice => pie => target.
+
+Properties.
+    Inheriting properties from item => slice => pie => target.
+
+Live in-world feedback.
+
+User customization.
+
+Disabled items explain why they're disabled, with links to help enable themselves.
+    i.e.: Create a new item. It is empty and disabled, but has a link to bring up the item editor to configure it.
+
+Conditionals and switches for selecting between different items based on dynamic state.
+
+Pie menu and ui editor should represent items etc as self describing extensible dictionaries instead of positional arrays. 
+
+Arrange menus in categories and trees.
+    Delegate notification and inherit properties through menu trees, too. 
+
+Parameterized menu and ui templates.
+    Parameter properties.
+    Data binding.
+    Constraint expressions.
+    Replication.
+
+Show interactive modal help info in big overlay instead of bottom mode line, like SpeedFlow.
+
+Screen edge handling, mouse warping, virtual cursor.
+
+Automatic Layout.
+
+Custom Layout.
+
+Custom drawing.
+
+Tooltip adjacent to cursor with item description and parameter feedback (and explanation for disabled items).
+
+Extend the pie menu editor to support all advanced features required to do its own menus and panels.
+
+Pull it up by its bootstraps to use its own editable menus and panels in its own user interface.
+
+Modal operators for tracking pies and slices, "pull-out" slices, "pull-around" pies, continuous ranges, discrete enums, etc.
+
+    Color wheel with 3 concentric rings:
+        inside ring with two continuous slices: brightness (bottom half), saturation (top half)
+        middle full continuous hue ring
+        outer ring with 12 or more slices: discrete color palette with text name labels
+
+JSON import/export format should be self describing and extensible (objects instead of arrays, user payload and extension sections).
+
+Pie map editor.
+
+Intgrate modal operators and places on the map, so you can navigate between related modes.
+
+Dasher text (and command) input widget you can embed in pie menus and panels.
+
+----
+
+Uncle Entity - Dan Eicher
+
+https://blenderartists.org/u/Uncle_Entity
+
+Last seen Jul 26, '14
+Last post Jun 4, '14
+
+Pie Menu for 2.5 - March 2010
+
+https://blenderartists.org/t/pie-menu-for-2-5/473723
+
+https://news.ycombinator.com/user?id=UncleEntity
+
+https://news.ycombinator.com/item?id=19283625
+
+UncleEntity 10 days ago [-]
+
+Strangely enough, pie menus in blender was the first time I ever sat
+down and took a (programming) idea to full completion. Before that all
+I really was doing was hunt-and-peck at bugs and adding small
+functionality where it was missing.
+
+Had to learn me some vector math, fix bugs in the python openGL
+wrappers, figure out how the openGL state machine actually works and
+then get it all put together in a reasonable way. Turned out pretty
+well and other people took that implementation and made it into a
+complex addon that eventually ended up being widely used.
+
+It might have changed in the years since I did any blender programming
+but I had to do a lot of bug hunting and adding functionality to get
+python scripts working -- which was fine since most of the stuff I
+worked on was specifically to get the python API able to do whatever
+random thing I (or, more likely, someone else) needed.
+
+1 point by DonHopkins 9 days ago [-]
+
+Cool -- thank you for keeping the pie rolling!
+
+I love the way the new Blender 2.80 interface (which is a whole new
+ball game) integrates pie menu layout as a first class citizen, so you
+can nest any other kinds of user interface stuff inside of pie menus,
+and everything just works.
+
+Have you seen the astounding Pie Menu Editor extension? It's getting
+seriously into HyperCard territory!
+
+https://blendermarket.com/products/pie-menu-editor?ref=2
+
+It's SO much more than just just a pie menu editor: you can edit all
+kinds of blender user interfaces widgets, linear menus, dialogs,
+panels, key bindings, macros, modal operators and properties. You can
+make custom control panels and put them into pie menus, as well as
+copying existing parts of the Blender user interface into your own pie
+menus and panels! And of course you can script and customize
+everything with Python.
+
+https://www.youtube.com/watch?v=BY-kU2IrTxk
+
+It's really hard to convey everything it does, and the documentation
+and demos are pretty sparse, but here is a playlist with lots of
+examples:
+
+https://www.youtube.com/watch?v=HTAsqEyZnEs&index=1&list=PLs...
+
+Defining your own modal operators (interactive modes for live editing
+with visual feedback, temporary key and mouse bindings, etc) is
+particularly mind blowing! And those are great for invoking from pie
+menus, enabling a very fluid live direct-manipulation editing style.
+
+https://archive.blender.org/wiki/index.php/User:Raa/Addons/P...
+
+UncleEntity 9 days ago [-]
+
+> Cool -- thank you for keeping the pie rolling!
+
+Chances are pretty high I found some of your code laying around on the
+interwebs and used that to figure out how it all works so you probably
+deserve most of the credit;) Matt Ebb did a C prototype way back when
+and gave me his code but it was too complicated to help out with the
+python one I ended up writing.
+
+Honestly I haven't been keeping up with what blender is doing since I
+can't even open the new version due to my videocard being too old. I'd
+be nice to get back to blender hacking (have some ideas on compiling
+down the node trees using partial evaluation) but can't see a new
+computer happening anytime in the near future.
+
+----
+
+Liquid Ape - Sean Olson
+
+https://developer.blender.org/p/LiquidApe/
+
+https://blenderartists.org/u/LiquidApe
+
+Last post Mar 3, '15
+Last seen Jan 23, '18
+
+https://bitbucket.org/liquidape/blender-pie-menus
+
+Sep 2012
+
+https://blenderartists.org/t/pie-menus-2-66-update-01-28-13/552874
+
+After a lot of polishing work and new features we would like to
+announce another iteration of the Piemenus script. This is based off
+the original Code work of Uncle_Entity and I thank him for his hard
+work and help. These menus are a work in progress and I will continue
+adding more menus as needed. Also, thanks to Patmo141 who has become
+an integral part of the pie menus team! I could not do it without him.
+
+https://blenderartists.org/t/when-will-marking-menu-patent-expire/618541
+
+Darksider
+
+Aug 2014
+
+Hi. In a recently closed topic regarding pie menus, LiquidApe said
+that marking menus are a patent of Autodesk, a patent that would
+expire shortly. The question is: When ? When could marking menus be
+usable in Blender ? I couldn’t find any info on internet, mabie some
+of you know.
+
+Oct 2014
+
+This is the old version now - a new version with internal support has
+been added. Just enable Pie Menus (official) in the addons.
+
+Blender 2.72 has Pie menus as a supported addon in the toolchest.
+
+----
+
+patmo141 - Patrick
+
+https://developer.blender.org/p/patmo141/
+
+https://blenderartists.org/u/patmo141
+
+Last seen 4 days ago
+Last post Nov 20, '16
+
+pie oven
+
+https://www.youtube.com/channel/UCRj0_kRnbwUIzfUD-JCwkjg
+
+Pie Menu Icons Blender - Nov 11, 2012
+https://www.youtube.com/watch?v=WO8HRbYA-Xc
+
+Pie Menus with icons - Nov 14, 2012
+https://www.youtube.com/watch?v=XRjxtbEbwCI
+
+No Click Pie Menus - Dec 6, 2012
+https://www.youtube.com/watch?v=AnNywvqK0jY
+
+border respect and first slider: pie menus development updates - Jan 16, 2013
+https://www.youtube.com/watch?v=85ELpyn_3BM
+
+PieMenu Settings and Behavior Explanation - Feb 8, 2013
+https://www.youtube.com/watch?v=_-wfzoo8L2U
+    TODO: Is it possible to use mouse warping on all platforms?
+
+    Theta Shift moves the diagonal item labels down so it looks better visually.
+
+    Diamond shaped layout.
+
+    Theta Shift (Pie Stretch) stretches menu out horizontally.
+
+    TODO: Nice to also have a dx, dy that's added in after the layout,
+    defaulting to 0, 0, which the user can tweak by dragging the
+    labels in edit mode.
+
+
+Create Your Own Custom Pies - Apr 23, 2013
+https://www.youtube.com/watch?v=An3Do6sXIDY
+    Great idea to use your action history as a source of pie menu items.
+
+----
+
+raa - r3a1ay - Aleksandr Zinovev
+
+https://developer.blender.org/p/raa/
+
+https://gumroad.com/roaoao
+
+https://blenderartists.org/t/pie-menu-editor-1-15-16/662456
+
+https://www.youtube.com/channel/UC9W8LzX1ICprmq6z_5nZ7CA/videos
+
+Pie Menu Editor: Installation - Oct 8, 2015
+https://www.youtube.com/watch?v=HTAsqEyZnEs
+
+(many more)
+
+Property Editor for Blender - May 8, 2018
+https://www.youtube.com/watch?v=xQ-ETd8xacA
+
+How to execute Scripts in Blender using Pie Menu Editor - Sep 24, 2017 - jakro - Jac Rossiter
+https://www.youtube.com/watch?v=vc9TFRFXn4E
+https://polycount.com/discussion/191787/jaks-blender-scripts-a-bunch-of-time-saving-tools-for-blender-free
+
+----
+
+Pie Menu Developers:
+
+Julian Eisel (Severin)
+https://developer.blender.org/p/Severin/
+https://blenderartists.org/u/Severin
+Last seen Aug 14, '08
+Last post Aug 14, '08
+Active UI developer.
+Assigned pie menu issue.
+https://developer.blender.org/T49029
+
+Sergey Sharybin (sergey)
+https://developer.blender.org/p/sergey/
+Subscribed to pie menu issue.
+https://developer.blender.org/T49029
+
+Hadrien Brissaud (hadrien)
+https://developer.blender.org/p/hadrien/
+Opened pie menu issue.
+https://developer.blender.org/T49029
+https://developer.blender.org/T43305
+
+Joshua Leung (aligorith)
+https://developer.blender.org/p/aligorith/
+Subscribed to pie menu issue.
+https://developer.blender.org/T43305
+
+William Reynish (billreynish)
+https://developer.blender.org/p/billreynish/
+http://www.billrey.net
+
+Justin Jones (jjones780)
+https://developer.blender.org/p/jjones780/
+
+Antony Riakiotakis (psy-fi)
+https://developer.blender.org/p/psy-fi/
+https://blenderartists.org/u/psy-fi
+Last seen Jun 14, '18
+Last post Feb 13, '18
+"I no longer develop for blender."
+Subscribed to pie menu issue.
+https://developer.blender.org/T43305
+
+----
+
+Pie Menu Editor
+
+https://blendermarket.com/products/pie-menu-editor?ref=2
+
+https://www.youtube.com/watch?v=dWwBbnV1IOs
+
+Jimmy Livefjord
+https://www.youtube.com/channel/UC9W8LzX1ICprmq6z_5nZ7CA
+
+----
+
+https://developer.blender.org/T49029
+
+Pie menu breaks if spawned near window edge
+
+Pie menus are sort of "clamped" in that if they are spawned closer to
+the window edge than their spread radius
+(UserPreferencesView.pie_menu_radius), instead of spawning partly
+offscreen, instead they will spawn stuck to the edge and will
+automatically validate the menu item that's in that direction. To make
+it clearer, here is a capture.
+
+This is a problem because pies can hardly be spawned in cramped
+workspaces - for instance inside a graph editor occupying the lower
+third of a standard 16:9 monitor, unless the radius is set super
+small. This happens on Windows.
+
+----
+
+https://blender.community/c/rightclickselect/9Bbbbc/
+
+----
+
+https://www.blender.org/forum/viewtopic.php?f=8&t=8618&p=52052&hilit=marking+menu#p52052
+
+FeatureRequest: Scripts-Menu into the SPACEBAR-Toolbox
+
+FeatureRequest: Scripts-Menu into the SPACEBAR-Toolbox
+Post  by FastEddy » Mon Apr 17, 2006 9:50 am
+
+I'd like to request to put the context depending Scripts-menu (e.g.
+Mesh-->Scripts or Objects-->Scripts) additionally into the
+SPACEBAR-Toolbox and give it perhaps its own hotkey, perhaps the #-Key
+(like the Shift-A to call the Add-Menu directly). First I thought to
+use the Ctrl+S, but it seems to be equal to Ctrl+W.
+
+Nevermind: I think, putting the Scripts-menu to the Toolbox would be much quicker to use.
+
+FastEddy
+
+Post  by solmax » Tue Apr 18, 2006 11:32 am
+
+yes, exactly. or as SPACE with W, E, R, or K with A with S - anything
+you like. I might be wrong, but I think softimage 3D had something
+similar - hopefully this isn't patented!
+
+Joined: Fri Jan 10, 2003 6:41 pm
+Contact: Contact joeri
+Post  by joeri » Tue Apr 18, 2006 12:04 pm
+
+solmax wrote:
+
+>yes, exactly. or as SPACE with W, E, R, or K with A with S - anything
+>you like. I might be wrong, but I think softimage 3D had something
+>similar - hopefully this isn't patented!
+
+Using the keyboard being patented? That must be a rich man.
+
+Joined: Fri Oct 18, 2002 2:47 am
+Contact: Contact solmax
+Post  by solmax » Tue Apr 18, 2006 12:22 pm
+
+Maya's marking menus ARE patented. They involve pressing a Key and
+dragging with the mouse. IMO ingenious for handling maya's rich tool
+arsenal, because you can map up to 8 strokes in each menu to a
+function. multiply that by all possible keystrokes including standard
+modifier keys...
+
+----
+
+https://www.blender.org/forum/viewtopic.php?f=8&t=4772&p=29429&hilit=marking+patent#p29429
+
+new EDIT-mode
+
+Post  by solmax » Sun Oct 10, 2004 3:25 am
+
+disagree
+
+first, you have to respect all keyboard layouts (german, english etc..
+special characters often are on different places). second, tab and /
+or ? are on opposite directions of the keyboard, but for a very
+similar function. this wouldn't be good, then i'd rather use the
+current menu.
+
+joeris/ideasman's proposal would invoke two new different keys.
+
+what speaks against cycling? it's a proven concept (LW users know),
+it's fast and it doesnt force me to jump around the keyboard for a
+very common operation.
+
+if we want to avoid modes, it has to be done as in wings. however,
+this makes selection more complicated on dense meshes - you have to
+spend more time on targeting.
+
+another possibility is using gestures. maya has something similar -
+marking menus. once you know where the entries are, you don't even
+look at them, only the direction you pull the mouse is relevant, so it
+comes down to a gesture. unfortunately, maya's implementation is
+patented, but maybe the patent could be avoided if we stick to
+gestures only (without menus).
+
+so tabbing would enter edit mode, and gestures (down, left, right)
+would switch to verteces, edges, faces. drawback is that a lienar
+gesture currently invokes grab, but i'm not sure if many ppl use this.
+
+Post  by alt » Sun Oct 10, 2004 4:09 pm
+
+>unfortunately, maya's implementation is patented
+
+what exactly is patented?
+
+pie menus (sector menus) are used a lot in games, too. and they were
+not invented by alias, i think.
+
+i remember that only the line that is drawn from the center of the
+menu to mark the direction is patented.
+
+hard to believe that you could patent something like that, though.
+
+one of these days i move to US wonderland and patent "the use of
+sequences consisting individual images (called shots from here on)
+which are then arranged after each other in such a way that they seem
+to be related and appear to have meaning, not because of individual
+content of the shots(1), but because they are viewed one after
+another"
+
+and then i make a fortune. and get tax-cuts.
+
+
+Post  by rcas » Sun Oct 10, 2004 10:58 pm
+
+alt wrote:
+
+...hard to believe that you could patent something like that, though...
+
+You wouldn't believe most of the patents approved for Microsoft... but
+they are patented, great lobbies...
+
+----
+
+https://www.blender.org/forum/viewtopic.php?f=8&t=2326&p=12979&hilit=marking+patent#p12979
+
+LMB-drag movements: does anyone really use them??
+
+Post  by thorwil » Wed Oct 29, 2003 3:31 pm
+
+sedgetone wrote:
+
+I'd like to keep the gestures as I use a pen and tablet 99% of the
+time.
+
+I think LMB/RMB usage should be swapped. And then the gestures could
+be improved, or replaced by a radial context-sensitive menu (not the
+Toolbox, but much more specialised).
+
+For improving gestures: after a short delay of holding the
+mouse-button down the possible gestures could be shown as a overlay
+map near the mouse-cursor.
+
+Radial menus allow selections becoming gestures, but the best way to
+push that are marking menus, and far as I know Alias has a patent on
+them. :-(
+
+Does anybody know more about that (googling didn't bring up anything
+useful so far)?
+
+----
+
+https://www.blender.org/forum/search.php?keywords=marking+patent
+
+----
+
+https://archive.blender.org/wiki/index.php/User:Raa/Addons/Pie_Menu_Editor/
+
+----
+
+https://archive.blender.org/wiki/index.php/Dev:Source/UI/Pie_Menus/
+
+Note: This is an archived version of the Blender Developer Wiki. The
+current and active wiki is available on wiki.blender.org.
+
+Coding Pie Menus In Python
+
+There are a few ways to create pie menus currently.
+
+One is to define a subclass of menu in python and use the
+context.window_manager.call_pie_menu operator
+
+The other one is to use the context.window_manager.popup_menu_pie
+function. For an example of how to do this check
+WM_OT_context_pie_enum in
+
+blender/release/scripts/startup/bl_operators.
+
+There is also a pie menu template available in the text editor.
+
+Nested layouts (a column layout as a radial item for instance) are
+possible in this iteration of pie menus but are experimental and not
+all widgets and layouts have been tested. Items in such sublayouts
+will not use radial/directional interaction style. User will need to
+hover over those buttons directly to activate them.
+
+----
+
+Wazou's RMB pie menu V2 - 101 - English
+
+https://www.youtube.com/watch?v=nJArcg4cn-8
+
+Suggestions:
+Selection panel could have a short-cut pie sub-menu. Use similar layouts (like SimCity palette).
+Tools can have sub-menus of variations (like the combinations of shift/alt/control keys, but self revealing).
+
+----
+
+https://blenderartists.org/t/pie-menu-on-snapping/1128348/24
+
+I am not entirely agains radial menues, though. I do like them and I
+do use them as well. In that case, though it doesn’t make too much
+sense for me personally and I’d rather have them being customizable
+for individual tasks than for mode changes.
+
+----
+
+https://blender.community/c/rightclickselect/bdcbbc/
+
+Suggestion or request about the pie menus
+
+User Interface  6 months ago
+
+I would like the pie menu, when you stop releasing the key, disappear.
+Do I have to pay someone to do it to me, I think it would be a simple
+change for developers who already know where things are. In Maya it's
+usual if you don't press the key, this disappear, they don't stay
+permanently on screen forcing you to click out, if you really didn't
+want to press and you did it by mistake. I admit that I don't like
+them and I don't want to use them simply because of what I'm
+commenting here, if they had that behavior I would use them with
+pleasure. And since I see that now blender by default is intensively
+using the pie menus, please if someone has the knowledge and is able
+to change it I would be grateful in the soul.
+
+Blender 2.8: More Pie Menus
+https://developer.blender.org/T56881#536891
+
+Pie menu disable on release key patch
+https://devtalk.blender.org/t/pie-menu-disable-on-release-key-patch/2237/5
+
+----
+
+Use cases for user defined pie maps:
+
+Task Oriented Control Panels
+    Like a "wizard" dialog that takes you step by (possibly branching) step through a task.
+
+Tool Settings Libraries
+
+Content Libraries
+
+User Interface Component Libraries
+
+Interactive Guided Presentations
+
+Documentation
+
+----
+

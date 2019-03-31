@@ -1,0 +1,566 @@
+
+function CreateInitialObjects()
+{
+    CreateInterface();
+    CreateCanvas();
+}
+
+
+function CreateInterface()
+{
+
+    globals.light = CreatePrefab({
+        obj: {
+            doNotDelete: true
+        },
+        prefab: 'Prefabs/Light'
+    });
+
+    globals.camera = CreatePrefab({
+        obj: {
+            doNotDelete: true
+        },
+        prefab: 'Prefabs/Camera'
+    });
+
+    globals.eventSystem = CreatePrefab({
+        obj: {
+            doNotDelete: true
+        },
+        prefab: 'Prefabs/EventSystem'
+    });
+
+    globals.textOverlays = CreatePrefab({
+        obj: {
+            doNotDelete: true
+        },
+        prefab: 'Prefabs/TextOverlays'
+    });
+
+}
+
+
+function CreateCanvas()
+{
+    globals.canvas = CreatePrefab({
+        obj: {
+            doNotDelete: true
+        },
+        prefab: 'Prefabs/TestCanvas'
+    });
+
+    var canvasRef = 'object:' + globals.canvas.id;
+
+    globals.buttonEval = CreatePrefab({
+        obj: {
+            doNotDelete: true
+        },
+        prefab: 'Prefabs/ToolbarButton',
+        parent: canvasRef + '/transform:Panel/transform:ButtonPanel',
+        update: {
+            'label/text': 'Eval'
+        },
+        interests: {
+            Click: {
+                query: {
+                    js: canvasRef + '/transform:Panel/transform:JSField/component:TMPro.TMP_InputField/text'
+                },
+                handler: function(obj, results) {
+                    console.log("Canvas: button: Eval: js: " + results.js);
+                    var result = eval(results.js);
+                    SetOutput("" + results);
+                }
+            }
+        }
+    });
+
+    globals.buttonFoo = CreatePrefab({
+        obj: {
+            doNotDelete: true
+        },
+        prefab: 'Prefabs/ToolbarButton',
+        parent: canvasRef + '/transform:Panel/transform:ButtonPanel',
+        update: {
+            'label/text': 'Foo'
+        },
+        interests: {
+            Click: {
+                query: {
+                    text: 'object:' + globals.canvas.id + '/transform:Panel/transform:TextField/component:TMPro.TMP_InputField/text'
+                },
+                handler: function(obj, results) {
+                    console.log("Canvas: button: Foo: text: " + results.text);
+                    SetOutput(JSON.stringify(results));
+                }
+            }
+        }
+    });
+
+    globals.buttonBar = CreatePrefab({
+        obj: {
+            doNotDelete: true
+        },
+        prefab: 'Prefabs/ToolbarButton',
+        parent: canvasRef + '/transform:Panel/transform:ButtonPanel',
+        update: {
+            'label/text': 'Bar'
+        },
+        interests: {
+            Click: {
+                query: {
+                    text: 'object:' + globals.canvas.id + '/transform:Panel/transform:TextField/component:TMPro.TMP_InputField/text'
+                },
+                handler: function(obj, results) {
+                    console.log("Canvas: button: Bar: text: " + results.text);
+                    SetOutput(JSON.stringify(results));
+                }
+            }
+        }
+    });
+
+}
+
+
+        label = CreatePrefab({
+            prefab: "Prefabs/ProText",
+            update: {
+                'textMesh/text': 'Blob',
+                'textMesh/fontSize': blobData.proTextFontSize,
+                'component:RectTransform/sizeDelta': {x: 100, y: 50},
+                trackPosition: 'Transform',
+                'transformPosition!': 'object:' + blob.id + '/transform',
+                extraOffset: { y: blobData.size * 1.2 },
+                trackRotation: 'CameraRotation'
+            }
+        });
+
+        t = CreateOverlayText({
+            "trackPosition": "Transform",
+            "transformPosition!": "object:" + blob.id + "/transform",
+            "textMesh/text": "blob " + id++,
+            "textMesh/fontSize": blobData.overlayTextFontSize,
+            "textMesh/color": { r: 1, g: 0.5, b: 0.5 },
+            "component:RectTransform/sizeDelta": { x: 100, y: 50 }
+        });
+
+
+function CreatePlaces()
+{
+    var world = globals.world;
+    var places = world.places;
+    var connections = world.connections;
+    var placeObjectsByName = world.placeObjectsByName = {};
+    var placeObjectsByID = world.placeObjectsByID = {};
+    world.draggingPlace = null;
+    world.draggingPlaceKissed = {};
+
+    for (var placeIndex = 0, placeCount = places.length; placeIndex < placeCount; placeIndex++) {
+
+        var place = places[placeIndex];
+
+        var anchorObject =  CreatePrefab({
+            "prefab": "Prefabs/Anchor",
+            "update": {
+                "transform/localPosition": place.position,
+                dragTracking: true,
+                "component:Rigidbody/drag": 10,
+                "component:Rigidbody/isKinematic": true
+            },
+            interests: {
+                DragStart: {
+                    handler: function(obj, results) {
+                        world.draggingPlace = obj.placeObject;
+                        world.draggingPlaceKissed = {};
+                        //console.log("game.js: Place Anchor: DragStart", obj.id);
+                    }
+                },
+                DragStop: {
+                    handler: function(obj, results) {
+                        world.draggingPlace = null;
+                        //console.log("game.js: Place Anchor: DragStop", obj.id);
+                        QueryObject(obj.placeObject, {
+                                position: 'transform/position'
+                            }, function(results) {
+                                //console.log("Moving anchor " + obj.id + " to " + results.position.x + " " + results.position.y + " " + results.position.z);
+                                UpdateObject(obj, {
+                                    "transform/position": results.position
+                                });
+                            });
+                    }
+                }
+            }
+        });
+
+        var placeSpring = 100;
+        var placeDamper = 10;
+        var placeDrag = 10;
+
+        var placeObject = CreatePrefab({
+            "prefab": "Prefabs/Place",
+            "obj": {
+                connections: []
+            },
+            "update": {
+                "transform/localPosition": place.position,
+                "transform/localScale": place.size,
+                "component:Collider/sharedMaterial": "PhysicMaterials/HighFrictionLowBounce",
+                "component:Rigidbody/isKinematic": false,
+                "component:Rigidbody/drag": placeDrag,
+                "component:Rigidbody/constraints": "FreezePositionY,FreezeRotationX,FreezeRotationY,FreezeRotationZ",
+                "component:SpringJoint/spring": placeSpring,
+                "component:SpringJoint/damper": placeDamper,
+                "component:SpringJoint/autoConfigureConnectedAnchor": false,
+                "component:SpringJoint/enableCollision": true,
+                "component:SpringJoint/connectedBody!": "object:" + anchorObject.id + "/component:Rigidbody",
+                "component:TrackerProxy/target!": "object:" + anchorObject.id,
+                "tiles/index:0/textureScale": {
+                    "x": place.size.x * place.topTextureZoom,
+                    "y": place.size.z * place.topTextureZoom
+                },
+                "tiles/index:0/component:MeshRenderer/material": place.topMaterial,
+                "tiles/index:1/textureScale": {
+                    "x": place.size.x * place.bottomTextureZoom,
+                    "y": place.size.z * place.bottomTextureZoom
+                },
+                "tiles/index:1/component:MeshRenderer/material": place.bottomMaterial,
+                "tiles/index:2/textureScale": {
+                    "x": place.size.x * place.sideTextureZoom,
+                    "y": place.size.y * place.sideTextureZoom
+                },
+                "tiles/index:2/component:MeshRenderer/material": place.sideMaterial,
+                "tiles/index:3/textureScale": {
+                    "x": place.size.x * place.sideTextureZoom,
+                    "y": place.size.y * place.sideTextureZoom
+                },
+                "tiles/index:3/component:MeshRenderer/material": place.sideMaterial,
+                "tiles/index:4/textureScale": {
+                    "x": place.size.z * place.sideTextureZoom,
+                    "y": place.size.y * place.sideTextureZoom
+                },
+                "tiles/index:4/component:MeshRenderer/material": place.sideMaterial,
+                "tiles/index:5/textureScale": {
+                    "x": place.size.z * place.sideTextureZoom,
+                    "y": place.size.y * place.sideTextureZoom
+                },
+                "tiles/index:5/component:MeshRenderer/material": place.sideMaterial
+            },
+            interests: {
+                CollisionEnter: {
+                    query: {
+                        collisionGameObjectName: 'collision/gameObject/name',
+                        collisionObjectID: 'collision/gameObject/component:BridgeObject?/id',
+                        collisionImpulse: 'collision/impulse',
+                        collisionRelativeVelocity: 'collision/relativeVelocity'
+                    },
+                    handler: function(obj, results) {
+                        // Ignore if not another place.
+                        //console.log("game.js: Place: CollisionEnter", obj.id, JSON.stringify(results));
+                        var collisionPlace = world.placeObjectsByID[results.collisionObjectID];
+                        if ((!collisionPlace) ||
+                             (world.draggingPlace != obj)) {
+                            return;
+                        }
+                        world.draggingPlaceKissed[results.collisionObjectID] = true;
+                        //console.log("KISS", obj.id, results.collisionObjectID, JSON.stringify(world.draggingPlaceKissed), JSON.stringify(results));
+                        var foundConnection = null;
+                        for (var i = 0, n = obj.connections.length; i < n; i++) {
+                            var connection = obj.connections[i];
+                            if ((connection.placeFrom == collisionPlace) ||
+                                (connection.placeTo == collisionPlace)) {
+                                foundConnection = connection;
+                                break;
+                            }
+                        }
+                        if (foundConnection == null) {
+                            var newConnection = CreateRainbow('connection', obj, collisionPlace);
+                            newConnection.placeFrom = obj;
+                            newConnection.placeTo = collisionPlace;
+                            obj.connections.push(newConnection);
+                            collisionPlace.connections.push(newConnection);
+                            //console.log("Creating connection", newConnection, newConnection.placeFrom.id, newConnection.placeTo.id);
+                        } else {
+                            //console.log("Destroying connection", foundConnection, foundConnection.placeFrom, foundConnection.placeTo);
+                            //console.log(foundConnection.placeFrom.id, foundConnection.placeTo.id);
+                            i = foundConnection.placeTo.connections.indexOf(foundConnection);
+                            if (i < 0) {
+                                console.log("MISSING", foundConnection);
+                            } else {
+                                foundConnection.placeTo.connections.splice(i, 1);
+                            }
+                            i = foundConnection.placeFrom.connections.indexOf(foundConnection);
+                            if (i < 0) {
+                                console.log("MISSING", foundConnection);
+                            } else {
+                                foundConnection.placeFrom.connections.splice(i, 1);
+                            }
+                            DestroyObject(foundConnection);
+                        }
+                    }
+                },
+                CollisionExit: {
+                    query: {
+                        collisionGameObjectName: 'collision/gameObject/name',
+                        collisionObjectID: 'collision/gameObject/component:BridgeObject?/id',
+                        collisionImpulse: 'collision/impulse',
+                        collisionRelativeVelocity: 'collision/relativeVelocity'
+                    },
+                    handler: function(obj, results) {
+                        // Ignore if not another place.
+                        //console.log("game.js: Place: CollisionExit", obj.id, JSON.stringify(results));
+                        var collisionPlace = world.placeObjectsByID[results.collisionObjectID];
+                        if ((!collisionPlace) ||
+                            (world.draggingPlace != obj)) {
+                            return;
+                        }
+                        delete world.draggingPlaceKissed[results.collisionObjectID];
+                        //console.log("UNKISS", obj.id, results.collisionObjectID, JSON.stringify(world.draggingPlaceKissed), JSON.stringify(results));
+                    }
+                }
+            }
+        });
+
+        anchorObject.placeObject = placeObject;
+        placeObject.anchorObject = anchorObject;
+
+        placeObject.place = place;
+        placeObjectsByName[place.name] = placeObject;
+        placeObjectsByID[placeObject.id] = placeObject;
+
+    }
+
+    for (var connectionIndex = 0, connectionCount = connections.length; connectionIndex < connectionCount; connectionIndex++) {
+        var connection = connections[connectionIndex];
+        var placeFrom = placeObjectsByName[connection.from];
+        var placeTo = placeObjectsByName[connection.to];
+        var connectionObject = CreateRainbow('connection', placeFrom, placeTo);
+
+        connectionObject.placeFrom = placeFrom;
+        connectionObject.placeTo = placeTo;
+        placeFrom.connections.push(connectionObject);
+        placeTo.connections.push(connectionObject);
+    }
+
+}
+
+
+////////////////////////////////////////////////////////////////////////
+// Effects.
+
+
+function CreateEffects()
+{
+    var world = globals.world;
+    var tuning = world.tuning;
+    var effects = world.prefabMap.effects;
+
+    // Create "effects" pie for debugging effects.
+    var effectsPie = globals.pieTracker.pies.effects = {
+        label: 'Effects',
+        pieLabelPosition: { x: 0, y: 160 },
+        slices: [],
+        initialDirection: Math.PI,
+        allLabels: effects.names,
+        scroll: 0,
+        slicesPerSide: 5,
+        drawBackground:	'DrawBackground_Pie',
+        onenteritem: function(item, slice, pie, target) {
+            //console.log("effects enter item", item.label);
+            delete item.selected;
+            if (!item.stayUp && item.label) {
+                CreateHighlight(target, effects.dir + '/' + item.label);
+            }
+        },
+        onexititem: function(item, slice, pie, target) {
+            //console.log("effects exit item", item.label);
+            if (!item.stayUp && item.label && !item.selected) {
+                DestroyHighlight(target);
+            }
+        },
+        onselectitem: function(item, slice, pie, target) {
+            //console.log("effects select item", item.label);
+            if (!item.stayUp) {
+                if (item.label) {
+                    item.selected = true;
+                }
+            } else {
+                if (item.direction) {
+                    pie.scroll += 2 * pie.slicesPerSide * item.direction;
+                } else if (item.side) {
+                    var chunk = (2 * pie.slicesPerSide);
+                    pie.scroll = Math.floor(pie.allLabels.length / chunk) * chunk;
+                    if ((pie.scroll != 0) &&
+                        (pie.scroll == pie.allLabels.length)) {
+                        pie.scroll -= chunk;
+                    }
+                } else {
+                    pie.scroll = 0;
+                }
+                pie.onstartpie(pie, target);
+                globals.pieTracker.LayoutPie(pie);
+                globals.pieTracker.DrawPieBackground(pie, globals.pieTracker.target);
+            }
+        },
+        onstartpie: function(pie, target) {
+
+            var before = pie.scroll;
+            var after = pie.allLabels.length - (pie.scroll + (2 * pie.slicesPerSide));
+            var canScrollBack = before > 0;
+            var canScrollForward = after > 0;
+
+            //globals.pieTracker.DeconstructPie(pie, true);
+            pie.slices = [];
+
+            for (var side = 0; side < 2; side++) {
+
+                if (side ? canScrollForward : canScrollBack) {
+                    var label =
+                        side
+                            ? ("=> (" + after + ")")
+                            : ("(" + before + ") <=");
+                    pie.slices.push({
+                        items: [
+                            {
+                                label: label,
+                                direction: side ? 1 : -1,
+                                stayUp: true
+                            },
+                            {
+                                label: side ? "Last" : "First",
+                                side: side,
+                                stayUp: true
+                            }
+                        ]
+                    });
+                } else {
+                    pie.slices.push({
+                        stayUp: true
+                    });
+                }
+
+                for (i = 0; i < pie.slicesPerSide; i++) {
+                    if (i + pie.scroll < pie.allLabels.length) {
+                        pie.slices.push({
+                            items: [
+                                {
+                                    label: pie.allLabels[
+                                        side
+                                            ? (pie.scroll + (2 * pie.slicesPerSide) - 1 - i)
+                                            : (pie.scroll + i)]
+                                }
+                            ]
+                        });
+                    } else {
+                        pie.slices.push({});
+                    }
+                }
+
+            }
+
+        }
+    };
+}
+
+
+function SetGridText(topLeft, top, topRight, left, center, right, bottomLeft, bottom, bottomRight)
+{
+    //console.log("SetGridText", topLeft, top, topRight, left, center, right, bottomLeft, bottom, bottomRight);
+    UpdateObject(globals.textOverlays, {
+        "topLeftText/text": topLeft || '',
+        "topText/text": top || '',
+        "topRightText/text": topRight || '',
+        "leftText/text": left || '',
+        "centerText/text": center || '',
+        "rightText/text": right || '',
+        "bottomLeftText/text": bottomLeft || '',
+        "bottomText/text": bottom || '',
+        "bottomRightText/text": bottomRight || ''
+    });
+}
+
+
+function SetCenterText(center)
+{
+    SetGridText(null, null, null, null, center, null, null, null, null);
+}
+
+
+function ShowObjectInfo(obj)
+{
+    if (obj == null) {
+        SetGridText();
+    } else {
+        SetGridText(
+            "\n<size=30%>" + Dump(obj),
+            "Info for Object ID:\n" + obj.id);
+    }
+}
+
+
+function CreateOverlayText(update)
+{
+    var overlayText = CreatePrefab({
+        prefab: 'Prefabs/OverlayText',
+        update: update,
+        parent: 'object:' + globals.textOverlays.id + '/overlay',
+        worldPositionStays: false
+    });
+}
+
+
+function IndentLine(line, indent)
+{
+    var emPerIndent = 2;
+    var em = indent * emPerIndent;
+    return '<margin-left=' + em + 'em>' + line;
+}
+
+
+function CreateRainbow(kind, fromTarget, toTarget, parent)
+{
+    var world = globals.world;
+    var rainbows = world.rainbows;
+    var rainbow = rainbows[kind];
+
+    //console.log("bows", JSON.stringify(world.bows));
+
+    var rainbowObject =
+        CreatePrefab({
+            prefab: 'Prefabs/Rainbow',
+            obj: {
+                bows: []
+            },
+            parent: parent || null,
+            update: {
+                'fromTransform!': 'object:' + fromTarget.id + '/transform',
+                'toTransform!': 'object:' + toTarget.id + '/transform',
+                bowHeight: rainbow.bowHeight,
+                fromWidth: rainbow.rainbowWidth,
+                toWidth: rainbow.rainbowWidth
+            }
+        });
+
+    world.rainbow = rainbow;
+
+    var bows = rainbow.bows;
+    for (var bowIndex = 0;
+         bowIndex < bows.length;
+         bowIndex++) {
+
+        var bowUpdate = bows[bowIndex];
+
+        //console.log("bowConfig", JSON.stringify(bowConfig));
+
+        var bowObject =
+            CreatePrefab({
+                prefab: 'Prefabs/Bow',
+                parent: 'object:' + rainbowObject.id,
+                update: bowUpdate
+            });
+
+        rainbowObject.bows.push(bowObject);
+    }
+
+    return rainbowObject;
+}
+
+

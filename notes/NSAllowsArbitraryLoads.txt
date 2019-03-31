@@ -1,0 +1,11 @@
+Add this key to the Unity app's info.plist to enable the WebKit web
+browser embedded in the player to perform loads from unencrypted
+"http:" urls.
+
+/Applications/Unity/Unity.app/Contents/info.plist
+
+	<dict>
+	  <!--Include to allow all connections (DANGER)-->
+	  <key>NSAllowsArbitraryLoads</key>
+	      <true/>
+	</dict>

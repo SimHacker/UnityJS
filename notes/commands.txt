@@ -1,0 +1,3 @@
+Install built OSX plugin bundle in sample application (then restart unity):
+
+cp -r ~/Library/Developer/Xcode/DerivedData/UnityJS-awyrvojrqljkizgfhdxhnolskmkh/Build/Products/Debug/UnityJS.bundle ~/GroundUp/git/unity-js/sample/Assets/Libraries/unity-js/Plugins/OSX ; cp -r ~/GroundUp/git/unity-js/plugins/OSX/Sources/UnityJS.mm ~/GroundUp/git/unity-js/sample/Assets/Libraries/unity-js/Plugins/iOS

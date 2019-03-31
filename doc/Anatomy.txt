@@ -1,0 +1,43 @@
+Here are the different pieces of UnityJS that dovetail together:
+
+Cross Platform Web Browser and JavaScript Engine
+  Integrates the best native web browser / JavaScript engine with Unity.
+  For the WebGL build, uses the existing hosting web browser.
+  Hides platform specific issues from the developer.
+  Implements platform specific interfaces to native web browsers.
+  Can also use remote web browsers or Electron via node SocketIO server.
+
+  WebGL: Uses the same web browser running the Unity application.
+  Android: WebView (Java object, separate process)
+  iOS: WKWebView (Objective C object, separate process)
+  OS/X: WKWebView (Objective C object, separate process), SocketIO (through node server, to any browser)
+  Windows: TODO
+
+JavaScript/Unity3D Bridge
+
+  Integrates Unity3D with JavaScript so you can completely access and
+  control all aspects of C# objects, Unity3D prefabs, and essential
+  Unity3D classes and structures like components, materials, textures, 
+  animations, mouse tracking, 
+
+JSON <=> C# Conversion Utilities
+  Extensions to JSON.NET and Unity3D C# classes to automatically and
+  conveniently convert back and forth between JSON and C# objects.
+
+Accessor Path Expressions
+  Path syntax for traversing, converting, getting and setting Unity3D C# objects with JSON.
+
+JSON Messaging
+  An asynchronous JSON messaging protocol between JavaScript and Unity3D objects.
+  JavaScript can instantiate Unity prefabs, then plug together, configure, control, and respond to messages from them.
+
+  CreatePrefab
+    update 
+
+  UpdageObject
+
+  QueryObject
+
+  Event handlers can provide a general query template to cherry-pick event parameters. 
+
+  

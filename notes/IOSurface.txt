@@ -1,0 +1,100 @@
+https://developer.apple.com/reference/iosurface/1658837-iosurfaceapi.h
+
+http://stackoverflow.com/questions/1522151/how-to-load-iosurface-in-opengl-for-mac-os-x-snow-leopard-application
+
+The IOSurface API is quite similar to Core Video's CVPixelBuffer,
+which is documented, so you could start by looking at the
+CVPixelBuffer documentation and comparing with IOSurfaceAPI.h.
+
+To bind an OpenGL texture to an IOSurface, see the
+CGLTexImageIOSurface2D function, which is defined in
+<OpenGL/CGLIOSurface.h>.
+
+http://cocoadhoc.blogspot.nl/2009/09/hidden-gems-of-snow-leopard-iosurface.html
+http://cocoadhoc.blogspot.nl/2009/10/hidden-gems-of-snow-leopard-iosurface_15.html
+http://cocoadhoc.blogspot.nl/2009/10/hidden-gems-of-snow-leopard-iosurface.html
+
+https://code.google.com/archive/p/iosurfacetest/
+
+https://github.com/servo/io-surface-rs
+
+https://bugs.webkit.org/show_bug.cgi?id=89797
+Bug 89797 -
+Summary:	[chromium] Add the workaround of IOSurface-related corruption during readback...
+
+> Source/WebCore/platform/graphics/chromium/LayerRendererChromium.cpp:1368
+
+https://bugzilla.mozilla.org/show_bug.cgi?id=1261166
+Bug 1261166 - Consider using IOSurface for sharing content-painted textures to the compositor on OS X
+
+ Markus Stange [:mstange] 2016-03-31 12:53:07 PDT
+Created attachment 8736897 [details] [diff] [review]
+wip patch
+
+At the moment we use shmems and glTexImage2D to upload PaintedLayer
+contents from the content process into textures on the Compositor.
+These texture uploads can be very slow and impact APZ smoothness.
+There are two parts to the slowness: The first is incurred when we
+first access a newly-allocated texture, and the second part is the
+actual memcpy.
+
+We can get pixels into Compositor textures using IOSurfaces instead.
+With those, at least half of the cost of "texture upload" would be
+incurred on the content side, and the actual layer transaction would
+be really fast because the Compositor will then only need to associate
+IOSurface IDs with textures.
+
+Matt and I wrote a patch that attempts to do this. It mostly works and
+improves layer transaction performance on the Compositor a lot. There
+are three problems with it:
+
+ 1. On time I saw textures turning black.
+
+ 2. Content spends a lot of time copying pixels between front and back buffers of a tile.
+
+ 3. Content also spends a lot of time locking the IOSurface.
+
+There may be more improvements to be had here.
+
+MacIOSurfaceTextureData
+
+https://dxr.mozilla.org/mozilla-central/source/gfx/layers/client/TextureClient.cpp?rev=0a1722feaf7b#479
+
+https://www.chromium.org/developers/design-documents/iosurface-meeting-notes
+
+ioreg -n IOSurfaceRoot -w 0
+
+Q. Is the sharing of Core Animation layer trees across processes (which Safari does via SPI, apparently) more efficient than using IOSurfaces?
+A. Yes -- it is probably more efficient -- but we can't talk about what Safari might be doing internally.
+
+https://docs.google.com/document/d/1qgFVIhUdQf_RxhzF-sAsETvo7CNqSLmzlz5YY7rfRe0/edit
+WKWebView Problems Solved by web// layer
+
+https://bugs.chromium.org/p/chromium/issues/detail?id=81740
+Add needed flush to IOSurface path and remove workarounds
+
+https://bugs.webkit.org/show_bug.cgi?id=79735
+Bug 79735 -
+Summary:	[chromium] Work around IOSurface-related corruption during readback
+
+https://chromium.googlesource.com/chromium/chromium/+/master/ui/surface/io_surface_support_mac.h
+
+https://dxr.mozilla.org/mozilla-central/source/gfx/layers/client/TextureClient.cpp?rev=0a1722feaf7b#479
+
+https://groups.google.com/a/chromium.org/forum/#!topic/chromium-reviews/Ubvsi_Biix4
+Optimize Mac OSX IOSurface blit code. (issue 10384058)
+
+https://monorail-prod.appspot.com/p/chromium/issues/detail?id=602484
+Uses IOSurfaces to display 3d pepper content on OS X.
+
+http://neugierig.org/software/chromium/notes/2010/08/mac-accelerated-rendering.html
+
+https://www.chromium.org/developers/design-documents/auto-throttled-screen-capture-and-mirroring
+
+https://bugs.chromium.org/p/chromium/issues/detail?id=516190
+Tab/Desktop Mirroring: Need utilization signal from WebRTC/PeerConnection
+
+====
+
+https://developer.apple.com/library/content/documentation/GraphicsImaging/Conceptual/OpenGL-MacProgGuide/opengl_texturedata/opengl_texturedata.html
+

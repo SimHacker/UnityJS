@@ -1,0 +1,98 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>GLTF</RootNamespace>
+    <AssemblyName>GLTFSerialization</AssemblyName>
+    <StartupObject />
+
+    <TargetFrameworks>net35;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks Condition="'$(MSBuildRuntimeType)' != 'Mono'">$(TargetFrameworks);uap10.0.10586</TargetFrameworks>
+
+    <OutputType>Library</OutputType>
+
+    <Authors>Khronos Group</Authors>
+    <Copyright></Copyright>
+    <Description>C# glTF Serializer</Description>
+    <Company></Company>
+    <Product>GLTFSerialization</Product>
+    <PackageId>GLTFSerialization</PackageId>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/KhronosGroup/UnityGLTF/blob/master/README.md</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/KhronosGroup/UnityGLTF/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/KhronosGroup/UnityGLTF</RepositoryUrl>
+    <PackageIconUrl>https://github.com/KhronosGroup/glTF/blob/master/specification/figures/gltf.png</PackageIconUrl>
+    <PackageTags>glTF 3D C#</PackageTags>
+    <RootNamespace>GLTF</RootNamespace>
+    <Version>1.0.0-alpha</Version>
+
+    <IsUAPTargetFramework Condition="$(TargetFramework.ToLower().StartsWith('uap10.0'))">true</IsUAPTargetFramework>
+    <IsNETStandardTargetFramework Condition="$(TargetFramework.ToLower().StartsWith('netstandard'))">true</IsNETStandardTargetFramework>
+    <IsNETTargetFramework Condition="'$(IsNETStandardTargetFramework)' != 'true' and $(TargetFramework.ToLower().StartsWith('net'))">true</IsNETTargetFramework>
+    <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="'$(IsUAPTargetFramework)' == 'true'">
+      <PropertyGroup>
+        <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.14393.0</TargetPlatformVersion>
+        <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+        <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+        <TargetFrameworkIdentifier>.NETCore</TargetFrameworkIdentifier>
+        <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+        <DefineConstants>$(DefineConstants);NETFX_CORE;WINDOWS_UWP</DefineConstants>
+      </PropertyGroup>
+      <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.9" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(IsNETTargetFramework)' == 'true'">
+      <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+        <PackageReference Include="Microsoft.Net.Compilers" Version="2.7.0">
+          <IncludeAssets>all</IncludeAssets>
+          <ExcludeAssets>contentFiles</ExcludeAssets>
+          <PrivateAssets>contentFiles;analyzers</PrivateAssets>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+    <When Condition="'$(IsNETStandardTargetFramework)' == 'true'">
+      <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+      </ItemGroup>
+    </When>
+  </Choose>
+
+  <PropertyGroup Condition="'$(Platform)' == 'AnyCPU'">
+    <OutputPath>..\..\UnityGLTF\Assets\UnityGLTF\Plugins\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+    <OutputPath>bin\x86\$(Configuration)\</OutputPath>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <!-- Leverages copy task to move the meta files to output directory. https://docs.microsoft.com/en-us/visualstudio/msbuild/copy-task?view=vs-2017#example-1 -->
+  <ItemGroup>
+    <MetaFiles Include="..\External\meta\**\*.meta" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Copy SourceFiles="@(MetaFiles)" DestinationFiles="@(MetaFiles->'..\..\UnityGLTF\Assets\UnityGLTF\Plugins\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+</Project>

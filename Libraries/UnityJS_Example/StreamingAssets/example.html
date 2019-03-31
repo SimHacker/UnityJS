@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>UnityJS Example</title>
+    <link rel="stylesheet" type="text/css" href="UnityJS/bridge.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Rubik';
+      }
+    </style>
+    <script>
+      window.onerror = function(message, source, line, column, error) {
+          window.onerror = null;
+          console.log("!!!!!!!!!!!!!!!! WINDOW.ONERROR", "MESSAGE", message, "LINE", line, "COLUMN", column, "SOURCE", source);
+          console.trace();
+      };
+      var gStreamingAssetsURL = '';
+      var gStreamingAssetsUnityJSURL = 'UnityJS/';
+      var gStreamingAssetsAppURL = 'UnityJS_Example/';
+    </script>
+    <script type="text/javascript" src="UnityJS/jquery-1.10.2.jss"></script>
+    <script type="text/javascript" src="UnityJS/socket.io.jss"></script>
+    <script type="text/javascript" src="UnityJS/unity.jss"></script>
+    <script type="text/javascript" src="UnityJS/bridge.jss"></script>
+    <script type="text/javascript" src="UnityJS/pie.jss"></script>
+    <script type="text/javascript" src="UnityJS/jsrand.jss"></script>
+    <script type="text/javascript" src="UnityJS/d3.v5.min.jss"></script>
+    <script type="text/javascript" src="UnityJS_Example/example.jss"></script>
+  </head>
+
+  <body style="overflow: hidden; margin: 0; padding: 0; border: 0; background-color: white;">
+  </body>
+
+</html>

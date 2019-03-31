@@ -1,0 +1,126 @@
+[
+    {
+        "id": "Example_WebGL",
+        "deployment": "Example_WebGL",
+        "title": "Example",
+        "gameID": "Example",
+        "url": "example.html",
+        "spreadsheetID": "",
+        "configuration": "",
+        "bootConfigurationsKey": "BootConfigurations_Example",
+        "useSocketIO": false,
+        "socketIOAddress": "ws://localhost:3000/socket.io/?EIO=4&transport=websocket",
+        "productName": "Example",
+        "bundleIdentifier": "studio.struct.example",
+        "bundleVersion": "1.0",
+        "bundleVersionCode": 100,
+        "webGLTemplate": "PROJECT:UnityJS_Example",
+        "keystorePath": "",
+        "keyaliasName": "",
+        "keyaliasPass": "",
+        "buildNumber": "100",
+        "buildTarget": "WebGL",
+        "buildTargetGroup": "WebGL",
+        "buildOptions": [],
+        "virtualRealitySupported": false,
+        "deploymentsDirectory": "/../Deployments/",
+        "defineSymbols": "CROSS_PLATFORM_INPUT;MOBILE_INPUT;USE_SOCKETIO;USE_GLTF",
+        "buildLocation": "Builds/Example_WebGL",
+        "scenes": ["Assets/Scenes/UnityJSBridge.unity"],
+        "copyFiles": [
+        ],
+        "deployClean": [
+            "Assets",
+            "Builds"
+        ],
+        "deployCreateDirectories": [
+            "Assets/Libraries",
+            "Assets/StreamingAssets",
+            "Assets/WebGLTemplates"
+        ],
+        "deployLinkFiles": [
+            ["../Libraries/JsonDotNet", "Assets/Libraries/JsonDotNet"],
+            ["../Libraries/TextMesh Pro", "Assets/Libraries/TextMesh Pro"],
+            ["../Libraries/LeanTween", "Assets/Libraries/LeanTween"],
+            ["../Libraries/Unity-SocketIO-Client", "Assets/Libraries/Unity-SocketIO-Client"],
+            ["../Libraries/UnityGLTF", "Assets/Libraries/UnityGLTF"],
+            ["../Libraries/WebGLAce/Libraries/WebGLAce", "Assets/Libraries/WebGLAce"],
+            ["../Libraries/WebGLAce/StreamingAssets/WebGLAce", "Assets/StreamingAssets/WebGLAce"],
+            ["../Libraries/UnityJS/Libraries/UnityJS", "Assets/Libraries/UnityJS"],
+            ["../Libraries/UnityJS/StreamingAssets/UnityJS", "Assets/StreamingAssets/UnityJS"],
+            ["../Libraries/UnityJS_Example/Libraries/UnityJS_Example", "Assets/Libraries/UnityJS_Example"],
+            ["../Libraries/UnityJS_Example/StreamingAssets/UnityJS_Example", "Assets/StreamingAssets/UnityJS_Example"],
+            ["../Libraries/UnityJS_Example/StreamingAssets/example.html", "Assets/StreamingAssets/example.html"],
+            ["../Libraries/UnityJS_Example/WebGLTemplates/UnityJS_Example", "Assets/WebGLTemplates/UnityJS_Example"]
+        ],
+        "deployCopyFiles": [
+            ".gitignore",
+            "ProjectSettings",
+            "Assets/Scenes",
+            "Builds"
+        ]
+    },
+    {
+        "id": "ARScript_iOS",
+        "deployment": "ARScript_iOS",
+        "deploymentsDirectory": "/../Deployments/",
+        "title": "ARScript",
+        "gameID": "ARScript",
+        "url": "arscript.html",
+        "spreadsheetID": "",
+        "configuration": "",
+        "bootConfigurationsKey": "BootConfigurations_ARScript",
+        "useSocketIO": false,
+        "socketIOAddress": "ws://localhost:3000/socket.io/?EIO=4&transport=websocket",
+        "productName": "ARScript",
+        "bundleIdentifier": "studio.struct.arscript",
+        "bundleVersion": "1.0",
+        "bundleVersionCode": 100,
+        "webGLTemplate": "PROJECT:UnityJS_ARScript",
+        "keystorePath": "",
+        "keyaliasName": "",
+        "keyaliasPass": "",
+        "buildNumber": "100",
+        "buildTarget": "iOS",
+        "buildTargetGroup": "iOS",
+        "buildOptions": [],
+        "virtualRealitySupported": false,
+        "deploymentsDirectory": "/../Deployments/",
+        "defineSymbols": "CROSS_PLATFORM_INPUT;MOBILE_INPUT;USE_SOCKETIO;USE_GLTF;USE_ARKIT",
+        "buildLocation": "Builds/ARScript_iOS",
+        "scenes": ["Assets/Scenes/UnityJSBridge.unity"],
+        "copyFiles": [
+        ],
+        "deployClean": [
+            "Assets",
+            "Builds"
+        ],
+        "deployCreateDirectories": [
+            "Assets/Libraries",
+            "Assets/StreamingAssets",
+            "Assets/WebGLTemplates"
+        ],
+        "deployLinkFiles": [
+            ["../Libraries/JsonDotNet", "Assets/Libraries/JsonDotNet"],
+            ["../Libraries/TextMesh Pro", "Assets/Libraries/TextMesh Pro"],
+            ["../Libraries/LeanTween", "Assets/Libraries/LeanTween"],
+            ["../Libraries/Unity-SocketIO-Client", "Assets/Libraries/Unity-SocketIO-Client"],
+            ["../Libraries/UnityGLTF", "Assets/Libraries/UnityGLTF"],
+            ["../../unity-arkit-plugin/Assets/UnityARKitPlugin", "Assets/Libraries/UnityARKitPlugin"],
+            ["../Libraries/WebGLAce/Libraries/WebGLAce", "Assets/Libraries/WebGLAce"],
+            ["../Libraries/WebGLAce/StreamingAssets/WebGLAce", "Assets/StreamingAssets/WebGLAce"],
+            ["../Libraries/UnityJS/Libraries/UnityJS", "Assets/Libraries/UnityJS"],
+            ["../Libraries/UnityJS/StreamingAssets/UnityJS", "Assets/StreamingAssets/UnityJS"],
+            ["../Libraries/UnityJS_ARScript/Libraries/UnityJS_ARScript", "Assets/Libraries/UnityJS_ARScript"],
+            ["../Libraries/UnityJS_ARScript/StreamingAssets/UnityJS_ARScript", "Assets/StreamingAssets/UnityJS_ARScript"],
+            ["../Libraries/UnityJS_ARScript/StreamingAssets/arscript.html", "Assets/StreamingAssets/arscript.html"],
+            ["../Libraries/UnityJS_ARScript/WebGLTemplates/UnityJS_ARScript", "Assets/WebGLTemplates/UnityJS_ARScript"]
+        ],
+        "deployCopyFiles": [
+            ".gitignore",
+            "ProjectSettings",
+            "Assets/Scenes",
+            "Builds"
+        ]
+    }
+]

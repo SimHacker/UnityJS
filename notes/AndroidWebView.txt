@@ -1,0 +1,57 @@
+Re: Minimum version of Android to target?
+
+Arthur: I think 19 and above covers 80% of all phones.
+But if you need something from a later version we can decide to go higher...
+
+https://developer.android.com/guide/webapps/migrating.html
+
+The WebView will auto-update for mobile devices with Android L 36.0.0.0 and above.
+
+http://android-developers.blogspot.com/2015/02/beta-channel-for-android-webview.html
+
+Supported features:
+  WebView v30: Geolocation, 
+  WebView v33: Geolocation, Vibration, Form Validation, <datalist>
+  WebView v36: Geolocation, Vibration, Form Validation, <datalist>, WebGL, WebRTC, WebAudio
+  Missing: Fullscreen API, Filesystem API, Fileinput Type
+
+content:// URLs: Web content hosted outside your application is not allowed to access files built into your application.
+
+https://developer.chrome.com/multidevice/webview/gettingstarted
+
+A big advantage of using a WebView inside an installable application is that you can store assets inside the app. This lets your app work offline and improves load times, since the WebView can retrieve assets directly from the local file system.
+
+To store files such as HTML, JavaScript, and CSS locally, put them in the assets directory. This is a reserved directory that Android uses for raw files that your app may need access to (i.e. files it knows it should minimise or compress).
+
+In your project, create the assets directory in main (src/main/assets).
+
+Generally it's good practice to keep your web files in a subdirectory, so create a www directory and put all your web content in it.
+
+Note: Absolute paths do not work in the WebView when referring to other files, such as CSS and JavaScript. So make sure you make all references relative, instead of absolute (for example, instead of "/pages/somelink.html", use "./pages/somelink.html").
+
+Once you have everything in your assets directory, it's as simple as loading in the appropriate file:
+
+mWebView.loadUrl("file:///android_asset/www/index.html");
+
+Chrome Custom Tabs
+
+https://developer.chrome.com/multidevice/android/customtabs#whentouse
+
+As of Chrome 45, Chrome Custom Tabs is now generally available to all users of Chrome, on all of Chrome's supported Android versions (Jellybean onwards).
+
+https://developer.android.com/reference/android/webkit/WebView.html
+http://through-the-interface.typepad.com/through_the_interface/2015/01/integrating-web-based-vr-samples-into-a-native-google-cardboard-app-using-the-cardboard-sdk-for-android.html
+https://forums.oculus.com/developer/discussion/20347/android-webview-as-texture-in-unity
+http://www.felixjones.co.uk/neo%20website/Android_View/
+http://stackoverflow.com/questions/10009265/rendering-android-webview-to-bitmap-html5-javascript-callback-issue
+http://stackoverflow.com/questions/31344667/creating-bitmap-from-webview-with-content-offscreen-android
+https://www.google.com/search?q=EasyWebViewTexture&oq=EasyWebViewTexture&aqs=chrome..69i57.290j0j7&sourceid=chrome&ie=UTF-8
+http://www.apkmonk.com/app/com.Unity.EasyWebviewTexture/
+https://resources.samsungdevelopers.com/Gear_VR/020_GearVR_Framework_Project
+http://docs.gearvrf.org/org/gearvrf/scene_objects/GVRWebViewSceneObject.html
+http://answers.unity3d.com/questions/966753/movietexture-on-gear-vr.html
+
+Render ANY* Android View to an OpenGL Texture
+http://www.felixjones.co.uk/neo%20website/Android_View/
+
+https://github.com/ArtemBogush/AndroidViewToGLRendering

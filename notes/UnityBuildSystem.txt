@@ -1,0 +1,509 @@
+----
+
+~/Pantomime/git/pong/Documentation/Overview.txt
+
+JSON Build Configuration System
+
+  JSON file for declaring build configurations, and editor user
+  interface for browsing and switching between different applications,
+  platforms and build configurations. Automatically configures Unity
+  to the required target platform, player and scene settings, and
+  creates deployment directories with pre-configured scenes and
+  symbolic links to all required modules.
+
+  The build configurations are defined in the JSON file:
+  ~/Pantomime/git/pong/PantomimePong/Assets/Modules/Core/Pantomime/Resources/Config/BuildConfigurations.txt
+
+  This file is a skinned JSON file, with a "skin" key with an object
+  containing skins, and a "buildConfigurations" key with an array of
+  build configuration objects, to which the skins are applied.
+
+  The skins are factored out into different independent dimensions
+  that may be mixed together to succinctly describe all the different
+  combinations and permutations of build configurations. There is also
+  a BaseBuildConfiguration that all other build configurations inherit
+  from, on top of which they add specific configurations for each dimension. 
+
+  The dimensions defined in the "skins" key include:
+
+    Application
+
+      Application specific parameters include:
+        title
+        applicationName
+        productName
+        gameID
+        productName
+        bundleIdentifier
+        bundleVersion
+        bundleVersionCode
+        buildNumber
+
+      Applications include:
+        Application_Playground
+        Application_Creatures
+        Application_Petzi
+
+    Platform
+
+      Platform specific parameters include:
+        buildTarget
+        buildTargetGroup
+        virtualRealitySupported
+        cacheTarget
+        cacheSubtarget
+        defineSymbols
+
+      Platforms include:
+        Platform_iOS_Mobile
+        Platform_Android_Abstract
+          Platform_Android_Mobile
+          Platform_Android_VR
+
+    Modules
+
+      Modules include an array of module path strings, like
+      "Assets/Modules/<Category>/<Name>"
+      
+      Lists of Modules include:
+        Modules_Playground
+        Modules_Creatures
+        Modules_Petzi
+
+  The build configurations defined in "buildConfigurations" key include:
+
+    Creatures_iOS_Mobile
+      parents: BaseBuildConfiguration Application_Creatures Platform_iOS_Mobile Modules_Creatures
+    Creatures_Android_Mobile
+      parents: BaseBuildConfiguration Application_Creatures Platform_Android_Mobile Modules_Creatures
+    Creatures_Android_VR
+      parents: BaseBuildConfiguration Application_Creatures Platform_Android_VR Modules_Creatures
+    Petzi_iOS_Mobile
+      parents: BaseBuildConfiguration Application_Petzi Platform_iOS_Mobile Modules_Petzi
+    Petzi_Android_Mobile
+      parents: BaseBuildConfiguration Application_Petzi Platform_Android_Mobile Modules_Petzi
+    Petzi_Android_VR
+      parents: BaseBuildConfiguration Application_Petzi Platform_Android_VR Modules_Petzi
+    Playground_iOS_Mobile
+      parents: BaseBuildConfiguration Application_Playground Platform_iOS_Mobile Modules_Playground
+    Playground_Android_Mobile
+      parents: BaseBuildConfiguration Application_Playground Platform_Android_Mobile Modules_Playground
+    Playground_Android_VR
+      parents: BaseBuildConfiguration Application_Playground Platform_Android_VR Modules_Playground
+
+----
+
+~/Pantomime/git/pong/PantomimePong/Assets/Modules/Core/Pantomime/Resources/Config/BuildConfigurations.txt
+
+{
+
+    "skins": {
+
+        "BaseBuildConfiguration": {
+            "scenes": ["Assets/Scenes/Pantomime.unity"],
+            "buildOptions": [],
+            "copyFiles": [],
+            "deployCopyFiles": [
+                ".gitignore",
+                "ProjectSettings",
+                "Assets/Scenes"
+            ],
+            "deployCreateDirectories": [
+                "Assets/Modules",
+                "Assets/Modules/Accessories",
+                "Assets/Modules/Applications",
+                "Assets/Modules/Canvases",
+                "Assets/Modules/Core",
+                "Assets/Modules/Devices",
+                "Assets/Modules/Platforms",
+                "Assets/Modules/Scenes",
+                "Assets/Modules/Toys"
+            ],
+            "deployLinkFiles": [
+                "vcomp120.dll",
+                "Assets/Content",
+                "Assets/Jemast",
+                "Assets/Libraries",
+                "Assets/Plugins",
+                "Assets/StreamingAssets",
+                "Assets/link.xml"
+            ]
+        },
+
+        "Application_Playground": {
+            "title": "Playground",
+            "applicationName": "Playground",
+            "productName": "Playground",
+            "gameID": "Game_Playground",
+            "productName": "Playground",
+            "bundleIdentifier": "com.pantomimecorp.playground",
+            "bundleVersion": "0.9.9",
+            "bundleVersionCode": 21,
+            "buildNumber": "21"
+        },
+
+        "Application_Creatures": {
+            "title": "Creatures AR",
+            "applicationName": "Creatures",
+            "productName": "Creatures AR",
+            "gameID": "Game_Creatures",
+            "productName": "Creatures",
+            "bundleIdentifier": "com.pantomimecorp.creatures",
+            "bundleVersion": "0.9.9",
+            "bundleVersionCode": 21,
+            "buildNumber": "21"
+        },
+
+        "Application_Petzi": {
+            "title": "Petzi",
+            "applicationName": "Petzi",
+            "productName": "Petzi",
+            "gameID": "Game_Petzi",
+            "productName": "Petzi",
+            "bundleIdentifier": "com.pantomimecorp.petziapp",
+            "bundleVersion": "0.9.9",
+            "bundleVersionCode": 21,
+            "buildNumber": "21"
+        },
+
+        "Platform_iOS_Mobile": {
+            "buildTarget": "iOS",
+            "buildTargetGroup": "iOS",
+            "virtualRealitySupported": false,
+            "cacheTarget": "iOS",
+            "cacheSubtarget": "",
+            "defineSymbols": "UNIWEBVIEW_SUPPORTED;ONETOUCHCONNECT_SUPPORTED"
+        },
+
+        "Platform_Android_Abstract": {
+            "buildTarget": "Android",
+            "buildTargetGroup": "Android",
+            "cacheTarget": "Android",
+            "cacheSubtarget": "Android_ETC2",
+            "pluginPath": "",
+            "pluginPathDest": "Plugins/Android",
+            "keystorePath": "",
+            "keystoreUser": "",
+            "keystorePass": ""
+        },
+
+        "Platform_Android_Mobile": {
+            "parents": "Platform_Android_Abstract",
+            "virtualRealitySupported": false,
+            "copyFiles": [
+                ["Plugins/Android/AndroidManifest_Mobile.xml", "Plugins/Android/AndroidManifest.xml"]
+            ],
+            "defineSymbols": "UNIWEBVIEW_SUPPORTED;ONETOUCHCONNECT_SUPPORTED"
+        },
+
+        "Platform_Android_VR": {
+            "parents": "Platform_Android_Abstract",
+            "virtualRealitySupported": true,
+            "copyFiles": [
+                ["Plugins/Android/AndroidManifest_VR.xml", "Plugins/Android/AndroidManifest.xml"]
+            ],
+            "defineSymbols": "UNIWEBVIEW_SUPPORTED;ONETOUCHCONNECT_SUPPORTED;UNITY_VIRTUAL_REALITY_SUPPORTED"
+        },
+
+        "Modules_Playground": {
+            "deployLinkFiles": [
+                "Assets/Modules/Accessories/CornerLights",
+                "Assets/Modules/Accessories/Deck",
+                "Assets/Modules/Accessories/FootStepper",
+                "Assets/Modules/Accessories/Gripcase",
+                "Assets/Modules/Accessories/Hands",
+                "Assets/Modules/Accessories/Headlight",
+                "Assets/Modules/Accessories/Holder",
+                "Assets/Modules/Accessories/Mirror",
+                "Assets/Modules/Accessories/Tapper",
+                "Assets/Modules/Accessories/TeamFrame",
+                "Assets/Modules/Canvases/Accessories",
+                "Assets/Modules/Canvases/Account",
+                "Assets/Modules/Canvases/Avatar",
+                "Assets/Modules/Canvases/AvatarCases",
+                "Assets/Modules/Canvases/AvatarColors",
+                "Assets/Modules/Canvases/AvatarModels",
+                "Assets/Modules/Canvases/Browser",
+                "Assets/Modules/Canvases/Guide",
+                "Assets/Modules/Canvases/Help",
+                "Assets/Modules/Canvases/Inventory",
+                "Assets/Modules/Canvases/Menu",
+                "Assets/Modules/Canvases/Network",
+                "Assets/Modules/Canvases/Pie",
+                "Assets/Modules/Canvases/Scenes",
+                "Assets/Modules/Canvases/Settings",
+                "Assets/Modules/Canvases/Toolbar",
+                "Assets/Modules/Canvases/Toys",
+                "Assets/Modules/Devices/Galaxy",
+                "Assets/Modules/Devices/HTCNexus",
+                "Assets/Modules/Devices/Lenovo",
+                "Assets/Modules/Devices/MacBookAir",
+                "Assets/Modules/Devices/MacBookPro",
+                "Assets/Modules/Devices/Surface",
+                "Assets/Modules/Devices/iMac",
+                "Assets/Modules/Devices/iPad",
+                "Assets/Modules/Devices/iPhone",
+                "Assets/Modules/Devices/iPod",
+                "Assets/Modules/Scenes/BowlingLane",
+                "Assets/Modules/Scenes/BowlingPins",
+                "Assets/Modules/Scenes/Bugs",
+                "Assets/Modules/Scenes/Creatures",
+                "Assets/Modules/Scenes/Dice",
+                "Assets/Modules/Scenes/Dominos",
+                "Assets/Modules/Scenes/Empty",
+                "Assets/Modules/Scenes/Music",
+                "Assets/Modules/Scenes/Playground",
+                "Assets/Modules/Scenes/Playground_DropperGame",
+                "Assets/Modules/Scenes/Playground_GravityDropper",
+                "Assets/Modules/Scenes/Playground_KeyboardHelp",
+                "Assets/Modules/Scenes/Playground_Terrain",
+                "Assets/Modules/Scenes/Playground_TouchHelp",
+                "Assets/Modules/Scenes/SkeeBall",
+                "Assets/Modules/Scenes/Soccer",
+                "Assets/Modules/Toys/Balls",
+                "Assets/Modules/Toys/Basket",
+                "Assets/Modules/Toys/Bells",
+                "Assets/Modules/Toys/BowlingPin",
+                "Assets/Modules/Toys/Bugs",
+                "Assets/Modules/Toys/Butterflies",
+                "Assets/Modules/Toys/Cans",
+                "Assets/Modules/Toys/Coins",
+                "Assets/Modules/Toys/Dice",
+                "Assets/Modules/Toys/Dispensers",
+                "Assets/Modules/Toys/Domino",
+                "Assets/Modules/Toys/Dragons",
+                "Assets/Modules/Toys/Droppers",
+                "Assets/Modules/Toys/Food",
+                "Assets/Modules/Toys/Hands",
+                "Assets/Modules/Toys/Help",
+                "Assets/Modules/Toys/Lights",
+                "Assets/Modules/Toys/Mirrors",
+                "Assets/Modules/Toys/Obstacles",
+                "Assets/Modules/Toys/Paddle",
+                "Assets/Modules/Toys/Panoramas",
+                "Assets/Modules/Toys/PinSetter",
+                "Assets/Modules/Toys/Planters",
+                "Assets/Modules/Toys/Rocks",
+                "Assets/Modules/Toys/ScoreBoard",
+                "Assets/Modules/Toys/SkeeBallMachine",
+                "Assets/Modules/Toys/SoccerGoal",
+                "Assets/Modules/Toys/StoneTablet",
+                "Assets/Modules/Toys/Switches",
+                "Assets/Modules/Toys/Tee",
+                "Assets/Modules/Toys/Terrain"
+            ]
+        },
+
+        "Modules_Creatures": {
+            "deployLinkFiles": [
+                "Assets/Modules/Accessories/Deck",
+                "Assets/Modules/Accessories/FootStepper",
+                "Assets/Modules/Accessories/Gripcase",
+                "Assets/Modules/Accessories/Hands",
+                "Assets/Modules/Accessories/Holder",
+                "Assets/Modules/Accessories/Tapper",
+                "Assets/Modules/Accessories/TeamFrame",
+                "Assets/Modules/Canvases/Accessories",
+                "Assets/Modules/Canvases/Avatar",
+                "Assets/Modules/Canvases/AvatarCases",
+                "Assets/Modules/Canvases/AvatarColors",
+                "Assets/Modules/Canvases/AvatarModels",
+                "Assets/Modules/Canvases/Guide",
+                "Assets/Modules/Canvases/Inventory",
+                "Assets/Modules/Canvases/Network",
+                "Assets/Modules/Canvases/Pie",
+                "Assets/Modules/Canvases/Settings",
+                "Assets/Modules/Canvases/Toolbar",
+                "Assets/Modules/Canvases/Toys",
+                "Assets/Modules/Devices/Galaxy",
+                "Assets/Modules/Devices/MacBookAir",
+                "Assets/Modules/Devices/MacBookPro",
+                "Assets/Modules/Devices/iMac",
+                "Assets/Modules/Devices/iPad",
+                "Assets/Modules/Devices/iPhone",
+                "Assets/Modules/Devices/iPod",
+                "Assets/Modules/Scenes/Creatures",
+                "Assets/Modules/Toys/Balls",
+                "Assets/Modules/Toys/Basket",
+                "Assets/Modules/Toys/Bugs",
+                "Assets/Modules/Toys/Butterflies",
+                "Assets/Modules/Toys/Cans",
+                "Assets/Modules/Toys/Coins",
+                "Assets/Modules/Toys/Dice",
+                "Assets/Modules/Toys/Dispensers",
+                "Assets/Modules/Toys/Dragons",
+                "Assets/Modules/Toys/Droppers",
+                "Assets/Modules/Toys/Food",
+                "Assets/Modules/Toys/Hands",
+                "Assets/Modules/Toys/Mirrors",
+                "Assets/Modules/Toys/Planters"
+            ]
+        },
+
+        "Modules_Petzi": {
+            "deployLinkFiles": [
+                "Assets/Modules/Accessories/Deck",
+                "Assets/Modules/Accessories/FootStepper",
+                "Assets/Modules/Accessories/Gripcase",
+                "Assets/Modules/Accessories/Hands",
+                "Assets/Modules/Accessories/Holder",
+                "Assets/Modules/Accessories/Tapper",
+                "Assets/Modules/Accessories/TeamFrame",
+                "Assets/Modules/Canvases/Accessories",
+                "Assets/Modules/Canvases/Avatar",
+                "Assets/Modules/Canvases/AvatarCases",
+                "Assets/Modules/Canvases/AvatarColors",
+                "Assets/Modules/Canvases/AvatarModels",
+                "Assets/Modules/Canvases/Guide",
+                "Assets/Modules/Canvases/Inventory",
+                "Assets/Modules/Canvases/Network",
+                "Assets/Modules/Canvases/Pie",
+                "Assets/Modules/Canvases/Settings",
+                "Assets/Modules/Canvases/Toolbar",
+                "Assets/Modules/Canvases/Toys",
+                "Assets/Modules/Devices/Galaxy",
+                "Assets/Modules/Devices/MacBookAir",
+                "Assets/Modules/Devices/MacBookPro",
+                "Assets/Modules/Devices/iMac",
+                "Assets/Modules/Devices/iPad",
+                "Assets/Modules/Devices/iPhone",
+                "Assets/Modules/Devices/iPod",
+                "Assets/Modules/Scenes/Petzi",
+                "Assets/Modules/Toys/Balls",
+                "Assets/Modules/Toys/Basket",
+                "Assets/Modules/Toys/Bugs",
+                "Assets/Modules/Toys/Butterflies",
+                "Assets/Modules/Toys/Cans",
+                "Assets/Modules/Toys/Coins",
+                "Assets/Modules/Toys/Dice",
+                "Assets/Modules/Toys/Dispensers",
+                "Assets/Modules/Toys/Dragons",
+                "Assets/Modules/Toys/Droppers",
+                "Assets/Modules/Toys/Food",
+                "Assets/Modules/Toys/Hands",
+                "Assets/Modules/Toys/Mirrors",
+                "Assets/Modules/Toys/Planters"
+            ]
+        }
+
+    },
+
+    "buildConfigurations": [
+
+        {
+            "parents": "BaseBuildConfiguration Application_Creatures Platform_iOS_Mobile Modules_Creatures",
+            "id": "Creatures_iOS_Mobile",
+            "deployment": "Creatures_iOS_Mobile",
+            "location": "../Builds/Creatures_iOS_Mobile",
+            "deployLinkFiles": [
+                "Assets/Modules/Core/Pantomime",
+                "Assets/Modules/Applications/Creatures",
+                "Assets/Modules/Platforms/iOS_Mobile"
+            ]
+        },
+
+        {
+            "parents": "BaseBuildConfiguration Application_Creatures Platform_Android_Mobile Modules_Creatures",
+            "id": "Creatures_Android_Mobile",
+            "deployment": "Creatures_Android_Mobile",
+            "location": "../Builds/Creatures_Android_Mobile/Creatures_Android_Mobile.apk",
+            "deployLinkFiles": [
+                "Assets/Modules/Core/Pantomime",
+                "Assets/Modules/Applications/Creatures",
+                "Assets/Modules/Platforms/Android_Mobile"
+            ]
+        },
+
+        {
+            "parents": "BaseBuildConfiguration Application_Creatures Platform_Android_VR Modules_Creatures",
+            "id": "Creatures_Android_VR",
+            "deployment": "Creatures_Android_VR",
+            "location": "../Builds/Creatures_Android_VR/Creatures_Android_VR.apk",
+            "deployLinkFiles": [
+                "Assets/Modules/Core/Pantomime",
+                "Assets/Modules/Applications/Creatures",
+                "Assets/Modules/Platforms/Android_VR"
+            ]
+        },
+
+        {
+            "parents": "BaseBuildConfiguration Application_Petzi Platform_iOS_Mobile Modules_Petzi",
+            "id": "Petzi_iOS_Mobile",
+            "deployment": "Petzi_iOS_Mobile",
+            "location": "../Builds/Petzi_iOS_Mobile",
+            "deployLinkFiles": [
+                "Assets/Modules/Core/Pantomime",
+                "Assets/Modules/Applications/Petzi",
+                "Assets/Modules/Platforms/iOS_Mobile"
+            ]
+        },
+
+        {
+            "parents": "BaseBuildConfiguration Application_Petzi Platform_Android_Mobile Modules_Petzi",
+            "id": "Petzi_Android_Mobile",
+            "deployment": "Petzi_Android_Mobile",
+            "location": "../Builds/Petzi_Android_Mobile/Petzi_Android_Mobile.apk",
+            "deployLinkFiles": [
+                "Assets/Modules/Core/Pantomime",
+                "Assets/Modules/Applications/Petzi",
+                "Assets/Modules/Platforms/Android_Mobile"
+            ]
+        },
+
+        {
+            "parents": "BaseBuildConfiguration Application_Petzi Platform_Android_VR Modules_Petzi",
+            "id": "Petzi_Android_VR",
+            "deployment": "Petzi_Android_VR",
+            "location": "../Builds/Petzi_Android_VR/Petzi_Android_VR.apk",
+            "deployLinkFiles": [
+                "Assets/Modules/Core/Pantomime",
+                "Assets/Modules/Applications/Petzi",
+                "Assets/Modules/Platforms/Android_VR"
+            ]
+        },
+
+        {
+            "parents": "BaseBuildConfiguration Application_Playground Platform_iOS_Mobile Modules_Playground",
+            "id": "Playground_iOS_Mobile",
+            "deployment": "Playground_iOS_Mobile",
+            "location": "../Builds/Playground_iOS_Mobile",
+            "deployLinkFiles": [
+                "Assets/Modules/Core/Pantomime",
+                "Assets/Modules/Applications/Playground",
+                "Assets/Modules/Platforms/iOS_Mobile"
+            ]
+        },
+
+        {
+            "parents": "BaseBuildConfiguration Application_Playground Platform_Android_Mobile Modules_Playground",
+            "id": "Playground_Android_Mobile",
+            "deployment": "Playground_Android_Mobile",
+            "location": "../Builds/Playground_Android_Mobile/Playground_Android_Mobile.apk",
+            "deployLinkFiles": [
+                "Assets/Modules/Core/Pantomime",
+                "Assets/Modules/Applications/Playground",
+                "Assets/Modules/Platforms/Android_Mobile"
+            ]
+        },
+
+        {
+            "parents": "BaseBuildConfiguration Application_Playground Platform_Android_VR Modules_Playground",
+            "id": "Playground_Android_VR",
+            "deployment": "Playground_Android_VR",
+            "location": "../Builds/Playground_Android_Mobile/Playground_Android_VR.apk",
+            "deployLinkFiles": [
+                "Assets/Modules/Core/Pantomime",
+                "Assets/Modules/Applications/Playground",
+                "Assets/Modules/Platforms/Android_VR"
+            ]
+        }
+
+    ]
+
+}
+
+----
+
+~/Pantomime/git/pong/PantomimePong/Assets/Modules/Core/Pantomime/Code/Editor/PantomimeBuilder.cs
+
+~/Pantomime/git/pong/PantomimePong/Assets/Modules/Core/Pantomime/Code/Editor/PantomimeBuilderWindow.cs

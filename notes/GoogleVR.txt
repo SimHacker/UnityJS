@@ -1,0 +1,85 @@
+Welcome to VR at Google
+https://developers.google.com/vr
+
+Google VR SDK for Unity
+https://developers.google.com/vr/unity/
+
+https://github.com/googlevr
+https://github.com/googlevr/gvr-unity-sdk
+https://github.com/googlevr/gvr-ios-sdk
+https://github.com/googlevr/gvr-android-sdk
+https://github.com/googlevr/vrview
+https://github.com/googlevr/webvr-polyfill
+https://github.com/googlevr/tilt-brush-toolkit
+
+----
+
+http://stackoverflow.com/questions/41143988/unity3d-5-6-vr-cardboard-application-incorrectly-displays-on-device
+
+As written in Unity forum here:
+https://forum.unity3d.com/threads/google-vr-sdk-1-10-unity-5-5-broken.445323/
+for VR for cardboard development it' better for now to stick to using Unity 5.4.2 with Google VR SDK 10.3.
+
+----
+
+https://forum.unity3d.com/threads/google-vr-sdk-1-10-unity-5-5-broken.445323/
+
+Google VR SDK 1.10 + Unity 5.5 broken?
+
+Native GVR integration will be coming in Unity 5.6. The betas are out
+now but I would hold off to beta 3 due to a few issues that took a
+while to nail down.
+
+If you want to use Cardboard with the legacy support provided by the
+Google Unity SDK I believe that should be possible if you can find the
+instructions on how to do that from the Google VR developer site. If
+you go that route (and this is my guess here) I don't think that
+Carboard will ever show up in the VR list and that you have to work
+with the SDK using a standard Unity Android project that is not VR
+enabled.
+
+If you start with 5.4.3 GVR 13 you should have a fairly safe upgrade
+path to Unity 5.6 when it launches.
+
+Now, to the issue with 5.4.3: Are you sure that you have Android
+selected as the target platform? Because Cardboard and Daydream ONLY
+show up int he VR device list there.
+
+When you say you "start the controller demo scene" what do you mean?
+Do you mean you are installing and playing the app on a device or that
+you are just running it in Play mode in the Unity editor? If the
+latter, I am pretty sure that is not a supported scenario and that you
+will need to use a Cardboard device. Also note that the controller
+integration is for Daydream only. Cardboard does not support the
+Daydream controller that I am aware of.
+
+----
+
+https://github.com/googlevr/gvr-unity-sdk/issues/136
+
+11-11 05:58:50.714 20012 20025 E Unity   : Exception calling static method setUnityApplicationState: UnityEngine.AndroidJavaException: java.lang.ClassCastException: com.unity3d.player.UnityPlayerActivity cannot be cast to com.google.unity.GoogleUnityActivity
+11-11 05:58:50.714 20012 20025 E Unity   : java.lang.ClassCastException: com.unity3d.player.UnityPlayerActivity cannot be cast to com.google.unity.GoogleUnityActivity
+11-11 05:58:50.714 20012 20025 E Unity   : 	at com.google.vr.platform.unity.UnityVrActivityListener.setUnityApplicationState(UnityVrActivityListener.java:78)
+11-11 05:58:50.714 20012 20025 E Unity   : 	at com.unity3d.player.UnityPlayer.nativeRender(Native Method)
+11-11 05:58:50.714 20012 20025 E Unity   : 	at com.unity3d.player.UnityPlayer.a(Unknown Source)
+11-11 05:58:50.714 20012 20025 E Unity   : 	at com.unity3d.player.UnityPlayer$b$1.handleMessage(Unknown Source)
+11-11 05:58:50.714 20012 20025 E Unity   : 	at android.os.Handler.dispatchMessage(Handler.java:98)
+11-11 05:58:50.714 20012 20025 E Unity   : 	at android.os.Looper.loop(Looper.java:158)
+11-11 05:58:50.714 20012 20025 E Unity   : 	at com.unity3d.player.UnityPlayer$b.run(Unknown Source)
+11-11 05:58:50.714 20012 20025 E Unity   :   at UnityEngine.AndroidJNISafe.CheckException () [0x00000] in <filename unknown>:0 
+11-11 05:58:50.714 20012 20025 E Unity   :   at UnityEngine.AndroidJNISafe.CallStaticVoidMethod (IntPtr clazz, IntPtr methodID, UnityEngine.jvalue[] args) [0x00000] in <filename unknow
+11-11 05:58:50.754 20012 20025 E Unity   : Exception creating object com.google.vr.platform.unity.UnityVrActivityListener: UnityEngine.AndroidJavaException: java.lang.ClassCastException: com.unity3d.player.UnityPlayerActivity cannot be cast to com.google.unity.GoogleUnityActivity
+11-11 05:58:50.754 20012 20025 E Unity   : java.lang.ClassCastException: com.unity3d.player.UnityPlayerActivity cannot be cast to com.google.unity.GoogleUnityActivity
+11-11 05:58:50.754 20012 20025 E Unity   : 	at com.google.vr.platform.unity.UnityVrActivityListener.<init>(UnityVrActivityListener.java:93)
+11-11 05:58:50.754 20012 20025 E Unity   : 	at com.unity3d.player.UnityPlayer.nativeRender(Native Method)
+11-11 05:58:50.754 20012 20025 E Unity   : 	at com.unity3d.player.UnityPlayer.a(Unknown Source)
+11-11 05:58:50.754 20012 20025 E Unity   : 	at com.unity3d.player.UnityPlayer$b$1.handleMessage(Unknown Source)
+11-11 05:58:50.754 20012 20025 E Unity   : 	at android.os.Handler.dispatchMessage(Handler.java:98)
+11-11 05:58:50.754 20012 20025 E Unity   : 	at android.os.Looper.loop(Looper.java:158)
+11-11 05:58:50.754 20012 20025 E Unity   : 	at com.unity3d.player.UnityPlayer$b.run(Unknown Source)
+11-11 05:58:50.754 20012 20025 E Unity   :   at UnityEngine.AndroidJNISafe.CheckException () [0x00000] in <filename unknown>:0 
+11-11 05:58:50.754 20012 20025 E Unity   :   at UnityEngine.AndroidJNISafe.NewObject (IntPtr clazz, IntPtr methodID, UnityEngine.jvalue[] args) [0x00000] in <filename unknown>:0 
+11-11 05:58:50.754 20012 20025 E Unity   :  
+11-11 05:58:50.764 20012 20025 E Unity   : Object is null when calling method setVRModeEnabled
+
+----

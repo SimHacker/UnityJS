@@ -1,0 +1,22 @@
+Craig Latta
+
+https://thiscontext.com/2017/06/22/caffeine-livecode-the-web/
+
+https://www.youtube.com/user/threnkeldwingnut/videos?view=0&shelf_id=0&sort=dd
+
+http://netjam.org/context/
+
+http://netjam.org/spoon/viz/
+
+https://thiscontext.com/author/ccrraaiigg/
+
+Livecoding other tabs with the Chrome Remote Debugging Protocol
+
+We’ve seen how to use Caffeine to livecode the webpage in which we’re running. With its support for the Chrome Remote Debugging Protocol (CRDP), we can also use it to livecode every other page loaded in the web browser.
+
+Some Help From the Inside
+To make this work, we need to coordinate with the Chrome runtime engine. For CRDP, there are two ways of doing this. One is to communicate using a WebSocket connection; I wrote about this last year. This is useful when the CRDP client and target pages are running in two different web browsers (possibly on two different machines), but with the downside of starting the target web browser in a special way (so that it starts a conventional webserver).
+
+The other way, possible when both the CRDP client and target pages are in the same web browser, is to use a Chrome extension. The extension can communicate with the client page over an internal port object, created by the chrome.runtime API, and expose the CRDP APIs. The web browser need not be started in a special way, it just needs to have the extension installed. I’ve published a Caffeine Helper extension, available on the Chrome Web Store. Once installed, the extension coordinates communication between Caffeine and the CRDP.
+
+https://chrome.google.com/webstore/detail/caffeine-helper/hmfnphcjichoefnnncadoikiboacckmk

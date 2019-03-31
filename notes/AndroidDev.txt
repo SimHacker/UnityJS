@@ -1,0 +1,135 @@
+Mac Android SDK gets installed in:
+~/Library/Android/sdk
+
+Edit ~/.bashrc
+
+export ANDROID_HOME=~/Library/Android/sdk
+export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Open project in Android Studio:
+
+Check the Build Settings / Android / Google Android Project checkbox.
+
+Build project in Unity.
+
+Import project into Android Studio.
+  
+----
+
+List devices:
+adb devices
+
+Install on device:
+adb -d install -r ~/Jaunt/git/amsterdam/unity/HyperJaunt/Builds/Android/HyperJaunt.apk
+
+adb -d logcat -c ; adb -d logcat -s Unity
+
+Show logs:
+adb -d logcat -s Unity
+
+Establish bridge so Unity can profile:
+adb forward tcp:54999 localabstract:Unity-com.jauntvr.hyperjaunt
+
+https://docs.unity3d.com/Manual/Profiler.html
+
+build and run creates this bridge process:
+adb -P 5037 fork-server server --reply-fd 4
+
+Record screen:
+adb shell screenrecord /sdcard/demo.mp4
+adb -s 192.168.2.23:5555 shell screenrecord --time-limit 10 --bit-rate 8000000 /sdcard/demo.mp4
+
+ADB via WiFi:
+http://stackoverflow.com/questions/2604727/how-can-i-connect-to-android-with-adb-over-tcp
+Connect via USB.
+adb tcpip 5555
+View phone ip in Settings > About Phone > Status.
+adb connect 192.168.0.56
+
+
+adb -s 192.168.0.56:5555 logcat -c; adb -s 192.168.0.56:5555 logcat
+adb -s 192.168.0.56:5555 logcat -c; adb -s 192.168.0.56:5555 logcat -s Unity
+adb -s 192.168.0.56:5555 logcat -s Unity
+
+start.bat
+adb shell am force-stop com.Oculus.UnitySample
+adb shell am start -n com.Oculus.UnitySample/com.unity3d.player.UnityPlayerNativeActivity
+
+stop.bat
+adb shell am force-stop com.Oculus.UnitySample
+
+Workflow for debugging:
+https://forums.oculus.com/viewtopic.php?t=18021
+
+Getting Started with Oculus Mobile Sdk
+http://aaron.jaxns.net/
+
+Unity 5.1 VR Getting Started
+http://forum.unity3d.com/threads/unity-5-1-vr-getting-started.332316/page-2
+
+----
+
+Create and log into Oculus account.
+https://developer.oculus.com
+
+Set developer mode on device.
+Settings => About Device => Software Info => tap "Build number" a bunch of times.
+
+Configure developer mode to allow USB debugging.
+Settings => Developer options => USB Debugging: On
+
+Plug device into USB.
+
+Get ids of connected Android devices:
+adb devices
+
+Generate Oculus Signature File (osig) for each device.
+https://developer.oculus.com/osig/
+
+Enter device id.
+
+Download oculussig_XXXX file.
+
+Put Oculus Signature files into directory:
+PantomimePong/Assets/Plugins/Android/assets
+
+----
+
+https://www.reddit.com/r/GearVR/comments/2qcryc/step_by_step_guide_to_building_apps_for_the_gear/
+
+----
+
+http://static.oculus.com/sdk-downloads/documents/OculusMobile_SubmissionGuidelines.pdf
+
+----
+
+http://stackoverflow.com/questions/19940179/conflict-between-vuforia-plugin-and-prime31-facebook-plugin-for-android-on-unity
+
+https://gist.githubusercontent.com/prime31/0908e6100d7e228f1add/raw/a5d96177c8d8fde548068d2a15de49acdb2023ec/Android+Activity+Sharing
+
+http://forum.unity3d.com/threads/androidmanifest-com-unity3d-player-unityplayerproxyactivity.285973/
+
+https://gist.github.com/prime31/0908e6100d7e228f1add
+
+https://prime31.com/docs#androidSocial
+
+https://prime31.com/docs#iosTroubleshooter
+
+----
+
+Developing Unity Extensions with Android Studio
+
+Unity Android plugin tutorial
+http://eppz.eu/blog/unity-android-plugin-tutorial-1/
+http://eppz.eu/blog/unity-android-plugin-tutorial-2/
+http://eppz.eu/blog/unity-android-plugin-tutorial-3/
+
+----
+
+MonoPInvokeCallback
+
+https://developer.xamarin.com/api/type/MonoTouch.MonoPInvokeCallbackAttribute/
+
+https://github.com/orbotix/UNITY-PLUGIN/search?utf8=%E2%9C%93&q=MonoPInvokeCallback
+
+----

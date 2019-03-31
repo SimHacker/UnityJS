@@ -1,0 +1,124 @@
+========================================================================
+Interesting Directories and Files:
+========================================================================
+
+UnityJS
+  Unity application directory
+
+UnityJS/Assets
+  Unity project Assets directory.
+
+UnityJS/Assets/Libraries
+  UnityJS and third party libraries, including JsonDotNet, LeanTween,
+  SocketIO, and TextMesh Pro.
+
+UnityJS/Assets/Libraries/UnityJS
+  UnityJS library.
+
+UnityJS/Assets/Libraries/UnityJS/Plugins
+  UnityJS plugins for Android, WebGL, iOS, macOS and Windows
+  platforms.
+
+UnityJS/Assets/Libraries/UnityJS/Resources
+  Resources used by UnityJS and example code, including Materials,
+  Meshes, PhysicMaterials, Prefabs, SDFFonts, Shaders, Skyboxes and
+  Textures.
+
+UnityJS/Assets/Libraries/UnityJS/Scenes
+  UnityJS scenes.
+
+UnityJS/Assets/Libraries/UnityJS/Scripts
+  UnityJS scripts.
+
+UnityJS/Assets/Libraries/UnityJS/Scripts/Accessor.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Bow.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Bridge.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/BridgeExtensions.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/BridgeJsonConverter.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/BridgeObject.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/BridgeTest.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/BridgeTransport.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/BridgeTransportSocketIO.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/BridgeTransportWebGL.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/BridgeTransportWebView.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/BrowserRenderer.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Bundle.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/CatmulRomSpline.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Cuboid.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/HexBase.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/HexTile.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Item.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/KeyboardTracker.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/KineticText.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/LeanTweenBridge.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Loader.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/MonoPInvokeCallbackAttribute.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/NamedAsset.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/NamedAssetManager.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/OverlayText.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/ParticleSystemBridge.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Pie.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/PieTracker.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/ProCamera.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/ProText.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/ProxyGroup.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Rainbow.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Scoop.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Slice.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/TextOverlays.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/TextureViewer.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Tile.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/ToolbarButton.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Tracker.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/TrackerProxy.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/UnityBridge.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/UnityJSPlugin.cs
+UnityJS/Assets/Libraries/UnityJS/Scripts/Wire.cs
+
+UnityJS/Assets/Libraries/UnityJS/link.xml
+  Linker xml configuration file, which declares which assemblies
+  should have their symbols preserved in order for reflection to work.
+
+  If you get runtime errors about undefined names on a Unity or third
+  party class that should be defined, add a declaration of its
+  assembly with preserve="all" to this file.
+
+UnityJS/Assets/StreamingAssets
+  Directory of streaming web based files including JavaScript, CSS,
+  HTML, etc.
+
+UnityJS/Assets/StreamingAssets/bridge.css
+UnityJS/Assets/StreamingAssets/bridge.html
+UnityJS/Assets/StreamingAssets/bridge.jss
+UnityJS/Assets/StreamingAssets/game.html
+UnityJS/Assets/StreamingAssets/game.jss
+UnityJS/Assets/StreamingAssets/sheets
+UnityJS/Assets/StreamingAssets/sheets-index.jss
+UnityJS/Assets/StreamingAssets/sheets.jss
+UnityJS/Assets/StreamingAssets/unity.jss
+
+UnityJS/Assets/WebGLTemplates
+  Templates for wrapping WebGL UnityJS apps.
+
+UnityJS/Builds
+  Unity build output directories for Android, WebGL, iOS, Windows
+  platforms.
+
+build
+  Scripts and Packager Unity application directory to build
+  distribution of Unity extension.
+
+dist
+  Destination directory for distribution of built Unity extension.
+
+doc
+  UnityJS documentation.
+
+notes
+  Interesting notes and links.
+
+plugins
+  Source code of UnityJS plugin for Android, WebGL, Windows, iOS and
+  macOS platforms.
+
+========================================================================

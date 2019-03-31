@@ -1,0 +1,54 @@
+http://v002.info/forums/topic/texture-from-nsbitmapimagerep-to-syphonserver/
+
+https://code.google.com/archive/p/cogewebkit/
+
+https://github.com/irlabs/TransparentWebView
+
+https://github.com/DouglasHeriot/syphon-implementations/tree/master/Syphon%20Implementations/SyphonScreenCapture
+
+https://developer.apple.com/reference/appkit/nsview
+
+https://developer.apple.com/reference/appkit/nsview/1483440-bitmapimagerepforcachingdisplayi?language=objc
+
+https://developer.apple.com/reference/appkit/nsview/1483552-cachedisplayinrect?language=objc
+
+https://developer.apple.com/reference/appkit/nsbitmapimagerep
+
+https://developer.apple.com/reference/appkit/nsbitmapimagerep/1395550-initwithfocusedviewrect
+
+http://stackoverflow.com/questions/24727499/wkwebview-screenshots
+
+https://github.com/lemonmojo/WKWebView-Screenshot
+
+https://bugs.webkit.org/show_bug.cgi?id=161450
+No reliable way to get a snapshot of WKWebView (macOS)
+
+The cocoa API -[NSView cacheDisplayInRect:(NSRect)rect
+toBitmapImageRep:(NSBitmapImageRep *)bitmapImageRep] does not work for
+WKWebView, it only returns an empty image. We need a way to get the
+visible contents of the web page on macOS. The UI is rendered in a
+separate process, there should be an API to grab the visible bitmap
+from the UI process and expose it as a method on WKWebView that the
+embedding application can consume. We need to be able to grab the web
+page contents regardless if the WKWebView is hidden or overlapped by
+other views, CGWindowListCreateImage will not work for that scenario.
+
+For iOS, you can use the -[UIView drawViewHierarchyInRect:(CGRect)rect
+afterScreenUpdates:(BOOL)afterUpdates] API to get the web page
+contents.
+
+----
+
+WkWebKit uses a remote CALayer
+
+http://stackoverflow.com/questions/9293409/can-caremotelayerserver-and-caremotelayerclient-be-used-between-processes
+CARemoteLayerServer
+CARemoteLayerClient
+
+https://github.com/krevis/RemoteLayerDemo
+
+https://oleb.net/blog/2012/10/remote-view-controllers-in-ios-6/
+
+http://stackoverflow.com/questions/24727499/wkwebview-screenshots
+
+https://developer.apple.com/reference/uikit/uiview/1622531-snapshotviewafterscreenupdates

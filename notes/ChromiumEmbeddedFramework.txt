@@ -1,0 +1,33 @@
+https://bitbucket.org/chromiumembedded/cef
+https://bitbucket.org/chromiumembedded/cef/wiki/GeneralUsage
+https://bitbucket.org/chromiumembedded/cef/wiki/JavaScriptIntegration.md
+https://bitbucket.org/chromiumembedded/cef/wiki/Tutorial
+http://coherent-labs.com/blog/what-developers-should-consider-when-using-chromium-embedded-framework-cef-in-their-games/
+http://blog.nalates.net/2015/10/10/tutorial-chromium-embedded-framework-cef/
+http://blogs.adobe.com/webplatform/2013/05/01/the-chromium-embedded-framework/
+http://magpcss.org/ceforum/apidocs3/
+http://magpcss.org/ceforum/viewtopic.php?f=6&t=10242
+http://gamedev.stackexchange.com/questions/111846/chromium-embedded-framework-and-unity3d
+https://forum.unity3d.com/threads/is-it-possible-to-use-cef3-chromium-embedded-framework-in-a-unity-windows-project.360989/
+
+http://coherent-labs.com/product-coherent-ui/
+
+----
+
+https://bitbucket.org/xilium/xilium.cefglue/wiki/Home
+
+Xilium.CefGlue is a .NET/Mono binding for The Chromium Embedded Framework (CEF) by Marshall A. Greenblatt.
+This project supports CEF version 3.
+CEF version 1 supported by other project with similar name CefGlue.
+To get more info checkout Xilium.CefGlue/3 & CefGlue/1 topic, CefGlue forum, and CefGlue discussion group.
+Current Xilium's CEF3 builds available on project website.
+Licensing
+This project is licensed under MIT License with portions of code licensed under New BSD License.
+
+----
+
+http://magpcss.org/ceforum/apidocs3/projects/(default)/CefWindowInfo.html
+
+https://gist.github.com/totherik/3a4432f26eea1224ceeb
+v8 --allow-natives-syntax RuntimeFunctions
+

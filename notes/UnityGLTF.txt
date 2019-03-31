@@ -1,0 +1,44 @@
+https://github.com/KhronosGroup/UnityGLTF
+
+https://github.com/KhronosGroup/UnityGLTF/issues/357
+
+edumlauer commented 26 days ago
+We have a slightly modified version of the app running on WebGL.
+
+You can try this:
+
+Revert WebRequestLoader.cs to this version:
+https://github.com/KhronosGroup/UnityGLTF/blob/83d267f2616585fc8aba5391c003c9a5538ada97/UnityGLTF/Assets/UnityGLTF/Scripts/Loader/WebRequestLoader.cs
+
+Alter this line
+
+UnityGLTF/UnityGLTF/Assets/UnityGLTF/Scripts/GLTFComponent.cs
+
+Line 100 in bb189f3
+
+ loader = new WebRequestLoader(directoryPath); 
+to loader = new WebRequestLoader(directoryPath, asyncCoroutineHelper);
+And this line
+
+UnityGLTF/UnityGLTF/Assets/UnityGLTF/Examples/MultiSceneComponent.cs
+
+Line 24 in ce8485e
+
+ _loader = new WebRequestLoader(directoryPath); 
+to loader = new WebRequestLoader(directoryPath, _asyncCoroutineHelper);
+Disable the Multithreaded property from the GLTFComponent.
+
+----
+
+So I have included 2 shaders in the graphics settings
+
+PbrMetallicRoughness
+PbrSpecularGlossiness
+Then I was waiting for like 3 hours for building, then I realize that it repeats "compiling shader variants" infinitely:
+
+
+Why is that build process so miserable?
+
+The Scene Loader for some reason wants to use always those 2 shaders for every loaded 3d model even if the model was made using simple unity default shaders. That is really strange. And you should include those 2 shaders in the graphics settings in order to have them in the build. Now building takes ages to compile thousands of shader variants.
+
+https://github.com/KhronosGroup/UnityGLTF/pull/367

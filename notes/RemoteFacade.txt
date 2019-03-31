@@ -1,0 +1,8 @@
+Remote Facade
+Data Transfer Object
+
+https://martinfowler.com/eaaCatalog/remoteFacade.html
+https://stackoverflow.com/questions/20527419/remote-facade-pattern-vs-facade-pattern
+http://www.cs.sjsu.edu/~pearce/modules/patterns/enterprise/persistence/dto.htm
+https://www.reddit.com/r/csharp/comments/7oea5n/help_understanding_martin_fowlers_remote_facade/
+https://en.wikipedia.org/wiki/Data_transfer_object

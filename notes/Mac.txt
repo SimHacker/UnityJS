@@ -1,0 +1,17 @@
+Syphon
+http://syphon.v002.info/
+
+http://v002.info/forums/topic/vlckit-to-syphon/
+https://github.com/rsodre/VLCSyphon
+
+IOSurface
+https://developer.apple.com/reference/iosurface
+https://developer.apple.com/reference/iosurface/1658837-iosurfaceapi.h
+http://cocoadhoc.blogspot.nl/2009/09/hidden-gems-of-snow-leopard-iosurface.html
+http://cocoadhoc.blogspot.nl/2009/10/hidden-gems-of-snow-leopard-iosurface_15.html
+http://cocoadhoc.blogspot.nl/2009/10/hidden-gems-of-snow-leopard-iosurface.html
+https://code.google.com/archive/p/iosurfacetest/
+http://iphonedevwiki.net/index.php/IOSurface.framework
+http://stackoverflow.com/questions/23162334/can-i-use-iosurface-framework-to-record-screen-in-production
+http://stackoverflow.com/questions/11090184/how-does-the-ios-app-display-recorder-record-the-screen-without-using-private-ap
+https://github.com/coolstar/RecordMyScreen

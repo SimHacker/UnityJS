@@ -1,0 +1,68 @@
+In order to debug WebView on OS/X you must have the proper entitlement.
+
+com.apple.security.get-task-allow: YES
+
+----
+
+https://forums.developer.apple.com/message/75896#75896
+
+JoePeck
+Oct 15, 2015 8:21 PM
+(in response to pbodsk_ReelTrak)
+
+To remotely inspect an OS X application with Safari you need to give
+the OS X application the "com.apple.security.get-task-allow"
+entitlement with a boolean true (YES) value. That will allow Safari to
+remotely inspect WKWebViews in your application.
+ 
+On iOS, similiar entitlements are automatically included in your applications when they are built with a Development Provisioning profile, so no extra step is needed there.
+ 
+For more information, see the 2014 WWDC Presentation titled "Web Inspector and Modern JavaScript".
+https://developer.apple.com/videos/play/wwdc2014-512/
+
+----
+
+https://forum.unity3d.com/threads/how-to-put-ios-entitlements-file-in-a-unity-project.442277/
+
+----
+
+XCode Project UnityJS, Target UnityJS, Build Phases, Run - Installing bundle into DerivedData
+
+This build phase script is required to adjust the framework dependencies so the plugin works both in the unity editor and build apps.
+It renames the @executable_path relative path to the libmono framework so it has the correct path as used in the current version of the unity editor.
+(Apparently this changed at some point, and it stopped working then.)
+Renaming path to libmono with install_name_tool...
+Installing bundle into DerivedData...
+
+echo "================================================="
+echo BUILT_PRODUCTS_DIR $BUILT_PRODUCTS_DIR
+echo DESTINATION_FILENAME $DESTINATION_FILENAME
+echo PRODUCT_NAME $PRODUCT_NAME
+echo SRCROOT $SRCROOT
+echo "================================================="
+echo "Renaming path to libmono with install_name_tool..."
+echo $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME
+ls -l $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS.bundle/Contents/MacOS/UnityJS
+echo "BEFORE"
+otool -L $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS.bundle/Contents/MacOS/UnityJS
+
+echo install_name_tool -change @executable_path/../Frameworks/MonoEmbedRuntime/osx/libmono.0.dylib @executable_path/../Frameworks/Mono/MonoEmbedRuntime/osx/libmono.0.dylib $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS.bundle/Contents/MacOS/UnityJS
+install_name_tool -change @executable_path/../Frameworks/MonoEmbedRuntime/osx/libmono.0.dylib @executable_path/../Frameworks/Mono/MonoEmbedRuntime/osx/libmono.0.dylib $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS.bundle/Contents/MacOS/UnityJS
+echo "AFTER"
+otool -L $BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME/UnityJS.bundle/Contents/MacOS/UnityJS
+
+echo "================================================="
+echo "Installing bundle into DerivedData..."
+DESTINATION_DIR="$SRCROOT/DerivedData"
+echo DESTINATION_DIR $DESTINATION_DIR
+DESTINATION_FILENAME="$PRODUCT_NAME.bundle"
+echo DESTINATION_FILENAME $DESTINATION_FILENAME
+echo Removing "$DESTINATION_DIR/$DESTINATION_FILENAME"
+rm -rf "$DESTINATION_DIR"
+mkdir -p "$DESTINATION_DIR"
+echo Copying "$BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME" to "$DESTINATION_DIR"
+cp -r "$BUILT_PRODUCTS_DIR/$DESTINATION_FILENAME" "$DESTINATION_DIR"
+echo NOW
+ls -l "$DESTINATION_DIR"
+
+----

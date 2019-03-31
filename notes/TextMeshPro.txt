@@ -1,0 +1,34 @@
+Differences between TextMeshPro and TextMeshProUGUI
+
+    TextMeshPro.colorGradient -vs- TextMeshProUGUI.ColorGradient
+    both have OverflowMode instead of overflowMode
+
+Creating the SDF fonts:
+
+Window => TextMeshPro - Font Asset Creator
+
+Font Source: Assets/Content/Fonts/TitanOne-Regular.ttf
+
+Font Size: Auto Sizing
+
+Font Padding: 16
+
+Packing Method: Optimum
+
+Atlas Resolution: 1024 x 1024
+
+Character Set: Characters from File
+Character File: Assets/Resources/SDFFonts/TitanOne-Regular Characters.txt
+
+Font Style: Normal 2
+
+Font Render Mode: Distance Field 16
+
+Get Kerning Pairs? Checked
+
+Press "Generate Font Atlas".
+
+Wait.
+
+Press "Save TextMeshPro Font Asset".
+Assets/Resources/SDFFonts/TitanOne-Regular SDF.asset

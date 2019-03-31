@@ -1,0 +1,138 @@
+Usage scenarios:
+    Editor desktop development.
+        Mac, Windows.
+        Optimize for high power, developer productivity.
+        Integrate with desktop development environments, programming and debugging tools.
+    Runtime mobile player.
+        iOS, Android, 2D and VR Displays.
+        Optimize for small memory, low power, high efficiency.
+        Remote interactive debugging with desktop development tools.
+    Runtime standalone player.
+        Mac, Windows, Linux, 2D and VR Displays.
+        Optimize for spectacular performance on powerful hardware.
+    Runtime console player.
+        PS, etc, 2D and VR Displays.
+        Optimize for spectacular performance on powerful hardware.
+    Runtime standalone server.
+        Mac, Windows, Linux, Headless.
+        Optimize for network messaging and content management.
+        Networking hub, home lobby and messaging server, game server, content manager, media server. 
+
+Platforms:
+  Android
+  iOS
+   OS/X
+     Editor
+     Standalone	
+  Windows
+    Editor
+    Standalone	
+  Linux
+    Standalone
+  Consoles
+ 
+Browsers:
+   Android:
+     WebView
+       Older versions of Android.
+         - Obsolete.
+         - In-process.
+         - Not independently updated.
+         + Can get browser image.
+         - BUG: Must change url of js file in html to force reload of changes to js.
+      Newer versions of Android. <== BEST
+        + Modern.
+        + Out-of-process.
+        + Independently updated Chrome.
+        + Can get browser image.
+  iOS:
+    UIWebView
+      - Obsolete.
+      - In-process.
+      + Debuggable.
+      - No JIT.
+      + Can get browser image.
+    WkWebView <== BEST
+      + Modern.
+      + Out-of-process.
+      + Debuggable.
+      + JIT.
+      + Can get browser image.
+  OS/X:
+     WebView
+      - Obsolete.
+      - In-process.
+      - Not debuggable.
+      + Can get browser image.
+    WkWebView
+      + Modern.
+      + Out-of-process
+      - Not debuggable.
+      - Can't get browser image.
+    CEF
+      + Modern.
+      + Debuggable.
+      + Framework linked into Unity app.
+      - Conflicts with Unity editor. (Which is already using its own CEF framework.)
+      + Can get browser image.
+      + Cross platform.
+    Electron <== BEST
+      + Modern.
+      + Debuggable.
+      + App runs as seperate process.
+      + Doesn't conflict with Unity editor.
+      + Can get browser image.
+      + Cross platform.
+      + External process.
+      + Node server APIs and libraries.
+  Windows:
+    Internet Explorer
+      - Obsolete.
+    Edge
+      + Modern.
+      - Not supported as embedded component.
+    CEF
+      + Modern.
+      - Incompatible with Unity editor.
+      + Can get browser image.
+    Electron <== BEST
+      + Modern.
+      + Incompatible with Unity editor.
+      + Can get browser image.
+      + Cross platform.
+      + External process.
+      + Node server APIs and libraries.
+  Linux:
+    CEF
+  Console:
+    More research required for specific platforms.
+    CEF
+      + Maybe (GTA V).
+    Electron
+      + Probably not.
+    Built-in Browser
+      + Maybe
+    Commercial Browser
+      + Maybe.
+
+CEF is a good solution if you just need a browser but not the ability
+to use Node libraries, except that the Unity editor uses it too (which
+validates the idea, but makes it impossible to use a Unity extension
+that has its own version of CEF).
+
+The Unity editor integrates CEF and wraps it in C#, and they have
+impemented a JSON based messaging system similar to what we are
+developing, which they use for the Unity asset store, cloud build and
+other service integration. It's interesting to look at what they have
+done in C# and JavaScript to integrate the web browser, but it's not a
+good idea to build on top of that code since it's undocumented, not
+supported, and not under our own control.
+
+The advantage of Electron over CEF is that it provides all the Node
+APIs, so you can run many off-the-shelf node modules, including all
+kinds of services like http, WebSockets, SocketIO, etc. It also
+provides integration with the native platform required to implement
+desktop applications and user interfaces. It is built as an
+application that runs in its own process, so Unity communicates with
+it via IPC instead of linking a framework directly. 
+

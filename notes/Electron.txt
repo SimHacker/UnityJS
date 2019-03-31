@@ -1,0 +1,37 @@
+https://openfin.co/2015/12/07/why-were-moving-to-electron/
+https://discuss.atom.io/t/electron-vs-brightray-vs-libchromiumcontent-what-to-use-for-following-scenarios/16917
+http://www.tivix.com/blog/nwjs-and-electronjs-web-technology-desktop/
+https://www.akawebdesign.com/2015/05/06/electron-vs-nwjs/
+
+----
+
+http://electron.atom.io/docs/tutorial/offscreen-rendering/
+
+----
+
+http://electron.atom.io/docs/tutorial/using-native-node-modules/
+
+Manually building for Electron
+
+If you are a developer developing a native module and want to test it
+against Electron, you might want to rebuild the module for Electron
+manually. You can use node-gyp directly to build for Electron:
+
+cd /path-to-module/
+HOME=~/.electron-gyp node-gyp rebuild --target=1.2.3 --arch=x64 --dist-url=https://atom.io/download/electron
+
+The HOME=~/.electron-gyp changes where to find development headers.
+The --target=1.2.3 is version of Electron. The --dist-url=...
+specifies where to download the headers. The --arch=x64 says the
+module is built for 64bit system.
+
+----
+
+Enable Flash Plugin in a <webview> Tag
+
+Add plugins attribute to <webview> tag.
+
+<webview src="http://www.adobe.com/software/flash/about/" plugins></webview>
+
+----
+

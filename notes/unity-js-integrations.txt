@@ -1,0 +1,148 @@
+Purpose
+
+    Unity-JS is a cross platform Unity3D extension for efficiently
+    integrating JavaScript with C# via JSON messaging.
+
+    It provides a high level cross platform JavaScript <=> C# bridge
+    built on top of platform specificic integrations of the native web
+    browser and JavaScript virtual machines on iOS, Android, macOS and
+    Windows.
+
+    It uses JSON based representations and domain specific
+    languages for specific C# and Unity classes and APIs.
+
+Prefabs
+
+    Create, configure, control and destroy objects from prefabs.
+
+    Refer to objects by identifiers.
+
+    Send messages with parameters to objects.
+
+    Read and write properties of objects and sub-objects.
+
+    Subscribe to events with configurable parameters from objects.
+
+Traversal
+
+    Generic path syntax and accessor interface that lets you traverse
+    and navigate through intertwingled heterogeneous C# objects, Unity
+    transforms, components and other structures, reading and writing any
+    of their content and properties, automatically converting between C#
+    and JSON representations.
+
+    Each component of a path may traverse objects in various ways,
+    including:
+
+        C# Array
+            Read and write an array with an integer index.
+
+        C# List
+            Read and write a list with an integer index.
+
+        C# Dictionary
+            Read and write a dictionary with a string key.
+
+        C# Object Fields
+            Read and write a C# object field with a string field name.
+
+        C# Object Properties
+            Read and write a C# object property with a string property
+            name.
+
+        Unity Transforms
+            Navigate to a Unity transform child or parent node with a
+            string GameObject name or integer child index.
+
+        Unity Components
+            Switch to a different Unity component on the same
+            GameObject (using GetComponent, like QueryInterface) with
+            a string class name.
+
+JSON <=> C# Data Type Converstion
+
+    C# reflection, access and optimization utilities.
+
+    JSON <=> C# conversion utilities.
+
+    Registry of JSON <=> C# data type converters.
+
+JSON Messaging System
+
+    Efficiently send JSON messages back and forth between Unity and
+    JavaScript.
+
+    Register JavaScript event handlers for Unity events.
+
+    Event handlers may pre-configure exactly which results to send
+    with each event with a dict of traversal paths, to optimize round
+    trips and bandwidth.
+
+    So each event handler can decide up front exactly which parameters
+    it's interested in, which may come from anywhere accessible by
+    path expressions.
+
+    You can implement higher level, convenient, json friendly bridge
+    components that wrap other lower level components, and expose high
+    level properties and messages to JavaScript.
+
+Web Browser Texture Integration
+
+    Efficiently transfer web offscreen browser graphics into Unity
+    textures to render into the 3D world.
+
+Mouse Tracking
+
+    TrackableBridgeObject provides mouse tracking, ray casting, event
+    subscription, etc.
+
+    Subscribe to MouseEnter, MouseExit, MouseDown, MouseUp,
+    MouseUpAsButton, MouseDrag, MouseOver.
+
+    Optional raycasting, which handlers can turn on and off, and
+    request to be sent just the parameters they require.
+
+Gaze Tracking (TOREDO)
+
+    GazableBridgeObject provides gaze tracking, ray casting, event
+    subscription, etc.
+
+TextMeshPro
+
+      Configure and control TextMeshPro properties and content.
+
+iTween
+
+    Create and configure iTween animations.
+
+    Control most of the iTween API with a simple JSON DSL.
+
+    Subscribe to animation events.
+
+Unity Particle Systems
+
+    Creating and configuring particle systems.
+
+    C# <=> JSON converters for Color, MinMaxCurve, Curve,
+    MinMaxGradient, Gradient, Keyframe, etc.
+
+    Subscribe to particle system events.
+
+VideoPlayer (TODO)
+
+    Configure and control video player.
+
+    Subscribe to video player events and tracking.
+
+Unity Animations (TODO)
+
+    Configure and control unity animation players and state machines.
+
+    Subscribe to animation events.
+
+ARKit (TODO)
+
+    Configure and control ARKit.
+
+    Subscribe to ARKit events and tracking.
+

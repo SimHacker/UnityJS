@@ -1,0 +1,31 @@
+Jaunt Galaxy S6 phone: Release 6.0.1, sdk 23, Marshmallow
+
+SDK level 19 and above cover 80% of all phones.
+
+
+Version					Released		Level	Name				Build Version Code
+Android 7.0				August 2016		24		Nougat				Android.OS.BuildVersionCodes.Nougat
+Android 6.0				August 2015		23		Marshmallow			Android.OS.BuildVersionCodes.Marshmallow
+Android 5.1				March 2015		22		Lollipop			Android.OS.BuildVersionCodes.LollipopMr1
+Android 5.0				November 2014	21		Lollipop			Android.OS.BuildVersionCodes.Lollipop
+Android 4.4W			June 2014		20		Kitkat Watch		Android.OS.BuildVersionCodes.KitKatWatch
+Android 4.4				October 2013	19		Kitkat				Android.OS.BuildVersionCodes.KitKat
+----
+Android 4.3				July 2013		18		Jelly Bean			Android.OS.BuildVersionCodes.JellyBeanMr2
+Android 4.2-4.2.2		November 2012	17		Jelly Bean			Android.OS.BuildVersionCodes.JellyBeanMr1
+Android 4.1-4.1.1		June 2012		16		Jelly Bean			Android.OS.BuildVersionCodes.JellyBean
+Android 4.0.3-4.0.4		December 2011	15		Ice Cream Sandwich	Android.OS.BuildVersionCodes.IceCreamSandwichMr1
+Android 4.0-4.0.2		October 2011	14		Ice Cream Sandwich	Android.OS.BuildVersionCodes.IceCreamSandwich
+Android 3.2				June 2011		13		Honeycomb			Android.OS.BuildVersionCodes.HoneyCombMr2
+Android 3.1.x			May 2011		12		Honeycomb			Android.OS.BuildVersionCodes.HoneyCombMr1
+Android 3.0.x			February 2011	11		Honeycomb			Android.OS.BuildVersionCodes.HoneyComb
+Android 2.3.3-2.3.4		February 2011	10		Gingerbread			Android.OS.BuildVersionCodes.GingerBreadMr1
+Android 2.3-2.3.2		November 2010	9		Gingerbread			Android.OS.BuildVersionCodes.GingerBread
+Android 2.2.x			June 2010		8		Froyo				Android.OS.BuildVersionCodes.Froyo
+Android 2.1.x			January 2010	7		Eclair				Android.OS.BuildVersionCodes.EclairMr1
+Android 2.0.1			December 2009	6		Eclair				Android.OS.BuildVersionCodes.Eclair01
+Android 2.0				November 2009	5		Eclair				Android.OS.BuildVersionCodes.Eclair
+Android 1.6				September 2009	4		Donut				Android.OS.BuildVersionCodes.Donut
+Android 1.5				May 2009		3		Cupcake				Android.OS.BuildVersionCodes.Cupcake
+Android 1.1				February 2009	2		Base				Android.OS.BuildVersionCodes.Base11
+Android 1.0				October 2008	1		Base				Android.OS.BuildVersionCodes.Base

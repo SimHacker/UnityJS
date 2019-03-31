@@ -1,0 +1,109 @@
+http://www.awesomium.com/
+http://labs.awesomium.com/unity3d-integration-tutorial-part-1/
+https://github.com/khrona
+https://github.com/khrona/UnityAwe
+
+Seems to be dead.
+http://answers.awesomium.com/questions/6880/does-the-project-is-still-supported-developed.html
+http://answers.awesomium.com/questions/7255/is-awesomium-dead-now.html
+
+https://www.reddit.com/r/Unity3D/comments/1icq8n/unity3d_and_awesomium_17_working/
+https://github.com/bkeiren/AwesomiumUnity
+
+UPDATE: GitHub repository online here
+
+TL;DR: Awesomium lets you use HTML to build your in-game GUI. Folks at
+Awesomium had a working Unity Wrapper, broke it. Said they were fixing
+it but if so they're taking a good while without letting anyone how
+how far they're progressing. Solution: A custom (third-party) wrapper
+for Unity around Awesomium's C++ API.
+
+For those of you that can read:
+
+As some of you might known, the folks over at Awesomium have developed
+a way for application developers to integrate a webbrowser based off
+of Google's Chromium.
+
+This is all because it's pretty awesome to be able to build your
+in-game (or more general: in-app) interfaces using HTML, CSS,
+JavaScript and whatever plugins a solution might support (Flash, for
+example).
+
+Now, a good while ago (think months), the good people of Awesomium
+decided to start developing an official Unity wrapper (they also
+altered their licensing to be far more liberal towards indie
+developers, thank goodness), so that people using Unity could also use
+the awesomeness that is Awesomium.
+
+However, after with the release of version 1.7, things broke.
+Awesomium would no longer work due to an EntryPointNotFound exception
+being thrown. Without the actual source of Awesomium, this was
+unfixable.
+
+People asked for fixes, the issue was acknowledged by some folks at
+Awesomium and there even a few mentions of a solution "within the next
+few days" and "in a few days".
+
+The wrapper that I've been working on today borrows a lot from the
+official Awesomium wrapper for Unity (the one that's broken) in terms
+of design, but it's not nearly as elaborate and functional as the
+official one was. This is on my TODO list. The functions in the
+wrapper simply call their C++ counterparts, and I've also added a
+method to allow Awesomium to copy a rendered webpage to a Texture2D
+from Unity using graphics-library specific code (Supported are
+Direct3D 9, Direct3D 11 and OpenGL). Especially this last part is nice
+because there's a bunch of wrappers out there that function somewhat
+the same (Such as the Unity Berkelium wrapper -- Unchanged for three
+years btw), except they use Unity's Texture.SetPixels() method (which
+is slower).
+
+Currently it lets me browse the internet by attaching 1 script to an
+object that has a renderer and a collider attached (see screens).
+
+The point of this post is to gauge interest in this wrapper to see if
+enough people would want to be able to use Awesomium in Unity again,
+but don't have time to wait for the guys (and gals) over at Awesomium
+to release an updated, working version of their own wrapper.
+
+If you have any questions, feel free to ask them. I'm sure I've left
+some information out because I don't have a whole lot of time while
+I'm posting this, but if you'd like to know anything else about the
+project, drop a comment or a message!
+
+Screens: http://imgur.com/a/BDhtN#0
+
+Update 1:
+
+I'm working on javascript->C# callbacks, currently working for methods
+that don't require return values (that is, you can bind C# methods to
+JavaScript functions and let the webpage call them). The format of
+javascript functions that you bind from C# will be:
+
+Unity.<method>.
+
+This is to simplify the process of binding functions so that the user
+does not need to create an object to attach functions to manually
+(something that Awesomium 1.7 requires. You can't just have global
+JavaScript functions, they need to be part of an object).
+
+There is now support for GUITextures as well, which means that a
+webpage can be rendered on an object in 3D (with working and accurate
+mouse and keyboard input, ofcourse), but also on a 2D GUITexture (of
+arbitrary positions and scale ofcourse) and again with working and
+accurate mouse and keyboard input.
+
+WebGL seems to be working, though not in all cases (has likely got to
+do with gpu acceleration not being possible because Awesomium can only
+use gpu acceleration for windowed WebViews -- Ours need to be
+windowless).
+
+An issue I ran into today was that Unity allows you to create Texture
+objects of any size, but it seems that the actual internal (hardware)
+representation of the texture is limited to Power-of-Two dimensions.
+Therefore, Unity will create a 1337x8008 (example) texture for you
+without problems, but internally it will be 2048x8192. This is leading
+to issues when you try to render a webpage to a Non-Power-of-Two
+texture (the texture buffer will be grey).
+
+If anyone has any suggestions regarding the aforementioned issue, I'd
+love to hear them!

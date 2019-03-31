@@ -1,0 +1,3 @@
+https://developers.google.com/youtube/android/player/
+https://developers.google.com/youtube/android/player/reference/com/google/android/youtube/player/YouTubePlayer
+http://www.androidhive.info/2014/12/how-to-play-youtube-video-in-android-app/

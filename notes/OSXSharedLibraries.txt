@@ -1,0 +1,21 @@
+otool -L DLL
+install_name_tool
+
+http://log.zyxar.com/blog/2012/03/10/install-name-on-os-x/
+
+https://wincent.com/wiki/@executable_path,_@load_path_and_@rpath
+
+@executable_path
+@loader_path
+@rpath
+
+https://www.mikeash.com/pyblog/friday-qa-2009-11-06-linking-and-install-names.html
+
+https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/RunpathDependentLibraries.html
+https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/loading_code.html
+https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/OverviewOfDynamicLibraries.html
+http://qin.laya.com/tech_coding_help/dylib_linking.html
+http://stackoverflow.com/questions/33991581/install-name-tool-to-update-a-executable-to-search-for-dylib-in-mac-os-x
+http://thecourtsofchaos.com/2013/09/16/how-to-copy-and-relink-binaries-on-osx/
+http://www.unix.com/man-page/osx/1/install_name_tool/
+

@@ -1,0 +1,2 @@
+echo "Pushing WebGL Unity app..."
+rsync -r --copy-links ../Deployments/Optionality_WebGL/Builds/Optionality_WebGL dhopkins@donhopkins.com:/home/struct/htdocs/apps

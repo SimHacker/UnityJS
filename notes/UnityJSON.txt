@@ -1,0 +1,35 @@
+FastJSON
+    http://www.codeproject.com/Articles/159450/fastJSON
+
+JSONObject
+    https://github.com/mtschoen/JSONObject
+    https://www.assetstore.unity3d.com/en/#!/content/710
+
+LitJSON
+    http://lbv.github.io/litjson/
+
+JSON.Net
+    http://www.newtonsoft.com/json
+
+https://code.google.com/archive/p/fluent-json/
+https://github.com/gregsdennis/Manatee.Json
+https://code.google.com/archive/p/jsonsharp/
+https://github.com/ServiceStackV3/mythz_blog/blob/master/pages/344.md
+https://bitbucket.org/raboof/jayrock/wiki/Home
+
+----
+
+Mastering C# and Unity3D
+JacksonDunstan.com
+
+JSON Performance Benchmarks
+http://jacksondunstan.com/articles/3294
+
+JSON Libraries Comparison Followup
+http://jacksondunstan.com/articles/3584#more-3584
+
+Which JSON Library Creates the Most Garbage?
+http://jacksondunstan.com/articles/3592#more-3592
+
+Posts Tagged JSON
+http://jacksondunstan.com/articles/tag/json

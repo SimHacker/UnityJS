@@ -1,0 +1,72 @@
+# Copyright (c) 2012 GREE, Inc.
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+require 'fileutils'
+
+UNITY="/Applications/Unity/Unity.app/Contents"
+
+CNT = 1
+SRCDIR = Array.new(CNT);
+DSTDIR = Array.new(CNT);
+SRCS = Array.new(CNT);
+
+SRCDIR[0]="../plugins"
+DSTDIR[0]="Packager/Assets/Libraries"
+
+task :default => ["build"]
+
+desc "build"
+task :build do
+  DSTDIR.each do |dir|
+    FileUtils.rm_rf dir 
+    FileUtils.mkdir_p dir
+  end
+  Dir.chdir("#{SRCDIR[0]}") do
+    sh "./install.sh"
+  end
+end
+
+desc "pack"
+task :pack do
+  sh "#{UNITY}/MacOS/Unity -projectPath `pwd`/Packager -batchmode -quit --trace -executeMethod Packager.Export"
+  FileUtils.mv "Packager/UnityJS.unitypackage", "../dist"
+  #sh "(cd Packager; rm -f ../../dist/UnityJS.zip; zip -qr9 ../../dist/UnityJS.zip `find Assets/Libraries -type f` `find Assets/StreamingAssets -type f`)"
+end
+
+desc "commit"
+task :commit do
+  rev = open("|git show HEAD|head -1|awk '{print $2}'").read
+  sh "git commit -m \"#{rev}\" ../dist/UnityJS.unitypackage"
+end
+
+desc "clean"
+task :clean do
+  DSTDIR.each do |dir|
+    FileUtils.rm_rf dir
+  end
+  FileUtils.rm_rf "Packager/.vscode"
+  FileUtils.rm_rf "Packager/Assets/Libraries"
+  FileUtils.rm_rf "Packager/Assets/Libraries.meta"
+  FileUtils.rm_rf "Packager/Assets/StreamingAssets"
+  FileUtils.rm_rf "Packager/Assets/StreamingAssets.meta"
+  FileUtils.rm_rf "Packager/Library"
+  FileUtils.rm_rf "Packager/ProjectSettings"
+  FileUtils.rm_rf "Packager/Temp"
+end

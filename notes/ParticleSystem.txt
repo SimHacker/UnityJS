@@ -1,0 +1,897 @@
+Unity3D particle system classes, modules, structures, enums, etc.
+
+========================================================================
+
+Classes and Structures:
+
+------------------------------------------------------------------------
+
+ParticleSystem
+    isEmitting	Is the particle system currently emitting particles? A particle system may stop emitting when its emission module has finished, it has been paused or if the system has been stopped using Stop with the StopEmitting flag. Resume emitting by calling Play.
+    isPaused	Is the particle system paused right now ?
+    isPlaying	Is the particle system playing right now ?
+    isStopped	Is the particle system stopped right now ?
+    particleCount	The current number of particles (Read Only).
+    randomSeed	Override the random seed used for the particle system emission.
+    time	Playback position in seconds.
+    useAutoRandomSeed	Controls whether the Particle System uses an automatically-generated random number to seed the random number generator.
+    collision	Access the particle system collision module.
+    colorBySpeed	Access the particle system color by lifetime module.
+    colorOverLifetime	Access the particle system color over lifetime module.
+    customData	Access the particle system Custom Data module.
+    emission	Access the particle system emission module.
+    externalForces	Access the particle system external forces module.
+    forceOverLifetime	Access the particle system force over lifetime module.
+    inheritVelocity	Access the particle system velocity inheritance module.
+    lights	Access the particle system lights module.
+    limitVelocityOverLifetime	Access the particle system limit velocity over lifetime module.
+    main	Access the main particle system settings.
+    noise	Access the particle system noise module.
+    rotationBySpeed	Access the particle system rotation by speed module.
+    rotationOverLifetime	Access the particle system rotation over lifetime module.
+    shape	Access the particle system shape module.
+    sizeBySpeed	Access the particle system size by speed module.
+    sizeOverLifetime	Access the particle system size over lifetime module.
+    subEmitters	Access the particle system sub emitters module.
+    textureSheetAnimation	Access the particle system texture sheet animation module.
+    trails	Access the particle system trails module.
+    trigger	Access the particle system trigger module.
+    velocityOverLifetime	Access the particle system velocity over lifetime module.
+    Clear	Remove all particles in the particle system.
+    Emit	Emit count particles immediately.
+    GetCustomParticleData	Get a stream of custom per-particle data.
+    GetParticles	Get the particles of this particle system.
+    IsAlive	Does the system have any live particles (or will produce more)?
+    Pause	Pauses the system so no new particles are emitted and the existing particles are not updated.
+    Play	Starts the particle system.
+    SetCustomParticleData	Set a stream of custom per-particle data.
+    SetParticles	Set the particles of this particle system. size is the number of particles that is set.
+    Simulate	Fastforwards the particle system by simulating particles over given period of time, then pauses it.
+    Stop	Stops playing the particle system using the supplied stop behaviour.
+
+------------------------------------------------------------------------
+
+ParticleSystemRenderer
+    activeVertexStreamsCount	The number of currently active custom vertex streams.
+    alignment	Control the direction that particles face.
+    cameraVelocityScale	How much are the particles stretched depending on the Camera's speed.
+    lengthScale	How much are the particles stretched in their direction of motion.
+    maskInteraction	Specifies how the Particle System Renderer interacts with SpriteMask.
+    maxParticleSize	Clamp the maximum particle size.
+    mesh	Mesh used as particle instead of billboarded texture.
+    meshCount	The number of meshes being used for particle rendering.
+    minParticleSize	Clamp the minimum particle size.
+    normalDirection	How much are billboard particle normals oriented towards the camera.
+    pivot	Modify the pivot point used for rotating particles.
+    renderMode	How particles are drawn.
+    sortingFudge	Biases particle system sorting amongst other transparencies.
+    sortMode	Sort particles within a system.
+    trailMaterial	Set the material used by the Trail module for attaching trails to particles.
+    velocityScale	How much are the particles stretched depending on "how fast they move".
+    GetActiveVertexStreams	Query which vertex shader streams are enabled on the ParticleSystemRenderer.
+    GetMeshes	Get the array of meshes to be used as particles.
+    SetActiveVertexStreams	Enable a set of vertex shader streams on the ParticleSystemRenderer.
+    SetMeshes	Set an array of meshes to be used as particles when the ParticleSystemRenderer.renderMode is set to ParticleSystemRenderMode.Mesh.
+
+------------------------------------------------------------------------
+
+ParticleSystemCustomData
+    Custom1	The first stream of custom per-particle data.
+    Custom2	The second stream of custom per-particle data.
+
+------------------------------------------------------------------------
+
+ParticleSystemVertexStream
+    Position	The position of each particle vertex, in world space.
+    Normal	The vertex normal of each particle.
+    Tangent	The tangent vector for each particle (for normal mapping).
+    Color	The color of each particle.
+    UV	The first UV stream of each particle.
+    UV2	The second UV stream of each particle.
+    UV3	The third UV stream of each particle (only for meshes).
+    UV4	The fourth UV stream of each particle (only for meshes).
+    AnimBlend	The amount to blend between animated texture frames, from 0 to 1.
+    AnimFrame	The current animation frame index of each particle.
+    Center	The center position of the entire particle, in world space.
+    VertexID	The vertex ID of each particle.
+    SizeX	The X axis size of each particle.
+    SizeXY	The X and Y axis sizes of each particle.
+    SizeXYZ	The 3D size of each particle.
+    Rotation	The Z axis rotation of each particle.
+    Rotation3D	The 3D rotation of each particle.
+    RotationSpeed	The Z axis rotational speed of each particle.
+    RotationSpeed3D	The 3D rotational speed of each particle.
+    Velocity	The velocity of each particle, in world space.
+    Speed	The speed of each particle, calculated by taking the magnitude of the velocity.
+    AgePercent	The normalized age of each particle, from 0 to 1.
+    InvStartLifetime	The reciprocal of the starting lifetime, in seconds (1.0f / startLifetime).
+    StableRandomX	A random number for each particle, which remains constant during their lifetime.
+    StableRandomXY	Two random numbers for each particle, which remain constant during their lifetime.
+    StableRandomXYZ	Three random numbers for each particle, which remain constant during their lifetime.
+    StableRandomXYZW	Four random numbers for each particle, which remain constant during their lifetime.
+    VaryingRandomX	A random number for each particle, which changes during their lifetime.
+    VaryingRandomXY	Two random numbers for each particle, which change during their lifetime.
+    VaryingRandomXYZ	Three random numbers for each particle, which change during their lifetime.
+    VaryingRandomXYZW	Four random numbers for each particle, which change during their lifetime.
+    Custom1X	One custom value for each particle, defined by the Custom Data Module, or ParticleSystem.SetCustomParticleData.
+    Custom1XY	Two custom values for each particle, defined by the Custom Data Module, or ParticleSystem.SetCustomParticleData.
+    Custom1XYZ	Three custom values for each particle, defined by the Custom Data Module, or ParticleSystem.SetCustomParticleData.
+    Custom1XYZW	Four custom values for each particle, defined by the Custom Data Module, or ParticleSystem.SetCustomParticleData.
+    Custom2X	One custom value for each particle, defined by the Custom Data Module, or ParticleSystem.SetCustomParticleData.
+    Custom2XY	Two custom values for each particle, defined by the Custom Data Module, or ParticleSystem.SetCustomParticleData.
+    Custom2XYZ	Three custom values for each particle, defined by the Custom Data Module, or ParticleSystem.SetCustomParticleData.
+    Custom2XYZW	Four custom values for each particle, defined by the Custom Data Module, or ParticleSystem.SetCustomParticleData.
+    NoiseSumX	The accumulated X axis noise, over the lifetime of the particle.
+    NoiseSumXY	The accumulated X and Y axis noise, over the lifetime of the particle.
+    NoiseSumXYZ	The accumulated 3D noise, over the lifetime of the particle.
+    NoiseImpulseX	The X axis noise on the current frame.
+    NoiseImpulseXY	The X and Y axis noise on the current frame.
+    NoiseImpulseXYZ	The 3D noise on the current frame.
+
+------------------------------------------------------------------------
+
+MinMaxCurve
+    constant	Set the constant value.
+    constantMax	Set a constant for the upper bound.
+    constantMin	Set a constant for the lower bound.
+    curve	Set the curve.
+    curveMax	Set a curve for the upper bound.
+    curveMin	Set a curve for the lower bound.
+    curveMultiplier	Set a multiplier to be applied to the curves.
+    mode	Set the mode that the min-max curve will use to evaluate values.
+    Evaluate	Manually query the curve to calculate values based on what mode it is in.
+
+------------------------------------------------------------------------
+
+AnimationCurve
+    keys	All keys defined in the animation curve.
+    length	The number of keys in the curve. (Read Only)
+    postWrapMode	The behaviour of the animation after the last keyframe.
+    preWrapMode	The behaviour of the animation before the first keyframe.
+    this[int]	Retrieves the key at index. (Read Only)
+    AddKey	Add a new key to the curve.
+    Evaluate	Evaluate the curve at time.
+    MoveKey	Removes the keyframe at index and inserts key.
+    RemoveKey	Removes a key.
+    SmoothTangents	Smooth the in and out tangents of the keyframe at index.
+
+------------------------------------------------------------------------
+
+Keyframe
+    inTangent	Describes the tangent when approaching this point from the previous point in the curve.
+    outTangent	Describes the tangent when leaving this point towards the next point in the curve.
+    tangentMode	TangentMode is deprecated. Use AnimationUtility.SetKeyLeftTangentMode or AnimationUtility.SetKeyRightTangentMode instead.
+    time	The time of the keyframe.
+    value	The value of the curve at keyframe.
+
+------------------------------------------------------------------------
+
+MinMaxGradient
+    color	Set a constant color.
+    colorMax	Set a constant color for the upper bound.
+    colorMin	Set a constant color for the lower bound.
+    gradient	Set the gradient.
+    gradientMax	Set a gradient for the upper bound.
+    gradientMin	Set a gradient for the lower bound.
+    mode	Set the mode that the min-max gradient will use to evaluate colors.
+    Evaluate	Manually query the gradient to calculate colors based on what mode it is in.
+
+------------------------------------------------------------------------
+
+Gradient
+    alphaKeys	All alpha keys defined in the gradient.
+    colorKeys	All color keys defined in the gradient.
+    mode	Control how the gradient is evaluated.
+    Evaluate	Calculate color at a given time.
+    SetKeys	Setup Gradient with an array of color keys and alpha keys.
+
+------------------------------------------------------------------------
+
+GradientColorKey
+    color	Color of key.
+    time	Time of the key (0 - 1).
+
+------------------------------------------------------------------------
+
+GradientAlphaKey
+    alpha	Alpha channel of key.
+    time	Time of the key (0 - 1).
+
+------------------------------------------------------------------------
+
+Particle
+    angularVelocity	The angular velocity of the particle.
+    angularVelocity3D	The 3D angular velocity of the particle.
+    position	The position of the particle.
+    randomSeed	The random seed of the particle.
+    remainingLifetime	The remaining lifetime of the particle.
+    rotation	The rotation of the particle.
+    rotation3D	The 3D rotation of the particle.
+    startColor	The initial color of the particle. The current color of the particle is calculated procedurally based on this value and the active color modules.
+    startLifetime	The starting lifetime of the particle.
+    startSize	The initial size of the particle. The current size of the particle is calculated procedurally based on this value and the active size modules.
+    startSize3D	The initial 3D size of the particle. The current size of the particle is calculated procedurally based on this value and the active size modules.
+    velocity	The velocity of the particle.
+
+------------------------------------------------------------------------
+
+LayerMask
+    value	Converts a layer mask value to an integer value.
+    GetMask	Given a set of layer names as defined by either a Builtin or a User Layer in the Tags and Layers manager, returns the equivalent layer mask for all of them.
+    LayerToName	Given a layer number, returns the name of the layer as defined in either a Builtin or a User Layer in the Tags and Layers manager.
+    NameToLayer	Given a layer name, returns the layer index as defined by either a Builtin or a User Layer in the Tags and Layers manager.
+
+------------------------------------------------------------------------
+
+Burst
+    cycleCount	How many times to play the burst. (0 means infinitely).
+    maxCount	Maximum number of particles to be emitted.
+    minCount	Minimum number of particles to be emitted.
+    repeatInterval	How often to repeat the burst, in seconds.
+    time	The time that each burst occurs.
+
+------------------------------------------------------------------------
+
+EmitParams
+    angularVelocity	Override the angular velocity of emitted particles.
+    angularVelocity3D	Override the 3D angular velocity of emitted particles.
+    applyShapeToPosition	When overriding the position of particles, setting this flag to true allows you to retain the influence of the shape module.
+    axisOfRotation	Override the axis of rotation of emitted particles.
+    position	Override the position of emitted particles.
+    randomSeed	Override the random seed of emitted particles.
+    rotation	Override the rotation of emitted particles.
+    rotation3D	Override the 3D rotation of emitted particles.
+    startColor	Override the initial color of emitted particles.
+    startLifetime	Override the lifetime of emitted particles.
+    startSize	Override the initial size of emitted particles.
+    startSize3D	Override the initial 3D size of emitted particles.
+    velocity	Override the velocity of emitted particles.
+    ResetAngularVelocity	Reverts angularVelocity and angularVelocity3D back to the values specified in the inspector.
+    ResetAxisOfRotation	Revert the axis of rotation back to the value specified in the inspector.
+    ResetPosition	Revert the position back to the value specified in the inspector.
+    ResetRandomSeed	Revert the random seed back to the value specified in the inspector.
+    ResetRotation	Reverts rotation and rotation3D back to the values specified in the inspector.
+    ResetStartColor	Revert the initial color back to the value specified in the inspector.
+    ResetStartLifetime	Revert the lifetime back to the value specified in the inspector.
+    ResetStartSize	Revert the initial size back to the value specified in the inspector.
+    ResetVelocity	Revert the velocity back to the value specified in the inspector.
+
+------------------------------------------------------------------------
+
+GameObject
+
+------------------------------------------------------------------------
+
+Component
+
+------------------------------------------------------------------------
+
+Transform
+
+------------------------------------------------------------------------
+
+Mesh
+
+------------------------------------------------------------------------
+
+MeshRenderer
+
+------------------------------------------------------------------------
+
+SkinnedMeshRenderer
+
+------------------------------------------------------------------------
+
+Collider
+
+------------------------------------------------------------------------
+
+Material
+
+------------------------------------------------------------------------
+
+Shader
+
+------------------------------------------------------------------------
+
+Light
+
+========================================================================
+
+Enumerated Types:
+
+------------------------------------------------------------------------
+
+ParticleSystemRenderSpace
+    View	Particles face the camera plane.
+    World	Particles align with the world.
+    Local	Particles align with their local transform.
+    Facing	Particles face the eye position.
+    Velocity	Particles are aligned to their direction of travel.
+
+------------------------------------------------------------------------
+
+ParticleSystemRenderMode
+    Billboard	Render particles as billboards facing the active camera. (Default)
+    Stretch	Stretch particles in the direction of motion.
+    HorizontalBillboard	Render particles as billboards always facing up along the y-Axis.
+    VerticalBillboard	Render particles as billboards always facing the player, but not pitching along the x-Axis.
+    Mesh	Render particles as meshes.
+    None	Do not render particles.
+
+------------------------------------------------------------------------
+
+ParticleSystemSortMode
+    None	No sorting.
+    Distance	Sort based on distance.
+    OldestInFront	Sort the oldest particles to the front.
+    YoungestInFront	Sort the youngest particles to the front.
+
+------------------------------------------------------------------------
+
+SpriteMaskInteraction
+    None	The sprite will not interact with the masking system.
+    VisibleInsideMask	The sprite will be visible only in areas where a mask is present.
+    VisibleOutsideMask	The sprite will be visible only in areas where no mask is present.
+
+------------------------------------------------------------------------
+
+ParticleSystemCustomDataMode
+    Disabled	Don't generate any data.
+    Vector	Generate data using MinMaxCurve.
+    Color	Generate data using MinMaxGradient.
+
+------------------------------------------------------------------------
+
+ParticleSystemCurveMode
+    Constant	Use a single constant for the MinMaxCurve.
+    Curve	Use a single curve for the MinMaxCurve.
+    TwoCurves	Use a random value between 2 curves for the MinMaxCurve.
+    TwoConstants	Use a random value between 2 constants for the MinMaxCurve.
+
+------------------------------------------------------------------------
+
+WrapMode
+    Once	When time reaches the end of the animation clip, the clip will automatically stop playing and time will be reset to beginning of the clip.
+    Loop	When time reaches the end of the animation clip, time will continue at the beginning.
+    PingPong	When time reaches the end of the animation clip, time will ping pong back between beginning and end.
+    Default	Reads the default repeat mode set higher up.
+    ClampForever	Plays back the animation. When it reaches the end, it will keep playing the last frame and never stop playing.
+
+------------------------------------------------------------------------
+
+ParticleSystemGradientMode
+    Color	Use a single color for the MinMaxGradient.
+    Gradient	Use a single color gradient for the MinMaxGradient.
+    TwoColors	Use a random value between 2 colors for the MinMaxGradient.
+    TwoGradients	Use a random value between 2 color gradients for the MinMaxGradient.
+    RandomColor	Define a list of colors in the MinMaxGradient, to be chosen from at random.
+
+------------------------------------------------------------------------
+
+GradientMode
+    Blend	Find the 2 keys adjacent to the requested evaluation time, and linearly interpolate between them to obtain a blended color.
+    Fixed	Return a fixed color, by finding the first key whose time value is greater than the requested evaluation time.
+
+------------------------------------------------------------------------
+
+ParticleSystemCollisionType
+    Planes	Collide with a list of planes.
+    World	Collide with the world geometry.
+
+------------------------------------------------------------------------
+
+ParticleSystemCollisionMode
+    Collision3D	Use 3D colliders to collide particles against.
+    Collision2D	Use 2D colliders to collide particles against.
+
+------------------------------------------------------------------------
+
+ParticleSystemCollisionQuality
+    High	The most accurate world collisions.
+    Medium	Approximate world collisions.
+    Low	Fastest and most approximate world collisions.
+
+------------------------------------------------------------------------
+
+ParticleSystemSimulationSpace
+    Local	Simulate particles in local space.
+    World	Simulate particles in world space.
+    Custom	Simulate particles relative to a custom transform component, defined by ParticleSystem.MainModule.customSimulationSpace.
+
+------------------------------------------------------------------------
+
+ParticleSystemInheritVelocityMode
+    Initial	Each particle inherits the emitter's velocity on the frame when it was initially emitted.
+    Current	Each particle's velocity is set to the emitter's current velocity value, every frame.
+
+------------------------------------------------------------------------
+
+ParticleSystemShapeType
+    Sphere	Emit from a sphere.
+    Hemisphere	Emit from a half-sphere.
+    Cone	Emit from the base of a cone.
+    Box	Emit from the volume of a box.
+    Mesh	Emit from a mesh.
+    ConeVolume	Emit from a cone.
+    Circle	Emit from a circle.
+    SingleSidedEdge	Emit from an edge.
+    MeshRenderer	Emit from a mesh renderer.
+    SkinnedMeshRenderer	Emit from a skinned mesh renderer.
+    BoxShell	Emit from the surface of a box.
+    BoxEdge	Emit from the edges of a box.
+    Donut	Emit from a Donut.
+
+------------------------------------------------------------------------
+
+ParticleSystemEmitterVelocityMode
+    Transform	Calculate the Particle System velocity by using the Transform component.
+    Rigidbody	Calculate the Particle System velocity by using a Rigidbody or Rigidbody2D component, if one exists on the Game Object.
+
+------------------------------------------------------------------------
+
+ParticleSystemScalingMode
+    Hierarchy	Scale the particle system using the entire transform hierarchy.
+    Local	Scale the particle system using only its own transform scale. (Ignores parent scale).
+    Shape	Only apply transform scale to the shape component, which controls where particles are spawned, but does not affect their size or movement.
+
+------------------------------------------------------------------------
+
+ParticleSystemNoiseQuality
+    Low	Low quality 1D noise.
+    Medium	Medium quality 2D noise.
+    High	High quality 3D noise.
+
+------------------------------------------------------------------------
+
+ParticleSystemShapeMultiModeValue
+    Random	Generate points randomly. (Default)
+    Loop	Animate the emission point around the shape.
+    PingPong	Animate the emission point around the shape, alternating between clockwise and counter-clockwise directions.
+    BurstSpread	Distribute new particles around the shape evenly.
+
+------------------------------------------------------------------------
+
+ParticleSystemMeshShapeType
+    Vertex	Emit from the vertices of the mesh.
+    Edge	Emit from the edges of the mesh.
+    Triangle	Emit from the surface of the mesh.
+
+------------------------------------------------------------------------
+
+ParticleSystemSubEmitterType
+    Birth	Spawn new particles when particles from the parent system are born.
+    Collision	Spawn new particles when particles from the parent system collide with something.
+    Death	Spawn new particles when particles from the parent system die.
+
+------------------------------------------------------------------------
+
+ParticleSystemSubEmitterProperties
+    InheritNothing	When spawning new particles, do not inherit any properties from the parent particles.
+    InheritEverything	When spawning new particles, inherit all available properties from the parent particles.
+    InheritColor	When spawning new particles, multiply the start color by the color of the parent particles.
+    InheritSize	When spawning new particles, multiply the start size by the size of the parent particles.
+    InheritRotation	When spawning new particles, add the start rotation to the rotation of the parent particles.
+
+------------------------------------------------------------------------
+
+ParticleSystemAnimationType
+    WholeSheet	Animate over the whole texture sheet from left to right, top to bottom.
+    SingleRow	Animate a single row in the sheet from left to right.
+
+------------------------------------------------------------------------
+
+ParticleSystemAnimationMode
+    Grid	Use a regular grid to construct a sequence of animation frames.
+    Sprites	Use a list of sprites to construct a sequence of animation frames.
+
+------------------------------------------------------------------------
+
+ParticleSystemTrailTextureMode
+    Stretch	Map the texture once along the entire length of the trail.
+    Tile	Repeat the texture along the trail. To set the tiling rate, use Material.SetTextureScale.
+    DistributePerSegment	Map the texture once along the entire length of the trail, assuming all vertices are evenly spaced.
+    RepeatPerSegment	Repeat the texture along the trail, repeating at a rate of once per trail segment. To adjust the tiling rate, use Material.SetTextureScale.
+
+------------------------------------------------------------------------
+
+ParticleSystemOverlapAction
+    Ignore	Do nothing.
+    Kill	Kill all particles that pass this test.
+    Callback	Send the OnParticleTrigger command to the particle system's script.
+
+------------------------------------------------------------------------
+
+ParticleSystemStopBehavior
+    StopEmittingAndClear	Stops particle system emitting and removes all existing emitted particles.
+    StopEmitting	Stops particle system emitting any further particles. All existing particles will remain until they expire.
+
+------------------------------------------------------------------------
+
+UVChannelFlags
+    UV0	First UV channel.
+    UV1	Second UV channel.
+    UV2	Third UV channel.
+    UV3	Fourth UV channel.
+
+========================================================================
+
+Particle System Modules:
+
+------------------------------------------------------------------------
+
+collision: Access the particle system collision module.
+    bounce	How much force is applied to each particle after a collision.
+    bounceMultiplier	Change the bounce multiplier.
+    colliderForce	How much force is applied to a Collider when hit by particles from this Particle System.
+    collidesWith	Control which layers this particle system collides with.
+    dampen	How much speed is lost from each particle after a collision.
+    dampenMultiplier	Change the dampen multiplier.
+    enabled	Enable/disable the Collision module.
+    enableDynamicColliders	Allow particles to collide with dynamic colliders when using world collision mode.
+    lifetimeLoss	How much a particle's lifetime is reduced after a collision.
+    lifetimeLossMultiplier	Change the lifetime loss multiplier.
+    maxCollisionShapes	The maximum number of collision shapes that will be considered for particle collisions. Excess shapes will be ignored. Terrains take priority.
+    maxKillSpeed	Kill particles whose speed goes above this threshold, after a collision.
+    maxPlaneCount	The maximum number of planes it is possible to set as colliders.
+    minKillSpeed	Kill particles whose speed falls below this threshold, after a collision.
+    mode	Choose between 2D and 3D world collisions.
+    multiplyColliderForceByCollisionAngle	If true, the collision angle is considered when applying forces from particles to Colliders.
+    multiplyColliderForceByParticleSize	If true, particle sizes are considered when applying forces to Colliders.
+    multiplyColliderForceByParticleSpeed	If true, particle speeds are considered when applying forces to Colliders.
+    quality	Specifies the accuracy of particle collisions against colliders in the scene.
+    radiusScale	A multiplier applied to the size of each particle before collisions are processed.
+    sendCollisionMessages	Send collision callback messages.
+    type	The type of particle collision to perform.
+    voxelSize	Size of voxels in the collision cache.
+    GetPlane	Get a collision plane associated with this particle system.
+    SetPlane	Set a collision plane to be used with this particle system.
+
+------------------------------------------------------------------------
+
+colorBySpeed: Access the particle system color by lifetime module.
+    color	The gradient controlling the particle colors.
+    enabled	Enable/disable the Color By Speed module.
+    range	Apply the color gradient between these minimum and maximum speeds.
+
+------------------------------------------------------------------------
+
+colorOverLifetime: Access the particle system color over lifetime module.
+    color	The gradient controlling the particle colors.
+    enabled	Enable/disable the Color Over Lifetime module.
+
+------------------------------------------------------------------------
+
+customData: Access the particle system Custom Data module.
+    enabled	Enable/disable the Custom Data module.
+    GetColor	Get a MinMaxGradient, that is being used to generate custom HDR color data.
+    GetMode	Find out the type of custom data that is being generated for the chosen data stream.
+    GetVector	Get a MinMaxCurve, that is being used to generate custom data.
+    GetVectorComponentCount	Query how many MinMaxCurve elements are being used to generate this stream of custom data.
+    SetColor	Set a MinMaxGradient, in order to generate custom HDR color data.
+    SetMode	Choose the type of custom data to generate for the chosen data stream.
+    SetVector	Set a MinMaxCurve, in order to generate custom data.
+    SetVectorComponentCount	Specify how many curves are used to generate custom data for this stream.
+
+------------------------------------------------------------------------
+
+emission: Access the particle system emission module.
+    burstCount	The current number of bursts.
+    enabled	Enable/disable the Emission module.
+    rateOverDistance	The rate at which new particles are spawned, over distance.
+    rateOverDistanceMultiplier	Change the rate over distance multiplier.
+    rateOverTime	The rate at which new particles are spawned, over time.
+    rateOverTimeMultiplier	Change the rate over time multiplier.
+    GetBursts	Get the burst array.
+    SetBursts	Set the burst array.
+
+------------------------------------------------------------------------
+
+externalForces: Access the particle system external forces module.
+    enabled	Enable/disable the External Forces module.
+    multiplier	Multiplies the magnitude of applied external forces.
+
+------------------------------------------------------------------------
+
+forceOverLifetime: Access the particle system force over lifetime module.
+    enabled	Enable/disable the Force Over Lifetime module.
+    randomized	When randomly selecting values between two curves or constants, this flag will cause a new random force to be chosen on each frame.
+    space	Are the forces being applied in local or world space?
+    x	The curve defining particle forces in the X axis.
+    xMultiplier	Change the X axis mulutiplier.
+    y	The curve defining particle forces in the Y axis.
+    yMultiplier	Change the Y axis multiplier.
+    z	The curve defining particle forces in the Z axis.
+    zMultiplier	Change the Z axis multiplier.
+
+------------------------------------------------------------------------
+
+inheritVelocity: Access the particle system velocity inheritance module.
+    curve	Curve to define how much emitter velocity is applied during the lifetime of a particle.
+    curveMultiplier	Change the curve multiplier.
+    enabled	Enable/disable the InheritVelocity module.
+    mode	How to apply emitter velocity to particles.
+
+------------------------------------------------------------------------
+
+lights: Access the particle system lights module.
+    alphaAffectsIntensity	Toggle whether the particle alpha gets multiplied by the light intensity, when computing the final light intensity.
+    enabled	Enable/disable the Lights module.
+    intensity	Define a curve to apply custom intensity scaling to particle lights.
+    intensityMultiplier	Intensity multiplier.
+    light	Select what Light prefab you want to base your particle lights on.
+    maxLights	Set a limit on how many lights this Module can create.
+    range	Define a curve to apply custom range scaling to particle lights.
+    rangeMultiplier	Range multiplier.
+    ratio	Choose what proportion of particles will receive a dynamic light.
+    sizeAffectsRange	Toggle where the particle size will be multiplied by the light range, to determine the final light range.
+    useParticleColor	Toggle whether the particle lights will have their color multiplied by the particle color.
+    useRandomDistribution	Randomly assign lights to new particles based on ParticleSystem.LightsModule.ratio.
+
+------------------------------------------------------------------------
+
+limitVelocityOverLifetime: Access the particle system limit velocity over lifetime module.
+    dampen	Controls how much the velocity that exceeds the velocity limit should be dampened.
+    enabled	Enable/disable the Limit Force Over Lifetime module.
+    limit	Maximum velocity curve, when not using one curve per axis.
+    limitMultiplier	Change the limit multiplier.
+    limitX	Maximum velocity curve for the X axis.
+    limitXMultiplier	Change the limit multiplier on the X axis.
+    limitY	Maximum velocity curve for the Y axis.
+    limitYMultiplier	Change the limit multiplier on the Y axis.
+    limitZ	Maximum velocity curve for the Z axis.
+    limitZMultiplier	Change the limit multiplier on the Z axis.
+    separateAxes	Set the velocity limit on each axis separately.
+    space	Specifies if the velocity limits are in local space (rotated with the transform) or world space.
+
+------------------------------------------------------------------------
+
+main: Access the main particle system settings.
+    customSimulationSpace	Simulate particles relative to a custom transform component.
+    duration	The duration of the particle system in seconds.
+    emitterVelocityMode	Control how the Particle System calculates its velocity, when moving in the world.
+    gravityModifier	Scale applied to the gravity, defined by Physics.gravity.
+    gravityModifierMultiplier	Change the gravity mulutiplier.
+    loop	Is the particle system looping?
+    maxParticles	The maximum number of particles to emit.
+    playOnAwake	If set to true, the particle system will automatically start playing on startup.
+    prewarm	When looping is enabled, this controls whether this particle system will look like it has already simulated for one loop when first becoming visible.
+    randomizeRotationDirection	Cause some particles to spin in the opposite direction.
+    scalingMode	Control how the particle system's Transform Component is applied to the particle system.
+    simulationSpace	This selects the space in which to simulate particles. It can be either world or local space.
+    simulationSpeed	Override the default playback speed of the Particle System.
+    startColor	The initial color of particles when emitted.
+    startDelay	Start delay in seconds.
+    startDelayMultiplier	Start delay multiplier in seconds.
+    startLifetime	The total lifetime in seconds that each new particle will have.
+    startLifetimeMultiplier	Start lifetime multiplier.
+    startRotation	The initial rotation of particles when emitted.
+    startRotation3D	A flag to enable 3D particle rotation.
+    startRotationMultiplier	Start rotation multiplier.
+    startRotationX	The initial rotation of particles around the X axis when emitted.
+    startRotationXMultiplier	Start rotation multiplier around the X axis.
+    startRotationY	The initial rotation of particles around the Y axis when emitted.
+    startRotationYMultiplier	Start rotation multiplier around the Y axis.
+    startRotationZ	The initial rotation of particles around the Z axis when emitted.
+    startRotationZMultiplier	Start rotation multiplier around the Z axis.
+    startSize	The initial size of particles when emitted.
+    startSize3D	A flag to enable specifying particle size individually for each axis.
+    startSizeMultiplier	Start size multiplier.
+    startSizeX	The initial size of particles along the X axis when emitted.
+    startSizeXMultiplier	Start rotation multiplier along the X axis.
+    startSizeY	The initial size of particles along the Y axis when emitted.
+    startSizeYMultiplier	Start rotation multiplier along the Y axis.
+    startSizeZ	The initial size of particles along the Z axis when emitted.
+    startSizeZMultiplier	Start rotation multiplier along the Z axis.
+    startSpeed	The initial speed of particles when emitted.
+    startSpeedMultiplier	A multiplier of the initial speed of particles when emitted.
+    useUnscaledTime	When true, use the unscaled delta time to simulate the Particle System. Otherwise, use the scaled delta time.
+
+------------------------------------------------------------------------
+
+noise: Access the particle system noise module.
+    damping	Higher frequency noise will reduce the strength by a proportional amount, if enabled.
+    enabled	Enable/disable the Noise module.
+    frequency	Low values create soft, smooth noise, and high values create rapidly changing noise.
+    octaveCount	Layers of noise that combine to produce final noise.
+    octaveMultiplier	When combining each octave, scale the intensity by this amount.
+    octaveScale	When combining each octave, zoom in by this amount.
+    positionAmount	How much the noise affects the particle positions.
+    quality	Generate 1D, 2D or 3D noise.
+    remap	Define how the noise values are remapped.
+    remapEnabled	Enable remapping of the final noise values, allowing for noise values to be translated into different values.
+    remapMultiplier	Remap multiplier.
+    remapX	Define how the noise values are remapped on the X axis, when using the ParticleSystem.NoiseModule.separateAxes option.
+    remapXMultiplier	X axis remap multiplier.
+    remapY	Define how the noise values are remapped on the Y axis, when using the ParticleSystem.NoiseModule.separateAxes option.
+    remapYMultiplier	Y axis remap multiplier.
+    remapZ	Define how the noise values are remapped on the Z axis, when using the ParticleSystem.NoiseModule.separateAxes option.
+    remapZMultiplier	Z axis remap multiplier.
+    rotationAmount	How much the noise affects the particle rotation, in degrees per second.
+    scrollSpeed	Scroll the noise map over the particle system.
+    scrollSpeedMultiplier	Scroll speed multiplier.
+    separateAxes	Control the noise separately for each axis.
+    sizeAmount	How much the noise affects the particle sizes, applied as a multiplier on the size of each particle.
+    strength	How strong the overall noise effect is.
+    strengthMultiplier	Strength multiplier.
+    strengthX	Define the strength of the effect on the X axis, when using the ParticleSystem.NoiseModule.separateAxes option.
+    strengthXMultiplier	X axis strength multiplier.
+    strengthY	Define the strength of the effect on the Y axis, when using the ParticleSystem.NoiseModule.separateAxes option.
+    strengthYMultiplier	Y axis strength multiplier.
+    strengthZ	Define the strength of the effect on the Z axis, when using the ParticleSystem.NoiseModule.separateAxes option.
+    strengthZMultiplier	Z axis strength multiplier.
+
+------------------------------------------------------------------------
+
+rotationBySpeed: Access the particle system rotation by speed module.
+    enabled	Enable/disable the Rotation By Speed module.
+    range	Apply the rotation curve between these minimum and maximum speeds.
+    separateAxes	Set the rotation by speed on each axis separately.
+    x	Rotation by speed curve for the X axis.
+    xMultiplier	Speed multiplier along the X axis.
+    y	Rotation by speed curve for the Y axis.
+    yMultiplier	Speed multiplier along the Y axis.
+    z	Rotation by speed curve for the Z axis.
+    zMultiplier	Speed multiplier along the Z axis.
+
+------------------------------------------------------------------------
+
+rotationOverLifetime: Access the particle system rotation over lifetime module.
+    enabled	Enable/disable the Rotation Over Lifetime module.
+    separateAxes	Set the rotation over lifetime on each axis separately.
+    x	Rotation over lifetime curve for the X axis.
+    xMultiplier	Rotation multiplier around the X axis.
+    y	Rotation over lifetime curve for the Y axis.
+    yMultiplier	Rotation multiplier around the Y axis.
+    z	Rotation over lifetime curve for the Z axis.
+    zMultiplier	Rotation multiplier around the Z axis.
+
+------------------------------------------------------------------------
+
+shape: Access the particle system shape module.
+    alignToDirection	Align particles based on their initial direction of travel.
+    angle	Angle of the cone.
+    arc	Circle arc angle.
+    arcMode	The mode used for generating particles around the arc.
+    arcSpeed	When using one of the animated modes, how quickly to move the emission position around the arc.
+    arcSpeedMultiplier	A multiplier of the arc speed of the emission shape.
+    arcSpread	Control the gap between emission points around the arc.
+    boxThickness	Thickness of the box.
+    donutRadius	The radius of the Donut shape.
+    enabled	Enable/disable the Shape module.
+    length	Length of the cone.
+    mesh	Mesh to emit particles from.
+    meshMaterialIndex	Emit particles from a single material of a mesh.
+    meshRenderer	MeshRenderer to emit particles from.
+    meshShapeType	Where on the mesh to emit particles from.
+    normalOffset	Move particles away from the surface of the source mesh.
+    position	Apply an offset to the position from which particles are emitted.
+    radius	Radius of the shape.
+    radiusMode	The mode used for generating particles along the radius.
+    radiusSpeed	When using one of the animated modes, how quickly to move the emission position along the radius.
+    radiusSpeedMultiplier	A multiplier of the radius speed of the emission shape.
+    radiusSpread	Control the gap between emission points along the radius.
+    radiusThickness	Thickness of the radius.
+    randomDirectionAmount	Randomizes the starting direction of particles.
+    randomPositionAmount	Randomizes the starting position of particles.
+    rotation	Apply a rotation to the shape from which particles are emitted.
+    scale	Apply scale to the shape from which particles are emitted.
+    shapeType	Type of shape to emit particles from.
+    skinnedMeshRenderer	SkinnedMeshRenderer to emit particles from.
+    sphericalDirectionAmount	Spherizes the starting direction of particles.
+    useMeshColors	Modulate the particle colors with the vertex colors, or the material color if no vertex colors exist.
+    useMeshMaterialIndex	Emit from a single material, or the whole mesh.
+
+------------------------------------------------------------------------
+
+sizeBySpeed: Access the particle system size by speed module.
+    enabled	Enable/disable the Size By Speed module.
+    range	Apply the size curve between these minimum and maximum speeds.
+    separateAxes	Set the size by speed on each axis separately.
+    size	Curve to control particle size based on speed.
+    sizeMultiplier	Size multiplier.
+    x	Size by speed curve for the X axis.
+    xMultiplier	X axis size multiplier.
+    y	Size by speed curve for the Y axis.
+    yMultiplier	Y axis size multiplier.
+    z	Size by speed curve for the Z axis.
+    zMultiplier	Z axis size multiplier.
+
+------------------------------------------------------------------------
+
+sizeOverLifetime: Access the particle system size over lifetime module.
+    enabled	Enable/disable the Size Over Lifetime module.
+    separateAxes	Set the size over lifetime on each axis separately.
+    size	Curve to control particle size based on lifetime.
+    sizeMultiplier	Size multiplier.
+    x	Size over lifetime curve for the X axis.
+    xMultiplier	X axis size multiplier.
+    y	Size over lifetime curve for the Y axis.
+    yMultiplier	Y axis size multiplier.
+    z	Size over lifetime curve for the Z axis.
+    zMultiplier	Z axis size multiplier.
+
+------------------------------------------------------------------------
+
+subEmitters: Access the particle system sub emitters module.
+    enabled	Enable/disable the Sub Emitters module.
+    subEmittersCount	The total number of sub-emitters.
+    AddSubEmitter	Add a new sub-emitter.
+    GetSubEmitterProperties	Get the properties of the sub-emitter at the given index.
+    GetSubEmitterSystem	Get the sub-emitter Particle System at the given index.
+    GetSubEmitterType	Get the type of the sub-emitter at the given index.
+    RemoveSubEmitter	Remove a sub-emitter from the given index in the array.
+    SetSubEmitterProperties	Set the properties of the sub-emitter at the given index.
+    SetSubEmitterSystem	Set the Particle System to use as the sub-emitter at the given index.
+    SetSubEmitterType	Set the type of the sub-emitter at the given index.
+
+------------------------------------------------------------------------
+
+textureSheetAnimation: Access the particle system texture sheet animation module.
+    animation	Specifies the animation type.
+    cycleCount	Specifies how many times the animation will loop during the lifetime of the particle.
+    enabled	Enable/disable the Texture Sheet Animation module.
+    flipU	Flip the U coordinate on particles, causing them to appear mirrored horizontally.
+    flipV	Flip the V coordinate on particles, causing them to appear mirrored vertically.
+    frameOverTime	Curve to control which frame of the texture sheet animation to play.
+    frameOverTimeMultiplier	Frame over time mutiplier.
+    mode	Select whether the animated texture information comes from a grid of frames on a single texture, or from a list of Sprite objects.
+    numTilesX	Defines the tiling of the texture in the X axis.
+    numTilesY	Defines the tiling of the texture in the Y axis.
+    rowIndex	Explicitly select which row of the texture sheet is used, when ParticleSystem.TextureSheetAnimationModule.useRandomRow is set to false.
+    spriteCount	The total number of sprites.
+    startFrame	Define a random starting frame for the texture sheet animation.
+    startFrameMultiplier	Starting frame multiplier.
+    useRandomRow	Use a random row of the texture sheet for each particle emitted.
+    uvChannelMask	Choose which UV channels will receive texture animation.
+    AddSprite	Add a new Sprite.
+    GetSprite	Get the Sprite at the given index.
+    RemoveSprite	Remove a Sprite from the given index in the array.
+    SetSprite	Set the Sprite at the given index.
+
+------------------------------------------------------------------------
+
+trails: Access the particle system trails module.
+    colorOverLifetime	The gradient controlling the trail colors during the lifetime of the attached particle.
+    colorOverTrail	The gradient controlling the trail colors over the length of the trail.
+    dieWithParticles	If enabled, Trails will disappear immediately when their owning particle dies. Otherwise, the trail will persist until all its points have naturally expired, based on its lifetime.
+    enabled	Enable/disable the Trail module.
+    generateLightingData	Configures the trails to generate Normals and Tangents. With this data, Scene lighting can affect the trails via Normal Maps and the Unity Standard Shader, or your own custom-built Shaders.
+    inheritParticleColor	Toggle whether the trail will inherit the particle color as its starting color.
+    lifetime	The curve describing the trail lifetime, throughout the lifetime of the particle.
+    lifetimeMultiplier	Change the lifetime multiplier.
+    minVertexDistance	Set the minimum distance each trail can travel before a new vertex is added to it.
+    ratio	Choose what proportion of particles will receive a trail.
+    sizeAffectsLifetime	Set whether the particle size will act as a multiplier on top of the trail lifetime.
+    sizeAffectsWidth	Set whether the particle size will act as a multiplier on top of the trail width.
+    textureMode	Choose whether the U coordinate of the trail texture is tiled or stretched.
+    widthOverTrail	The curve describing the width, of each trail point.
+    widthOverTrailMultiplier	Change the width multiplier.
+    worldSpace	Drop new trail points in world space, regardless of Particle System Simulation Space.
+
+------------------------------------------------------------------------
+
+trigger: Access the particle system trigger module.
+    enabled	Enable/disable the Trigger module.
+    enter	Choose what action to perform when particles enter the trigger volume.
+    exit	Choose what action to perform when particles leave the trigger volume.
+    inside	Choose what action to perform when particles are inside the trigger volume.
+    maxColliderCount	The maximum number of collision shapes that can be attached to this particle system trigger.
+    outside	Choose what action to perform when particles are outside the trigger volume.
+    radiusScale	A multiplier applied to the size of each particle before overlaps are processed.
+    GetCollider	Get a collision shape associated with this particle system trigger.
+    SetCollider	Set a collision shape associated with this particle system trigger.
+
+------------------------------------------------------------------------
+
+velocityOverLifetime: Access the particle system velocity over lifetime module.
+    enabled	Enable/disable the Velocity Over Lifetime module.
+    space	Specifies if the velocities are in local space (rotated with the transform) or world space.
+    x	Curve to control particle speed based on lifetime, on the X axis.
+    xMultiplier	X axis speed multiplier.
+    y	Curve to control particle speed based on lifetime, on the Y axis.
+    yMultiplier	Y axis speed multiplier.
+    z	Curve to control particle speed based on lifetime, on the Z axis.
+    zMultiplier	Z axis speed multiplier.
+
+------------------------------------------------------------------------

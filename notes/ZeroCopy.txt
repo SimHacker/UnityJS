@@ -1,0 +1,36 @@
+https://bugs.chromium.org/p/chromium/issues/detail?id=322780
+
+Determine if GL_TEXTURE_EXTERNAL_OES can be used as texture target for zero-copy on Android	
+
+Status:	Fixed
+Owner:	reve...@chromium.org
+Closed:	Mar 2014
+Components:	
+Internals>GPU
+OS:	Android
+Type:	Bug
+
+The compositor can use GL_TEXTURE_RECTANGLE_ARB or
+GL_TEXTURE_EXTERNAL_OES target for zero-copy texture bindings. We
+should verify that this works and performs properly before we enable
+it on Android.
+
+Webview for now but will also effect Chrome if we implement zero-copy
+support using SurfaceTexture.
+
+UsingMapImage and SurfaceTexture
+
+https://docs.google.com/document/d/1J0fkaGS9Gseczw3wJNXvo_r-O5-SZmTlDvbgn56pdQI/edit
+
+I haven't had a chance to read the doc in #5 yet, but to summarize how
+it could be used for zero copy:
+
+It would involve using 'single-buffer' mode on SurfaceTexture (KitKat
+only), and using the ANativeWindow_lock/ANativeWindow_unlockAndPost
+native APIs to upload data across processes. SurfaceTextures can
+either be used as staging transfer buffers (with a GPU copy into a
+normal texture when they arrive in the GPU process), or they could be
+used as textures themselves. The latter is fairly difficult due to
+synchronization issues imposed by Android's SurfaceTexture API, but it
+might still be possible, and this would eliminate the GPU copy in the
+staging approach.

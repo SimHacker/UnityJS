@@ -1,0 +1,27 @@
+FullSerializer
+
+    fsData data;
+    List<fsData> list = data.AsList;
+    Dictionary<string, fsData> dict = data.AsDictionary;
+    string str = data.IsString ? data.AsString : "";
+
+JSON.NET:
+
+    JToken
+        https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JToken.htm
+
+    JObject
+        https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm
+
+    JArray
+        https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JArray.htm
+
+    var jo = JObject.Parse(jsonString);
+    var likeName = jo["Likes"][1]["Name"].Value<string>();
+    var likeObj = jo["Likes"][1]["Name"].ToObject<LikeItem>();
+    JObject obj = new JObject();
+    obj.Add("foo", 123);
+    obj.Add("bar", "baz");
+    obj.Add("stats", JToken.FromObject(stats));
+    JArray arr = new JArray();
+ 

@@ -1,0 +1,571 @@
+----
+
+BridgeManager.cs
+
+    public static object GetPropertyValue(object finalObj, FieldInfo fieldInfo, PropertyInfo propertyInfo)
+    {
+        object value = null;
+
+        if (propertyInfo != null) {
+#if UNITY_IOS
+            // iOS AOT compiler requires this slower invocation.
+            value = propertyInfo.GetGetMethod().Invoke(finalObj, null);
+#else
+            value = propertyInfo.GetValue(finalObj, null);
+#endif
+        } else if (fieldInfo != null) {
+            value = fieldInfo.GetValue(finalObj);
+        } else {
+            Debug.LogError("BridgeManager: GetPropertyValue: both fieldInfo and propertyInfo are null! finalObj: " + finalObj);
+        }
+
+        return value;
+    }
+
+----
+
+http://answers.unity3d.com/questions/813568/jit-compilation-requirement-for-systemreflectionpr.html
+
+JIT compilation requirement for System.Reflection.PropertyInfo.GetValue?
+
+Calling System.Reflection.PropertyInfo.GetValue on an AOT compiled
+platform when the API compatibility level is set to .NET 2.0 gives me
+the following error:
+
+Unhandled Exception: System.ExecutionEngineException: Attempting to JIT compile method 'System.Reflection.MonoProperty:StaticGetterAdapterFrame (System.Reflection.MonoProperty/StaticGetter`1,object)' while running with --aot-only.
+at System.Reflection.MonoProperty.GetValue (System.Object obj, System.Object[] index) [0x00000] in :0
+
+The error does not occur when the API compatibility level is set to
+.NET 2.0 Subset. Is this expected behaviour or a Unity bug?
+
+Here is my code:
+
+ void Start()
+ {
+     System.Type type = System.Type.GetType("UnityEngine.iPhone, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
+     if (type != null)
+     {
+         System.Reflection.PropertyInfo property = type.GetProperty("generation");
+         if (property != null)
+         {
+             string text = property.GetValue(null, null).ToString().ToLower();
+             Debug.Log("text = " + text);
+         }
+         else
+             Debug.Log("property = null");
+     }
+ }
+
+This was added to a new empty project in Unity 4.5.5 and deployed to a 1st generation iPad Mini running iOS 7.1.2.
+
+Reply: If you switch Unity to use Mono Subset, this should bypass that
+error. I'm still trying to isolate specifically why GetValue works in
+this subset... as from where i can tell Subset is a reduction in
+namespaces only on Mono..
+
+Reply: This appears to be an issue in the MonoProperty class. Looking
+at the source it looks like they put in conditionals for AOT
+compilation. I suspect maybe an edge case was missed. Either way it's
+in the core Mono library so i don't know if opening a Unity bug would
+be fruitful. Did you open one?
+
+https://github.com/mono/mono/blob/master/mcs/class/corlib/System.Reflection/MonoProperty.cs
+
+----
+
+https://docs.unity3d.com/ScriptReference/Events.UnityEventBase.GetValidMethodInfo.html
+
+public static MethodInfo GetValidMethodInfo(object obj, string functionName, Type[] argumentTypes);
+
+Given an object, function name, and a list of argument types; find the method that matches.
+
+----
+
+https://msdn.microsoft.com/en-us/library/74x8f551(v=vs.110).aspx
+
+Delegate.CreateDelegate Method (Type, Object, MethodInfo)
+
+----
+
+https://forum.unity3d.com/threads/copying-unityevent-information-using-reflection.427226/
+
+MethodInfo info = UnityEventBase.GetValidMethodInfo (event1.GetPersistentTarget (i), event1.GetPersistentMethodName (i), new Type[] { typeof (float) });
+UnityAction execute = () => info.Invoke (event1.GetPersistentTarget (i), new object[] { 180f });
+event2.AddListener (execute);
+
+----
+
+https://forum.unity3d.com/threads/how-to-create-persistent-listener-to-an-event.264228/
+
+UnityAction methodDelegate = System.Delegate.CreateDelegate(typeof(UnityAction), yourComponentInstance, targetInfo) as UnityAction;
+UnityEventTools.AddPersistentListener(ActionTarget, methodDelegate);
+
+----
+
+https://forum.unity3d.com/threads/createdelegate-method-with-aot.132834/
+
+I try to use function : Delegate.createDelegate(Type, MethodInfo) but on IOS, i get ExecutionEngineException.
+
+However the documentation notify this function is allowed in mobile device
+
+----
+
+http://answers.unity3d.com/questions/1225812/delegatecreatedelegate-with-valuetypes-methodinfo.html
+
+ Func<Vector3,string> func = null;
+ var method=typeof(Vector3).GetMethod ("ToString",Type.EmptyTypes);
+ func = (Func<Vector3,string>)Delegate.CreateDelegate (typeof(Func<Vector3,string>), null, method);
+ Debug.LogError(func (Vector3.zero));
+
+ InvalidProgramException: Invalid IL code in (wrapper delegate-invoke) System.Func`2<UnityEngine.Vector3, string>:invoke_string__this___Vector3 (UnityEngine.Vector3): IL_004d: castclass 0x00000007
+
+If I change the valuetype to reference type, it will work ok:
+
+ Func<Test,string> func = null;
+ var method=typeof(Test).GetMethod ("ToString",Type.EmptyTypes);
+ func = (Func<Test,string>)Delegate.CreateDelegate (typeof(Func<Test,string>), null, method);
+ Debug.LogError(func (new Test()));
+ public class Test
+ {
+     public override string ToString ()
+     {
+         return string.Format ("[Test]");
+     }
+ }
+
+----
+
+https://forum.unity3d.com/threads/executionengineexception-attempting-to-jit-compile-method.43038/
+
+Michael-Ryan: When I tried running the app using .NET 1.1, it ran
+fine. Just switching to .NET 2.1 in Unity iPhone > Player Setting
+caused the problem to reappear. I've gone back and forth a few times
+to verify the results.
+
+whydididoit: I needed better performance than the
+GetProperty("xxx").GetGetMethod().Invoke(o, new object[] { x })
+approach and have come up with a way of accelerating it without the
+need for Reflection.Emit although it does require providing hints to
+the compiler so that there's no need to JIT the lambdas you need to
+get it to work. Runs about 4.5x faster than an Invoke.
+
+You can find it here:
+ 
+http://whydoidoit.com/2012/04/18/faster-invoke-for-reflected-property-access-and-method-invocation-with-aot-compilation/
+https://web-beta.archive.org/web/20140701070426/http://whydoidoit.com/2012/04/18/faster-invoke-for-reflected-property-access-and-method-invocation-with-aot-compilation
+https://web-beta.archive.org/web/20120826100615/http://whydoidoit.com/2012/04/18/faster-invoke-for-reflected-property-access-and-method-invocation-with-aot-compilation
+
+Unity Gems: The "missing" tutorials. Including A* path finding and much more!
+
+My blog: http://whydoidoit.com
+
+Unity Serializer: a totally free Save Game system, learn more...​
+
+----
+
+https://msdn.microsoft.com/en-us/library/system.reflection.runtimereflectionextensions(v=vs.110).aspx
+
+Provides methods that retrieve information about types at run time.
+
+----
+
+https://msdn.microsoft.com/en-us/library/system.delegate.createdelegate(v=vs.110).aspx
+
+Creates a delegate of the specified type.
+
+----
+
+https://developer.xamarin.com/guides/ios/advanced_topics/limitations/
+
+Limitations
+
+Since applications on the iPhone using Xamarin.iOS are compiled to
+static code, it is not possible to use any facilities that require
+code generation at runtime.
+
+These are the Xamarin.iOS limitations compared to desktop Mono:
+
+Limited Generics Support
+
+Unlike traditional Mono/.NET, code on the iPhone is statically
+compiled ahead of time instead of being compiled on demand by a JIT
+compiler.
+
+Mono's Full AOT technology has a few limitations with respect to
+generics, these are caused because not every possible generic
+instantiation can be determined up front at compile time. This is not
+a problem for regular .NET or Mono runtimes as the code is always
+compiled at runtime using the Just in Time compiler. But this poses a
+challenge for a static compiler like Xamarin.iOS.
+
+Some of the common problems that developers run into, include:
+
+
+Generic Subclasses of NSObjects are limited
+
+Xamarin.iOS currently has limited support for creating generic
+subclasses of the NSObject class, such as no support for generic
+methods. As of 7.2.1, using generic subclasses of NSObjects is
+possible, like this one:
+
+class Foo<T> : UIView {
+    [..]
+}
+
+While generic subclasses of NSObjects are possible, there are a few
+limitations. Read the Generic subclasses of NSObject document for more
+information
+
+P/Invokes in Generic Types
+
+P/Invokes in generic classes aren't supported:
+
+class GenericType<T> {
+    [DllImport ("System")]
+    public static extern int getpid ();
+}
+
+Property.SetInfo on a Nullable Type is not supported
+
+Using Reflection's Property.SetInfo to set the value on a Nullable<T>
+is not currently supported.
+
+Value types as Dictionary Keys
+
+Using a value type as a Dictionary<TKey, TValue> key is problematic,
+as the default Dictionary constructor attempts to use
+EqualityComparer<TKey>.Default. EqualityComparer<TKey>.Default, in
+turn, attempts to use Reflection to instantiate a new type which
+implements the IEqualityComparer<TKey> interface.
+
+This works for reference types (as the reflection+create a new type
+step is skipped), but for value types it crashes and burns rather
+quickly once you attempt to use it on the device.
+
+Workaround: Manually implement the IEqualityComparer<TKey> interface
+in a new type and provide an instance of that type to the
+Dictionary<TKey, TValue> (IEqualityComparer<TKey>) constructor.
+
+No Dynamic Code Generation
+
+Since the iPhone's kernel prevents an application from generating code
+dynamically Mono on the iPhone does not support any form of dynamic
+code generation. These include:
+
++ The System.Reflection.Emit is not available.
+
++ No support for System.Runtime.Remoting.
+
++ No support for creating types dynamically (no Type.GetType
+("MyType`1")), although looking up existing types (Type.GetType
+("System.String") for example, works just fine).
+
++ Reverse callbacks must be registered with the runtime at compile time.
+
+System.Reflection.Emit
+
+https://msdn.microsoft.com/en-us/library/system.reflection.emit(v=vs.110).aspx
+
+The lack of System.Reflection. Emit means that no code that depends on
+runtime code generation will work. This includes things like:
+
++ The Dynamic Language Runtime.
+
++ Any languages built on top of the Dynamic Language Runtime.
+
++ Remoting's TransparentProxy or anything else that would cause the
+runtime to generate code dynamically.
+
+Important: Do not confuse Reflection.Emit with
+Reflection. Reflection.Emit is about generating code dynamically and
+have that code JITed and compiled to native code. Due to the
+limitations on the iPhone (no JIT compilation) this is not supported.
+
+But the entire Reflection API, including Type.GetType ("someClass"),
+listing methods, listing properties, fetching attributes and values
+works just fine.
+
+Reverse Callbacks
+
+In standard Mono it is possible to pass C# delegate instances to
+unmanaged code in lieu of a function pointer. The runtime would
+typically transform those function pointers into a small thunk that
+allows unmanaged code to call back into managed code.
+
+In Mono these bridges are implemented by the Just-in-Time
+compiler. When using the ahead-of-time compiler required by the iPhone
+there are two important limitations at this point:
+
++ You must flag all of your callback methods with the MonoPInvokeCallbackAttribute
+http://docs.go-mono.com/?link=T%3aMonoTouch.MonoPInvokeCallbackAttribute
+
+The methods have to be static methods, there is no support for instance methods.
+
+No Remoting
+
+The Remoting stack is not available on Xamarin.iOS.
+
+Runtime Disabled Features
+
+The following features have been disabled in Mono's iOS Runtime:
+
++ Profiler
++ Reflection.Emit
++ Reflection.Emit.Save functionality
++ COM bindings
++ The JIT engine
++ Metadata verifier (since there is no JIT)
+
+.NET API Limitations
+
+The .NET API exposed is a subset of the full framework as not
+everything is available in iOS. See the FAQ for a list of currently
+supported assemblies.
+
+In particular, the API profile used by Xamarin.iOS does not include
+System.Configuration, so it is not possible to use external XML files
+to configure the behavior of the runtime.
+
+----
+
+http://docs.go-mono.com/?link=T%3aMonoTouch.MonoPInvokeCallbackAttribute
+
+ObjCRuntime.MonoPInvokeCallbackAttribute Class
+
+Attribute used to annotate functions that will be called back from the unmanaged world.
+
+[System.AttributeUsage(System.AttributeTargets.Method)]
+public sealed class MonoPInvokeCallbackAttribute : Attribute
+
+Remarks
+
+This attribute is valid on static functions and it is used by Mono's
+Ahead of Time Compiler to generate the code necessary to support
+native call calling back into managed code.
+
+In regular ECMA CIL programs this happens automatically, and it is not
+necessary to flag anything specially, but with pure Ahead of Time
+compilation the compiler needs to know which methods will be called
+from the unmanaged code.
+
+In the current version of MonoTouch, only static functions can be
+called back from unmanaged code.
+
+You must specify the type of the delegate that this code will be
+called as. The following example shows the scenario in which this is
+used:
+
+C# Example
+
+using System;
+
+delegate void DrawPatternCallback (IntPtr voidptr, IntPtr cgcontextref);
+
+[StructLayout (LayoutKind.Sequential)]
+struct SetupStruct {
+	int x, y;
+	DrawPatternCallback draw;
+}
+
+[MonoPInvokeCallback (typeof (DrawPatternCallback))]
+static void DrawCallback (IntPtr voidptr, IntPtr cgcontextptr)
+{
+	// This method is called from the C library
+}
+
+----
+
+https://web-beta.archive.org/web/20120826100615/http://whydoidoit.com/2012/04/18/faster-invoke-for-reflected-property-access-and-method-invocation-with-aot-compilation
+
+Faster Invoke for reflected property access and method invocation with
+AOT compilation
+
+The bane of the iOS programmers life, when working with reflection in Mono, is that you cant go around making up new generic types to ensure that your reflected properties and methods get called at decent speed. This is because Mono on iOS is fully Ahead Of Time compiled and simply cant make up new stuff as you go along. That coupled with the dire performance of Invoke when using reflected properties lead me to construct a helper class.
+
+This works by registering a series of method signatures with the compiler, so that they are available to code running on the device. In my tests property access was 4.5x faster and method access with one parameters was 2.4x faster. Not earth shattering but every little helps. If you knew what you wanted ahead of time, then you could probably do a lot better. See here for info.
+
+You have to register signatures inside each class Im afraid. Nothing I can do about that.
+
+So to register a signature you use:
+
+static MyClass()
+{
+     //All methods returning string can be accelerated
+     DelegateSupport.RegisterFunctionType<MyClass, string>();         
+     //All methods returning string and taking an int can be accelerated
+     DelegateSupport.RegisterFunctionType<MyClass, int, string>();    
+     //All methods returning void and taking a bool can be accelerated
+     DelegateSupport.RegisterActionType<MyClass, bool>();             
+ 
+}
+
+Then when you have a MethodInfo you use the extension method
+FastInvoke(object target, params object[] parameters) to call
+it. FastInvoke will default to using normal Invoke if you havent
+accelerated a particular type.
+
+myObject.GetType().GetProperty("SomeProperty").GetGetMethod().FastInvoke(myObject);
+myObject.GetType().GetMethod("SomeMethod").FastInvoke(myObject, 1, 2);
+
+You can download the source code for FastInvoke from here.
+
+https://web-beta.archive.org/web/20120826100615/http://www.whydoidoit.net/Downloads/DelegateSupport.cs
+
+Newer from unityserializer-ng:
+https://gitgud.io/TheSniperFan/unityserializer-ng/blob/master/Assets/Plugins/OpenUnityTools/unityserializer-ng/Radical/System/Delegates/DelegateSupport.cs
+
+----
+
+Unity Serializer
+
+https://web-beta.archive.org/web/20120810010856/http://whydoidoit.com:80/unity-serializer-v0-2/
+
+Out of date, does not work in unity 5:
+https://www.assetstore.unity3d.com/en/#!/content/3675
+
+New repo, now old:
+https://github.com/TheSniperFan/unityserializer-ng
+
+Newer repo:
+Resurrection of the discontinued Unity Serializer by Mike Talbot from WhyDoIDoIt.com (Unity 5)
+https://gitgud.io/TheSniperFan/unityserializer-ng
+
+New DelegateSupport accelerator:
+https://gitgud.io/TheSniperFan/unityserializer-ng/blob/master/Assets/Plugins/OpenUnityTools/unityserializer-ng/Radical/System/Delegates/DelegateSupport.cs
+
+Unity Serializer API
+https://web-beta.archive.org/web/20120818205219/http://whydoidoit.com:80/unity-serializer-v0-2/unity-serializer-api/
+
+Unity Serializer Getting Started Guide
+https://web-beta.archive.org/web/20120818205826/http://whydoidoit.com:80/unity-serializer-v0-2/getting-started-guide/
+
+How Unity Serializer Works
+https://web-beta.archive.org/web/20120811042847/http://whydoidoit.com:80/unity-serializer-v0-2/how-unityserializer-works/
+
+----
+
+https://gitgud.io/TheSniperFan/unityserializer-ng/blob/master/Assets/Plugins/OpenUnityTools/unityserializer-ng/Serialization/StoreMaterials.cs
+~/Jaunt/git/unityserializer-ng/Assets/Plugins/OpenUnityTools/unityserializer-ng/Serialization/StoreMaterials.cs
+
+    Static class consructors should register all required function
+    types with DelegateSupport:
+
+    static StoreMaterials() {
+        DelegateSupport.RegisterFunctionType<Texture2D, int>();
+        DelegateSupport.RegisterFunctionType<StoreMaterials, List<MaterialProperty>>();
+        DelegateSupport.RegisterFunctionType<MaterialProperty, MaterialProperty.PropertyType>();
+        DelegateSupport.RegisterFunctionType<MaterialProperty, string>();
+        DelegateSupport.RegisterFunctionType<StoredValue, MaterialProperty>();
+        DelegateSupport.RegisterFunctionType<StoredValue, object>();
+    }
+
+----
+
+http://mattwarren.org/2016/12/14/Why-is-Reflection-slow/
+
+Why is reflection slow?
+
+It’s common knowledge that reflection in .NET is slow, but why is that
+the case? This post aims to figure that out by looking at what
+reflection does under-the-hood.
+
+FastMember
+
+http://blog.marcgravell.com/2012/01/playing-with-your-member.html
+
+Playing with your member
+
+http://www.nuget.org/packages/FastMember
+
+FastMember 1.1.0
+
+In .NET reflection is slow... well, kinda slow. If you need access to
+the members of an arbitrary type, with the type and member-names known
+only at runtime - then it is frankly hard (especially for DLR
+types). This library makes such access easy and fast.
+
+To install FastMember, run the following command in the Package Manager Console
+
+.net clr source code:
+
+MethodInfo.Invoke
+
+https://github.com/dotnet/coreclr/blob/b638af3a4dd52fa7b1ea1958164136c72096c25c/src/mscorlib/src/System/Reflection/MethodInfo.cs#L619-L638
+
+----
+
+https://codeblog.jonskeet.uk/2008/08/09/making-reflection-fly-and-exploring-delegates/
+
+MAKING REFLECTION FLY AND EXPLORING DELEGATES
+
+I’ve recently been doing some optimisation work which has proved quite
+interesting in terms of working with reflection. My efforts porting
+Google’s Protocol Buffers are now pretty complete in terms of
+functionality, so I’ve been looking at improving the performance. The
+basic idea is that you specify your data types in a .proto file, and
+then generate C# from that. The generated C# allows you to manipulate
+the data, and serialize/deserialize it. When you generate the code, it
+can be optimised either for size or speed. The “small” code can end up
+being much smaller than the “fast” code – but it’s also significantly
+slower as it uses reflection when serializing and deserializing. My
+first rough-and-ready benchmark results (using a 130K data file based
+on Northwind) were slightly terrifying:
+
+using System;
+using System.Reflection;
+using System.Text;
+public class Test
+{
+    static void Main()
+    {
+        MethodInfo indexOf = typeof(string).GetMethod(“IndexOf”, new Type[]{typeof(char)});
+        MethodInfo getByteCount = typeof(Encoding).GetMethod(“GetByteCount”, new Type[]{typeof(string)});
+        
+        Func<string, object, object> indexOfFunc = MagicMethod<string>(indexOf);
+        Func<Encoding, object, object> getByteCountFunc = MagicMethod<Encoding>(getByteCount);
+        
+        Console.WriteLine(indexOfFunc(“Hello”, ‘e’));
+        Console.WriteLine(getByteCountFunc(Encoding.UTF8, “Euro sign: u20ac”));
+    }
+    
+    static Func<T, object, object> MagicMethod<T>(MethodInfo method) where T : class
+    {
+        // First fetch the generic form
+        MethodInfo genericHelper = typeof(Test).GetMethod(“MagicMethodHelper”, 
+            BindingFlags.Static | BindingFlags.NonPublic);
+        
+        // Now supply the type arguments
+        MethodInfo constructedHelper = genericHelper.MakeGenericMethod
+            (typeof(T), method.GetParameters()[0].ParameterType, method.ReturnType);
+            
+        // Now call it. The null argument is because it’s a static method.
+        object ret = constructedHelper.Invoke(null, new object[] {method});
+        
+        // Cast the result to the right kind of delegate and return it
+        return (Func<T, object, object>) ret;
+    }    
+        
+    static Func<TTarget, object, object> MagicMethodHelper<TTarget, TParam, TReturn>(MethodInfo method)
+        where TTarget : class
+    {
+        // Convert the slow MethodInfo into a fast, strongly typed, open delegate
+        Func<TTarget, TParam, TReturn> func = (Func<TTarget, TParam, TReturn>)Delegate.CreateDelegate
+            (typeof(Func<TTarget, TParam, TReturn>), method);
+        
+        // Now create a more weakly typed delegate which will call the strongly typed one
+        Func<TTarget, object, object> ret = (TTarget target, object param) => func(target, (TParam) param);
+        return ret;
+    }
+}
+
+----
+
+http://theburningmonk.com/2015/08/fasterflect-vs-hyperdescriptor-vs-fastmember-vs-reflection/
+
+Fasterflect vs HyperDescriptor vs FastMember vs Reflection
+
+----
+
+http://mattwarren.org/2016/09/29/Optimising-LINQ/
+
+----

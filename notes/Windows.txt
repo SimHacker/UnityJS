@@ -1,0 +1,11 @@
+Spout
+http://spout.zeal.co/
+https://github.com/leadedge/Spout2
+
+unity plugin
+https://www.youtube.com/watch?v=r-QcMU_uwYA
+https://github.com/sloopidoopi/Spout4Unity
+
+https://github.com/Clodo76/vr-desktop-mirror
+
+https://forum.unity3d.com/threads/unity3d-plugin-for-embedding-webpages-on-windows-is-ready.83071/

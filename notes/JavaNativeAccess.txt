@@ -1,0 +1,4 @@
+https://en.wikipedia.org/wiki/Java_Native_Access
+https://github.com/netjunki/jna-android
+http://stackoverflow.com/questions/30179833/how-do-i-call-c-c-code-from-android-using-jna
+http://www.drdobbs.com/embedded-systems/going-android-native/240169066

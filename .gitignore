@@ -1,0 +1,20 @@
+# Mac crap.
+.DS_Store
+
+# Emacs crap.
+*~
+
+# Python crap.
+
+*.pyc
+*.pyo
+
+# To explicitly ignore a file anywhere in the tree, just give it 
+# a suffix of ".ignore".
+
+*.ignore
+
+# You can make a directory anywhere in the tree called "ignore" 
+# for stuff you want ignored.
+
+ignore

@@ -1,0 +1,5 @@
+https://developer.android.com/reference/android/opengl/GLES30.html
+
+http://www.learnopengles.com/android-lesson-seven-an-introduction-to-vertex-buffer-objects-vbos/
+http://www.learnopengles.com/android-lesson-eight-an-introduction-to-index-buffer-objects-ibos/
+https://github.com/learnopengles/Learn-OpenGLES-Tutorials/blob/master/android/AndroidOpenGLESLessons/app/src/main/java/com/learnopengles/android/lesson7/LessonSevenRenderer.java

@@ -1,0 +1,108 @@
+https://github.com/GoogleChrome/puppeteer
+
+https://github.com/GoogleChrome/puppeteer/blob/master/lib/Launcher.js
+
+https://github.com/GoogleChrome/puppeteer/tree/master/lib
+
+https://try-puppeteer.appspot.com/
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot
+
+https://medium.com/@dschnr/using-headless-chrome-as-an-automated-screenshot-tool-4b07dffba79a?1
+
+https://medium.com/@kensoh/chromeless-chrominator-chromy-navalia-lambdium-ghostjs-autogcd-ef34bcd26907
+
+http://blog.masterdevs.com/chrome-debugging-api/
+
+https://www.nuget.org/packages/MasterDevs.ChromeDevTools/
+
+https://github.com/MasterDevs/ChromeDevTools
+
+https://chromedevtools.github.io/devtools-protocol/
+
+https://github.com/ChromeDevTools/awesome-chrome-devtools#chrome-devtools-protocol
+
+http://compatibility.remotedebug.org/Emulation/Chrome%20(CDP%201.2)/commands/setVisibleSize
+http://compatibility.remotedebug.org/Page/Chrome%20(CDP%201.2)/commands/captureScreenshot
+
+https://github.com/cyrus-and/chrome-remote-interface/wiki/Take-page-screenshot
+
+https://www.npmjs.com/package/chrome-devtools-protocol-screenshot
+
+https://github.com/google/ios-webkit-debug-proxy
+
+----
+
+https://github.com/GoogleChrome/puppeteer/blob/master/lib/FrameManager.js#L729
+
+async function waitForPredicatePageFunction(predicateBody, polling, timeout) {
+  const predicate = new Function(predicateBody);
+  let timedOut = false;
+  setTimeout(() => timedOut = true, timeout);
+  if (polling === 'raf')
+    await pollRaf();
+  else if (polling === 'mutation')
+    await pollMutation();
+  else if (typeof polling === 'number')
+    await pollInterval(polling);
+  return !timedOut;
+
+  /**
+   * @return {!Promise}
+   */
+  function pollMutation() {
+    if (predicate())
+      return Promise.resolve();
+
+    let fulfill;
+    const result = new Promise(x => fulfill = x);
+    const observer = new MutationObserver(mutations => {
+      if (timedOut || predicate()) {
+        observer.disconnect();
+        fulfill();
+      }
+    });
+    observer.observe(document, {
+      childList: true,
+      subtree: true,
+      attributes: true
+    });
+    return result;
+  }
+
+  /**
+   * @return {!Promise}
+   */
+  function pollRaf() {
+    let fulfill;
+    const result = new Promise(x => fulfill = x);
+    onRaf();
+    return result;
+
+    function onRaf() {
+      if (timedOut || predicate())
+        fulfill();
+      else
+        requestAnimationFrame(onRaf);
+    }
+  }
+
+  /**
+   * @param {number} pollInterval
+   * @return {!Promise}
+   */
+  function pollInterval(pollInterval) {
+    let fulfill;
+    const result = new Promise(x => fulfill = x);
+    onTimeout();
+    return result;
+
+    function onTimeout() {
+      if (timedOut || predicate())
+        fulfill();
+      else
+        setTimeout(onTimeout, pollInterval);
+    }
+  }
+}
+

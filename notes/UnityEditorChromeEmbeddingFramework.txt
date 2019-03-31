@@ -1,0 +1,168 @@
+https://github.com/kimsama/Unity-WebViewEditorWindow/tree/master/Assets/Editor
+https://github.com/kimsama/Unity-WebViewEditorWindow/blob/master/Assets/Editor/WebViewEditorWindow.cs
+https://github.com/kimsama/Unity-WebViewEditorWindow/blob/master/Assets/Editor/CustomWebViewEditorWindow.cs
+https://github.com/kimsama/Unity-WebViewEditorWindow/blob/70a3715b148af88cf0d33474833290b60270a088/Assets/HTML/index.html
+
+      function sendMessage ( method )  
+      { 
+          unityAsync ({ 
+            className : "window.webScriptObject" , 
+            funcName : "ProcessMessage", 
+            funcArgs : [JSON.stringify ({ 
+                    type : "INVOKE", 
+                    messageID : 1, 
+                    version : "0", 
+                    reference : "ExampleWindow", 
+                    destination : "ExampleWindow", 
+                    method :  method, 
+                    params : [] 
+                })], 
+            onSuccess : function ( a )  { 
+                console.log ( "returnValue : "  +  a ) 
+            }
+          }) 
+      } 
+
+----
+
+https://github.com/jameslinden/unity-decompiled/blob/master/UnityEditor/UnityEditor/AssetStoreWindow.cs
+
+https://github.com/randomize/VimConfig/tree/44541879c723f4239e9ecfe61eee84c3a8bf4d75/tags/unity5
+
+----
+
+https://github.com/randomize/VimConfig/tree/44541879c723f4239e9ecfe61eee84c3a8bf4d75/tags/unity5/UnityEditor/Web
+https://github.com/randomize/VimConfig/blob/44541879c723f4239e9ecfe61eee84c3a8bf4d75/tags/unity5/UnityEditor/WebView.cs
+https://github.com/randomize/VimConfig/blob/44541879c723f4239e9ecfe61eee84c3a8bf4d75/tags/unity5/UnityEditor/Web/WebScriptObject.cs
+https://github.com/randomize/VimConfig/blob/44541879c723f4239e9ecfe61eee84c3a8bf4d75/tags/unity5/UnityEditor/Web/JSProxyMgr.cs
+https://github.com/randomize/VimConfig/blob/44541879c723f4239e9ecfe61eee84c3a8bf4d75/tags/unity5/UnityEditor/Web/WebViewEditorWindow.cs
+https://github.com/randomize/VimConfig/blob/44541879c723f4239e9ecfe61eee84c3a8bf4d75/tags/unity5/UnityEditor/Json.cs
+
+WebView
+WebScriptObject
+WebViewV8CallbackCSharp
+JSProxyMgr
+Json
+
+				this.webView = ScriptableObject.CreateInstance<WebView>();
+				this.webView.InitWebView(this.m_Parent, x, y, width, height, false);
+				this.webView.hideFlags = HideFlags.HideAndDontSave;
+
+			this.webView.SetDelegateObject(this);
+			this.webView.LoadFile(AssetStoreUtils.GetLoaderPath());
+
+			this.scriptObject = ScriptableObject.CreateInstance<WebScriptObject>();
+			this.scriptObject.hideFlags = HideFlags.HideAndDontSave;
+			this.scriptObject.webView = this.webView;
+
+			this.CreateScriptObject();
+			this.webView.DefineScriptObject("window.unityScriptObject", this.scriptObject);
+
+					this.webView.SetHostView(this.m_Parent);
+					this.webView.Show();
+
+		private void InvokeJSMethod(string objectName, string name, params object[] args)
+
+			UnityConnectServiceData cloudService = new UnityConnectServiceData("ErrorHub", ErrorHubAccess.kServiceUrl, ErrorHubAccess.instance, "unity/project/cloud/errorhub");
+
+    CloudServiceAccess
+			return UnityConnectServiceCollection.instance.GetWebViewFromServiceName(this.GetServiceName());
+
+    WebViewEditorWindow
+		public static T Create<T>(string title, string sourcesPath, int minWidth, int minHeight, int maxWidth, int maxHeight) where T : WebViewEditorWindow
+		public static T CreateUtility<T>(string title, string sourcesPath, int minWidth, int minHeight, int maxWidth, int maxHeight) where T : WebViewEditorWindow
+		private void InvokeJSMethod(string objectName, string name, params object[] args)
+			this.webView.DefineScriptObject("window.webScriptObject", this.scriptObject);
+
+			string sourcesPath = "file:///" + path;
+			JSProxyMgr.GetInstance().AddGlobalObject("WebViewTestFunctions", new WebViewTestFunctions());
+			WebViewEditorWindowTabs webViewEditorWindowTabs = WebViewEditorWindow.Create<WebViewEditorWindowTabs>("Test Window", sourcesPath, 0, 0, 0, 0);
+			webViewEditorWindowTabs.OnBatchMode();
+
+
+UnityEditor.WebView
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor/WebView.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor/WebViewStatic.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor/WebViewV8CallbackCSharp.cs
+
+UnityEditor.Web
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/WebScriptObject.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/JSProxyMgr.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/JspmError.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/JspmMethodInfo.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/JspmPropertyInfo.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/JspmResult.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/JspmStubInfo.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/JspmStubInfoSuccess.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/JspmSuccess.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/CloudServiceAccess.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/WebViewEditorWindow.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/WebViewEditorStaticWindow.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Web/WebViewTestFunctions.cs
+
+EditorApplication.userJavascriptPackagesPath
+https://docs.unity3d.com/ScriptReference/EditorApplication.html
+
+https://github.com/MattRix/UnityDecompiled/tree/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor.Connect
+
+UnityEditor.UnityEditorInternal
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditorInternal/JSONValue.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditorInternal/JSONParser.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditorInternal/JSONParseException.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditorInternal/JSONTypeException.cs
+
+AssetStore
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditorInternal/AssetStore.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor/AssetStoreWindow.cs
+
+AssetStoreContext
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor/AssetStoreContext.cs
+Application.OpenURL(url);
+
+UnityEditor.Json
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEditor/UnityEditor/Json.cs
+
+UnityEngine.JsonUtility
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEngine/UnityEngine/JsonUtility.cs
+
+UnityEngine.SimpleJson
+https://github.com/MattRix/UnityDecompiled/tree/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEngine/SimpleJson
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEngine/SimpleJson/JsonObject.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEngine/SimpleJson/JsonArray.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEngine/SimpleJson/IJsonSerializerStrategy.cs
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEngine/SimpleJson/PocoJsonSerializerStrategy.cs
+
+ReflectionUtils
+https://github.com/MattRix/UnityDecompiled/blob/dc5aed5251965a5045888e8e96423025e9d0a52d/UnityEngine/SimpleJson.Reflection/ReflectionUtils.cs
+
+https://github.com/UnityTech
+
+/Applications/Unity/Unity.app/Contents/Resources/Packages/unity-editor-home.0.6.4.tgz
+~/Jaunt/git/UnityPackges/unity-editor-home
+
+/Applications/Unity/Unity.app/Contents/Resources/Packages/unityeditor-cloud-hub-0.0.15.tgz
+~/Jaunt/git/UnityPackges/unityeditor-cloud-hub
+
+/Applications/Unity/Unity.app/Contents/Resources/Packages/unityeditor-collab-toolbar.0.6.6.tgz
+~/Jaunt/git/UnityPackges/unityeditor-collab-toolbar
+
+----
+
+~/Jaunt/git/APlus Assets Explorer(Free)/Scripts/Reflection/Webview.cs
+~/Jaunt/git/APlus Assets Explorer(Free)/Scripts/Reflection/ReflectionUtils.cs
+
+----
+
+A+ Assets Explorer (Free)
+
+http://www.jinqi166.com/2017/01/08/unityeditor_webview_javascript/
+
+				window.unityAsync
+					(
+						{
+						className:"AnyPerf",
+						funcName:"CallFromeJS",
+						funcArgs:["haha"],
+						onSuccess:function(){}
+						}
+					)

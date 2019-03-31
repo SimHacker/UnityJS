@@ -1,0 +1,2 @@
+echo "Pulling Google Sheets spreadsheets..."
+node getsheets.js

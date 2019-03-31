@@ -1,0 +1,385 @@
+----
+
+https://docs.blender.org/api/blender2.8/
+
+----
+
+https://docs.blender.org/api/blender_python_api_2_76_9/bpy.types.UIPieMenu.html?highlight=pie#bpy.types.UIPieMenu
+
+----
+
+https://github.com/dfelinto/blender/blob/master/source/blender/editors/interface/interface_region_menu_pie.c
+
+/* -------------------------------------------------------------------- */
+/**
+ * \name Pie Menu Levels
+ *
+ * Pie menus can't contain more than 8 items (yet). When using #uiItemsFullEnumO, a "More" button is created that calls
+ * a new pie menu if the enum has too many items. We call this a new "level".
+ * Indirect recursion is used, so that a theoretically unlimited number of items is supported.
+ *
+ * This is a implementation specifically for operator enums, needed since the object mode pie now has more than 8
+ * items. Ideally we'd have some way of handling this for all kinds of pie items, but that's tricky.
+ *
+ * - Julian (Feb 2016)
+ *
+ * \{ */
+
+----
+
+[028fd29] master: Pie Menus C code backend.
+
+http://blender.45788.x6.nabble.com/028fd29-master-Pie-Menus-C-code-backend-td124661.html
+
+Commit: 028fd29eeb092b6ed0625ed4d59b8100ae69596f 
+Author: Antony Riakiotakis 
+Date:   Mon Aug 11 10:39:59 2014 +0200 
+Branches: master 
+https://developer.blender.org/rB028fd29eeb092b6ed0625ed4d59b8100ae69596f
+
+Pie Menus C code backend. 
+
+This commit merges the code in the pie-menu branch. 
+
+As per decisions taken the last few days, there are no pie menus 
+included and there will be an official add-on including overrides of 
+some keys with pie menus. However, people will now be able to use the 
+new code in python. 
+
+Full Documentation is in http://wiki.blender.org/index.php/Dev:Ref/
+
+Thanks: 
+Campbell Barton, Dalai Felinto and Ton Roosendaal for the code review 
+and design comments 
+
+Jonathan Williamson, Pawel Lyczkowski, Pablo Vazquez among others for 
+suggestions during the development. 
+
+Special Thanks to Sean Olson, for his support, suggestions, testing and 
+merciless bugging so that I would finish the pie menu code. Without him 
+we wouldn't be here. Also to the rest of the developers of the original 
+python add-on, Patrick Moore and Dan Eicher and finally to Matt Ebb, who 
+did the research and first implementation and whose code I used to get 
+started. 
+
+A	release/scripts/templates_py/ui_pie_menu.py 
+M	source/blender/editors/interface/interface.c 
+M	source/blender/editors/interface/interface_handlers.c 
+M	source/blender/editors/interface/interface_intern.h 
+M	source/blender/editors/interface/interface_layout.c 
+M	source/blender/editors/interface/interface_panel.c 
+M	source/blender/editors/interface/interface_regions.c 
+M	source/blender/editors/interface/interface_widgets.c 
+M	source/blender/editors/interface/resources.c 
+M	release/scripts/modules/bpy_types.py 
+
+https://code.it4i.cz/blender/blender-embree3/blob/master/release/scripts/templates_py/ui_pie_menu.py
+
+----
+
+https://blender.stackexchange.com/questions/45113/how-to-switch-context-area-type-via-pie-command-object-editnodesuvimage
+
+https://docs.blender.org/api/blender_python_api_2_76_2/bpy.context.html?highlight=context.area#bpy.context.area
+
+----
+
+https://github.com/sobotka/blender-addons/tree/master/pie_menus_official
+
+----
+
+https://blender.stackexchange.com/questions/tagged/pie-menu
+
+Questions tagged [pie-menu]
+
+Ask Question
+
+Pie menus are radial menus that display the menu's options around the mouse cursor.
+
+----
+
+Template for creating a pie menu.
+
+https://developer.blender.org/diffusion/B/browse/master/release/scripts/templates_py/ui_pie_menu.py
+
+----
+
+Add-on tutorial
+
+https://docs.blender.org/manual/en/dev/advanced/scripting/addon_tutorial.html
+
+----
+
+Why doesn't my Custom Pie Menu work after restarting Blender?
+
+So I would like to create custom pie menus. I have followed the
+tutorial by Sebastian Kónig that seems quite popular... but it's as if
+he leaves out the portion that tells you how to save it and have it
+work when you restart Blender. Being an artist and total non-coder I'm
+not even sure where to start figuring out why it's not working after a
+restart. Could someone please explain to me what I need to do to make
+this work? or perhaps point me to the section of the manual that
+covers this? here is the tutorial I followed...
+
+https://vimeo.com/103321600
+
+do I need to check Register? this seems to be greyed out sometimes..
+but not others. Do I need to save the script in a specific location?
+Any help would be greatly appreciated :) cheers
+
+https://blender.stackexchange.com/questions/75954/why-doesnt-my-custom-pie-menu-work-after-restarting-blender
+
+----
+
+Pie Menu Box Overlapping Python Question
+
+https://blender.stackexchange.com/questions/72212/pie-menu-box-overlapping-python-question
+
+----
+
+Which pie menus addon to use?
+
+https://blender.stackexchange.com/questions/66654/which-pie-menus-addon-to-use
+
+More information about the "unofficial":
+
+https://blenderartists.org/forum/showthread.php?401789-3d-View-Pie-Menus
+
+The official one, made by Sebastian Koeing, comes with Blender
+automatically. I think you might have installed the first one
+manually, since I don't have it.
+
+----
+
+https://blender.stackexchange.com/tags/pie-menu/hot
+
+----
+
+https://developer.blender.org/T56881
+
+Blender 2.8: More Pie Menus
+Open, Normal
+Public
+Tags
+BF Blender: 2.8 (UI/Workflow)
+User Interface (Backlog)
+Subscribers
+Oscar (KINjO), Brecht Van Lommel (brecht), YAFU (YAFU) and 10 others
+Tokens
+Assigned To
+None
+Authored By
+William Reynish (billreynish), Sep 23 2018
+
+Description	
+
+Blender 2.8 now includes pie menus enabled by default for some key
+features. Pressing the Z-key opens a pie menu with viewport shading
+options. We also use pie menus now with the tilde key to set the
+viewpoint.
+
+Because 2.8 makes pie menus a default UI paradigm, it's a good time to
+review other areas where we might want to use them.
+
+About pie menus
+
+Let's briefly revisit why pie menus are in interesting UI concept.
+
+First, they allow us to map a setting, such as viewport shading, to a
+single key shortcut, rather than several ones for each type. It means
+we can make more efficient use of the keyboard, and we can free up
+keys for other useful things.
+
+Second, they make features easier to use, because the user only has to
+learn and remember one shortcut for a given feature, rather than
+several.
+
+Third, pie menus are fast, because you can use them via a gesture.
+Hold the key, swipe in the direction of the option you are looking
+for, and then simply release. We take advantage of muscle memory to
+allow quick interaction. With pie menus, we can surface more features
+via direct shortcuts, which are faster to execute.
+
+Now that we've started to include some pie menus by default in
+Blender, it's time to review some other places where it would make
+sense. Here's an ongoing list of features that would work well as a
+pie menu:
+
+Pivot Point
+
+The Pivot Point setting is a perfect candidate for a pie menu.
+
+In the 3D View, we have 5 types of pivot points, and one pivot option.
+
+Currently, two of the five pivot point settings are mapped to comma
+and period, respectively. The two next pivot point settings are
+accessed by holding Ctrl and pressing comma or period. The last option
+is accessed by holding Alt and pressing period. This means users have
+to memorise five keyboard shortcuts for one feature, and we take up a
+large portion of the keymap for just this one thing.
+
+This is ripe for being converted into a pie menu, like so:
+
+
+Only one key to remember
+Only one key used (if we map this to comma, period can become free)
+Fast access, with no need to hold modifier keys to access the various options
+
+Transform Orientations
+
+Currently, setting the transform orientations is done with
+Alt+Spacebar. This displays a list menu with the various orientations.
+This can be improved. The simple menu isn't very fast, because you
+cannot use muscle memory and just use a gesture. Also, the
+Alt+Spacebar is not as fast as a single key shortcut.
+
+As a pie menu, we could make this faster to use, by leveraging the
+gestural aspect, and mapping it to the now free period.
+
+Proportional Editing
+
+Currently, switching Proportional Editing types is performed with
+Shift+O. Rather than opening a menu, it just cycles through the
+various options. This is extremely slow, because you have to keep
+cycling through all the options to get to the one you are looking for,
+and even worse, if you tap Shift+O one time too many, you have to
+cycle through all the options again.
+
+We could make this a pie menu, which is both clearer and much faster:
+
+Other candidates for pie menus:
+
+Snapping
+Snap To
+
+Merge (Alt-M)
+Grease Pencil Stroke Placement
+Grease Pencil Drawing Plane
+Etc
+
+Pie menus could be added more places too - suggestions welcome
+
+----
+
+https://developer.blender.org/T56949
+
+Blender 2.8: Pie menu improvements
+Open, Normal
+Public
+Tags
+BF Blender: 2.8 (UI/Workflow)
+User Interface (Backlog)
+Subscribers
+Duarte Farrajota Ramos (duarteframos), Brecht Van Lommel (brecht), Julian Eisel (Severin) and 9 others
+Tokens
+Assigned To
+None
+Authored By
+William Reynish (billreynish), Sep 28 2018
+
+Description	
+Now that we are adding more pie menus, we could make some small but effective improvements to them.
+
+Wedge Highlighting
+First, the wedge could be highlighted as you rollover it, to make it clearer how big the area is, like so:
+
+Holding, Then Releasing Key Should Always Dismiss Pie
+
+There's a slight quirk in the way we handle input: Normally, if you
+hold a key to invoke a pie menu and then let go, the pie menu is
+dismissed. This works if you move your cursor to an item, or to an
+empty area. But, if you don't move the cursor at all, this doesn't
+work. This makes the behaviour inconsistent, and makes the pies
+'stick' in an annoying way if you regret opening one.
+
+Letter Input While Pie is Active
+
+While number input works reasonably well, in Blender we also use
+letters to invoke options in menus. For pies, letters work better,
+because the order makes less direct sense. There's nothing intuitive
+that says left=1, right=2, and so on. We should enable letter input to
+activate pie options. This way, user can press Z, S to activate Solid
+Mode.
+
+These three changes should make pie menus more delightful to use.
+
+----
+
+How would one code a pie menu with an additional traditional menu beneath it?
+
+https://blender.stackexchange.com/questions/120237/how-would-one-code-a-pie-menu-with-an-additional-traditional-menu-beneath-it
+
+----
+
+https://archive.blender.org/wiki/index.php/Dev:2.8/UI/Workshop_Writeup/
+
+Pies
+
+Many of the pie menus that are currently available are mostly a mess.
+While it should be totally allowed that users configure their own
+crazy pie menus, at least the ones that ship with Blender should be
+laid out well and be an actual improvement for fast workflows.
+
+We’re working on a pie menu design guideline page that should be
+followed to ensure these qualities.
+
+----
+
+https://archive.blender.org/wiki/index.php/Dev:2.5/Py/Scripts/Guidelines/Layouts/
+
+----
+
+https://wiki.blender.org/wiki/Reference/Release_Notes/2.80/UI
+
+Pie Menus
+
+We now include a set of pie menus by default, to make more efficient
+use of the keyboard to group related features. Pie menus are fast
+because you can use them via a gesture. Hold the key, swipe in a
+direction, and release. Over time, users can gain muscle memory in
+order to quickly repeat actions.
+
+In the default keymap, pie menus are used for Orientation (,), Pivot
+(.), viewport (~), shading (z), Snap (Shift-S) and Proportional
+Editing Falloff (Shift-O)
+
+----
+
+https://wiki.blender.org/wiki/Process/Addons
+
+----
+
+https://developer.blender.org/diffusion/B/browse/master/source/blender/editors/interface/interface_intern.h
+
+----
+
+https://blender.stackexchange.com/questions/46461/editing-the-official-pie-menus-add-on-fundamentally
+
+----
+
+https://docs.blender.org/manual/en/dev/advanced/scripting/addon_tutorial.html
+
+----
+
+https://wiki.blender.org/wiki/Reference/Release_Notes/2.80/Python_API
+
+https://docs.blender.org/api/blender2.8/
+
+----
+
+Blender add-on templates:
+
+~/Blender/install/blender.app/Contents/Resources/2.80/scripts/templates_py/
+ui_panel_simple.py
+ui_pie_menu.py
+
+~/Blender/install/blender.app/Contents/Resources/2.80/scripts
+~/Blender/install/blender.app/Contents/Resources/2.80/scripts/startup/bl_operators/
+~/Blender/install/blender.app/Contents/Resources/2.80/scripts/startup/bl_ui/
+
+----
+
+https://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Advanced_Tutorials/Python_Scripting/Addon_User_Interface
+
+https://docs.blender.org/api/blender_python_api_2_70_4/bpy.types.Panel.html?highlight=bl_space_type
+
+----

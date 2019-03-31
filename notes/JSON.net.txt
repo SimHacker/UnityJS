@@ -1,0 +1,70 @@
+----
+
+JToken
+    JValue
+        JContainer
+            JArray
+            JObject
+            JProperty
+
+----
+
+JToken
+    Type
+    Children()
+    Load(JsonReader)
+    Load(JsonReader, JsonLoadSettings)
+    Parse(String)
+    Parse(String, JsonLoadSettings)
+    Read(JsonReader)
+    Read(JsonReader, JsonLoadSettings)
+    ToObject(Type)
+    ToObject(Type, JsonSerializer)
+    ToObject<T>()
+    ToObject<T>(JsonSerializer)
+    ToString()
+    ToString(Formatting, JsonConverter[])
+    Value<T>
+    Values<T>
+    Explicit(JToken to *)
+    Explicit(* to JToken)
+    [Object]
+
+----
+
+JValue
+    JValue(*)
+    Value
+
+----
+
+JContainer
+    Count
+    Item
+    [Object]
+
+----
+
+JProperty
+    Name
+    Value
+    Value<T>
+    Values<T>
+
+----
+
+JArray
+    JArray(*)
+    Count
+    [Object]
+    [Int32]
+
+----
+
+JObject
+    JObject(*)
+    Count
+    [Object]
+    [string]
+
+----

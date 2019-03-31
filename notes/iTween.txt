@@ -1,0 +1,11 @@
+http://itween.pixelplacement.com/index.php
+https://www.assetstore.unity3d.com/en/#!/content/84
+
+Backups of google code repo
+164/166 commits up to Aug 22, 2011
+https://code.google.com/archive/p/pixelplacement/
+https://github.com/code-google-com/itween
+https://github.com/phanductrieu/itween
+
+Examples
+https://github.com/Gaddient/Itween_Examples

@@ -1,0 +1,22 @@
+<linker>
+  <!-- This file tells the linker not to strip metadata from certain assemblies an classes.
+       The C# JavaScript bridge needs this metadata, so we disable it with preserve="all".
+       TODO: Narrow it down to only the classes we actually need to expose to JavaScript. -->
+  
+  <!-- This assembly contains System classes. -->
+  <assembly fullname="System" preserve="all"/>
+
+  <!-- These assemblies contain UnityEngine classes. -->
+  <assembly fullname="UnityEngine" preserve="all"/>
+  <assembly fullname="UnityEngine.CoreModule" preserve="all"/>
+  <assembly fullname="UnityEngine.PhysicsModule" preserve="all"/>
+  <assembly fullname="UnityEngine.ParticleSystemModule" preserve="all"/>
+
+  <!-- This assembly contains user defined classes. -->
+  <assembly fullname="Assembly-CSharp" preserve="all"/>
+
+<!--
+    <type fullname="YourClass.*" preserve="all"/>
+-->
+       
+</linker>

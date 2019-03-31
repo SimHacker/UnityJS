@@ -1,0 +1,74 @@
+Timelines
+
+----
+
+http://timeglider.com/widget/index.php
+
+Timeglider JS is a zooming, panning data-driven timeline widget
+written in Javascript. This widget is the core of our our timeline
+authoring and publishing app, and can be integrated into any HTML
+application environment.
+
+Timelines can be zoomed by dragging the vertical slider at right: up
+for zooming in (less time shown) and down for zooming out (more time
+shown). The mousewheel also works as a zoom controller. Any white area
+on the "stage" of the timeline can be dragged left and right, as can
+the blue "ruler" which marks out different units of time. Clicking on
+an event brings up a small modal window with a description and links
+if any are provided in the data. Briefly:
+
+Timeglider works well on iOS and Android touch devices; Windows
+Surface devices are still problematic. We're working on a mobile list
+view for the phone-portrait experience. Data is imported into the
+widget with a straightforward JSON format, but data can also come from
+JavaScript objects (that you can create) existing on the page already.
+This code is not Open Source: Using the widget is free for
+non-commercial use; for commercial applications, we have a couple
+licensing options. If you plan to do a commercial implementation, you
+are welcome to experiment locally or at test-scale as much as you'd
+like with the entire code base. We no longer have our code on Github,
+and are going to do our best to provide complete code reference here
+on our site.
+
+----
+
+Latest version of TimeGlider is not free.
+
+Last free version of TimeGlider:
+https://github.com/timeglider/jquery_widget/tree/345442fa3dc7c66b23c36031a6569693ecf309bd
+
+----
+
+alternatives:
+
+http://almende.github.io/chap-links-library/timeline.html
+https://github.com/Lab21k/standalone-timeline/
+http://timeline.knightlab.com/
+https://github.com/simile-widgets/exhibit
+http://web.archive.org/web/20070305233657/http://simile.mit.edu/timeline/
+
+----
+
+JSON timeline formats:
+
+TimelineJS JSON data format
+https://timeline.knightlab.com/docs/json-format.html
+
+Timeline JSON data
+This demo shows how to feed the Timeline with JSON data. No Google
+DataTable is used, and therefore the Google JSAPI is not needed by the
+Timeline, which can thus be used offline.
+https://almende.github.io/chap-links-library/js/timeline/examples/example17_json_data.html
+
+TimelineJS examples (no longer under development):
+https://github.com/NUKnightLab/TimelineJS/blob/master/examples/example_json.json
+
+----
+
+TimelineJS3 (active development):
+https://github.com/NUKnightLab/TimelineJS3
+
+TimelineJS v3: A Storytelling Timeline built in JavaScript.
+http://timeline.knightlab.com
+
+----

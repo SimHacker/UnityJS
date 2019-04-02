@@ -288,6 +288,20 @@ function CreatePieTracker()
     }
 
 
+    function HandlePressCenterPie(pie, target)
+    {
+        var handler = bridge.searchDefault('onpresscenterpie', pie, target, null);
+        CallHandler(handler, pie, target);
+    }
+
+
+    function HandleReleaseCenterPie(pie, target)
+    {
+        var handler = bridge.searchDefault('onreleasecenterpie', pie, target, null);
+        CallHandler(handler, pie, target);
+    }
+
+
     function HandleSelectPie(pie, target)
     {
         var handler = bridge.searchDefault('onselectpie', pie, target, null);
@@ -295,9 +309,37 @@ function CreatePieTracker()
     }
 
 
+    function HandlePressPie(pie, target)
+    {
+        var handler = bridge.searchDefault('onpresspie', pie, target, null);
+        CallHandler(handler, pie, target);
+    }
+
+
+    function HandleReleasePie(pie, target)
+    {
+        var handler = bridge.searchDefault('onreleasepie', pie, target, null);
+        CallHandler(handler, pie, target);
+    }
+
+
     function HandleSelectEmptySlice(sliceIndex, pie, target)
     {
-        var handler = bridge.searchDefault('onselectpie', pie, target, null);
+        var handler = bridge.searchDefault('onselectemptyslice', pie, target, null);
+        CallHandler(handler, sliceIndex, pie, target);
+    }
+
+
+    function HandlePressEmptySlice(sliceIndex, pie, target)
+    {
+        var handler = bridge.searchDefault('onpressemptyslice', pie, target, null);
+        CallHandler(handler, sliceIndex, pie, target);
+    }
+
+
+    function HandleReleaseEmptySlice(sliceIndex, pie, target)
+    {
+        var handler = bridge.searchDefault('onreleaseemptyslice', pie, target, null);
         CallHandler(handler, sliceIndex, pie, target);
     }
 
@@ -309,16 +351,37 @@ function CreatePieTracker()
     }
 
 
-    function HandleSelectEmptyItem(itemIndex, slice, pie, target)
+    function HandlePressSlice(slice, pie, target)
     {
-        var handler = bridge.searchDefault('onselectemptyitem', slice, pie, target, null);
-        CallHandler(handler, itemIndex, slice, pie, target);
+        var handler = bridge.searchDefault('onpressslice', slice, pie, target, null);
+        CallHandler(handler, slice, pie, target);
+    }
+
+
+    function HandleReleaseSlice(slice, pie, target)
+    {
+        var handler = bridge.searchDefault('onreleaseslice', slice, pie, target, null);
+        CallHandler(handler, slice, pie, target);
     }
 
 
     function HandleSelectItem(item, slice, pie, target)
     {
         var handler = bridge.searchDefault('onselectitem', item, slice, pie, target, null);
+        CallHandler(handler, item, slice, pie, target);
+    }
+
+
+    function HandlePressItem(item, slice, pie, target)
+    {
+        var handler = bridge.searchDefault('onpressitem', item, slice, pie, target, null);
+        CallHandler(handler, item, slice, pie, target);
+    }
+
+
+    function HandleReleaseItem(item, slice, pie, target)
+    {
+        var handler = bridge.searchDefault('onreleaseitem', item, slice, pie, target, null);
         CallHandler(handler, item, slice, pie, target);
     }
 
@@ -557,6 +620,7 @@ function CreatePieTracker()
         });
 
         //console.log("StartPie TrackPie");
+
         TrackPie(position, 0.0, 0.0, -1, -1, true);
 
         HandleStartPie(pie, target);
@@ -654,6 +718,32 @@ function CreatePieTracker()
 
         if (stayUp) {
             // TODO: Make sure the current item gets reselected without flickering.
+
+            if (pieTracker.sliceIndex < 0) {
+                HandleReleaseCenterPie(pie, target);
+            } else {
+                HandleReleasePie(pie, target);
+
+                var slice = pieTracker.slice;
+                if (!slice) {
+
+                    HandleReleaseEmptySlice(pieTracker.sliceIndex, pie, target);
+
+                } else {
+
+                    HandleReleaseSlice(slice, pie, target);
+
+                    var item = pieTracker.item;
+                    if (item) {
+
+                        HandleReleaseItem(item, slice, pie, target);
+
+                    }
+
+                }
+
+            }
+            
         } else {
             //console.log("stayUp so TrackPie");
             TrackPie(pieTracker.mousePosition, 0.0, 0.0, -1, -1, true);
@@ -864,7 +954,7 @@ function CreatePieTracker()
 
                 if (firstSlice) {
                     firstSlice = false;
-                    // If the subtend was zero, use the whole pie, but start the first slice centered no the initial direction.
+                    // If the subtend was zero, use the whole pie, but start the first slice centered, not the initial direction.
                     if (subtend == 0.0) {
                         sliceDirection -= halfTurn;
                     }
@@ -1322,16 +1412,44 @@ function CreatePieTracker()
                     pieTracker.mouseRaycastHitPoint = results.mouseRaycastHitPoint;
                     pieTracker.buttonDown = true;
 
-                    if (pieTracker.tracking) {
-                        //console.log("pie.js: PieTracker: MouseButtonDown: already tracking pie so ignoring. updating pieTracker.mousePosition from", pieTracker.mousePosition, "to", results.mousePosition);
-                        pieTracker.mousePosition = results.mousePosition;
-                        return;
-                    }
-
                     var target =
                         results.mouseRaycastResult
                             ? (bridge.objects[results.mouseRaycastHitBridgeObjectID] || null)
                             : null;
+
+                    if (pieTracker.tracking) {
+                        //console.log("pie.js: PieTracker: MouseButtonDown: already tracking pie so ignoring. updating pieTracker.mousePosition from", pieTracker.mousePosition, "to", results.mousePosition);
+                        pieTracker.mousePosition = results.mousePosition;
+                        
+                        var pie = pieTracker.pie;
+
+                        if (pieTracker.sliceIndex < 0) {
+                            HandlePressCenterPie(pie, target);
+                        } else {
+                            HandlePressPie(pie, target);
+
+                            var slice = pieTracker.slice;
+                            if (!slice) {
+
+                                HandlePressEmptySlice(pieTracker.sliceIndex, pie, target);
+
+                            } else {
+
+                                HandlePressSlice(slice, pie, target);
+
+                                var item = pieTracker.item;
+                                if (item) {
+
+                                    HandlePressItem(item, slice, pie, target);
+
+                                }
+
+                            }
+
+                        }
+
+                        return;
+                    }
 
                     var pieID = null;
 

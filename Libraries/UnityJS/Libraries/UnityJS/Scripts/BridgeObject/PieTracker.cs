@@ -44,7 +44,6 @@ public class PieTracker : Tracker {
     public JObject _pie;
     public bool pieChanged = true;
 
-
     public JObject pie {
         get {
             return _pie;
@@ -169,14 +168,10 @@ public class PieTracker : Tracker {
             sliceDirection += halfTurn;
             //Debug.Log("center sliceDirection: " + sliceDirection);
 
-            float dx = Mathf.Cos(sliceDirection);
-            float dy = Mathf.Sin(sliceDirection);
             //Debug.Log("slice: " + slice + " sliceSize: " + sliceSize + " sliceDirection: " + sliceDirection + " sliceSubtend: " + sliceSubtend + " dx: " + dx + " dy: " + dy);
 
             slice["sliceDirection"] = sliceDirection;
             slice["sliceSubtend"] = sliceSubtend;
-            slice["dx"] = dx;
-            slice["dy"] = dy;
 
             sliceDirection += halfTurn;
             //Debug.Log("end sliceDirection: " + sliceDirection);
@@ -184,26 +179,15 @@ public class PieTracker : Tracker {
     }
 
 
-    public bool AngleBetween(float n, float a, float b)
+    public bool IsInside(float direction, float sliceDirection, float sliceSubtend)
     {
-        return true;
-/*
-        const float twoPI = 2.0f * Mathf.PI;
-        const float manyPI = twoPI * 1000.0f;
-    	n = (twoPI + (n % twoPI)) % twoPI;
-        a = (manyPI + a) % twoPI;
-        b = (manyPI + b) % twoPI;
-
-        if (a < b) {
-            bool between1 = (a <= n) && (n <= b);
-            //Debug.Log("AngleBetween n: " + n + " a: " + a + " b: " + b + " between1: " + between1);
-            return between1;
-        }
-
-        bool between2 = (a <= n) || (n <= b);
-        //Debug.Log("AngleBetween n: " + n + " a: " + a + " b: " + b + " between2: " + between2);
-        return between2;
-*/
+        float dot =
+            (Mathf.Cos(direction) * Mathf.Cos(sliceDirection)) +
+            (Mathf.Sin(direction) * Mathf.Sin(sliceDirection));
+        float angle =
+            Mathf.Acos(dot);
+        return angle < (0.5f * sliceSubtend);
+        
     }
     
 
@@ -245,17 +229,18 @@ public class PieTracker : Tracker {
 
         //Debug.Log("TrackMousePosition: mouse dx: " + mousePositionDelta.x + " dy: " + mousePositionDelta.y + " direction: " + direction + " distance: " + distance + " inactive: " + inactive + " clockwise: " + clockwise + " subtend: " + subtend + " initialDirection: " + initialDirection);
 
+
         if (!inactive && 
-            (subtend != 0.0f) &&
-            !AngleBetween(
-                direction, 
-                clockwise 
-                    ? (initialDirection + subtend)
-                    : initialDirection,
-                clockwise 
-                    ? initialDirection
-                    : (initialDirection + subtend))) {
-            inactive = true;
+            (subtend != 0.0f)) {
+
+            float clockSign = clockwise ? -1 : 1;
+            float halfTurn = 0.5f * clockSign * subtend;
+
+            inactive =
+                IsInside(
+                    direction,
+                    initialDirection + halfTurn,
+                    subtend);
         }
 
         if (inactive) {
@@ -275,41 +260,34 @@ public class PieTracker : Tracker {
 
                 //Debug.Log("pieSlices direction: " + direction + " mouseDX: " + mouseDX + " mouseDY: " + mouseDY);
 
-                float bestDot = -1.0e+6f;
-                JObject bestSlice = null;
                 int i = 0;
                 foreach (JObject slice in pieSlices) {
-                    float dx = slice.GetFloat("dx");
-                    float dy = slice.GetFloat("dy");
                     float sliceDirection = slice.GetFloat("sliceDirection");
-                    float dot = 
-                        ((mouseDX * dx) + 
-                         (mouseDY * dy));
-                    //Debug.Log("i: " + i + " sliceDirection: " + sliceDirection + " dx: " + dx + " dy: " + dy + " dot: " + dot + " best: " + (dot > bestDot) + " slice: " + slice);
-                    if (dot > bestDot) {
-                        bestDot = dot;
-                        bestSlice = slice;
+                    float sliceSubtend = slice.GetFloat("sliceSubtend");
+
+                    if (IsInside(direction, sliceDirection, sliceSubtend)) {
+
                         sliceIndex = i;
+
+                        JArray items = slice.GetArray("items");
+                        if ((items != null) && 
+                            (items.Count > 0)) {
+
+                            itemIndex =
+                                (int)Mathf.Min(
+                                    items.Count - 1,
+                                    Mathf.Floor(
+                                        (distance - inactiveDistance) /
+                                        itemDistance));
+
+                        }
+
+                        break;
                     }
+
                     i++;
                 }
 
-                if (bestSlice != null) {
-                    JArray items = bestSlice.GetArray("items");
-                    if ((items != null) && 
-                        (items.Count > 0)) {
-                        
-                        itemIndex =
-                            (int)Mathf.Min(
-                                items.Count - 1,
-                                Mathf.Floor(
-                                    (distance - inactiveDistance) /
-                                    itemDistance));
-
-                    }
-                }
-
-                //Debug.Log("finally sliceIndex: " + sliceIndex + " i: " + i);
             }
 
         }

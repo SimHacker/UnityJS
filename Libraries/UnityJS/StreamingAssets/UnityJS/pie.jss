@@ -821,7 +821,7 @@ function CreatePieTracker()
 
         if (!pie.groupObject) {
 
-            pie.groupObject = bridge.createPrefab({
+            pie.groupObject = bridge.createObject({
                 prefab: 'Prefabs/PieGroup',
                 parent: 'object:' + world.overlay.id + '/overlay',
                 update: {
@@ -889,12 +889,12 @@ function CreatePieTracker()
             if (pie.freeLabels.length) {
                 label = pie.freeLabels.pop();
             } else {
-                 label = bridge.createPrefab({
+                 label = bridge.createObject({
                     obj: {
                         active: true
                     },
                     prefab: 'Prefabs/OverlayText',
-                    parent: 'object:' + pie.groupObject.id
+                    parent: pie.groupObject
                 });
             }
             pie.usedLabels.push(label);
@@ -1329,7 +1329,7 @@ function CreatePieTracker()
     }
 
 
-    world.pieTracker = pieTracker = bridge.createPrefab({
+    world.pieTracker = pieTracker = bridge.createObject({
         prefab: 'Prefabs/PieTracker', 
         obj: {
             pie: null,

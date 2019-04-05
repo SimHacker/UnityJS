@@ -1,2 +1,2 @@
 echo "Pushing WebGL Unity app..."
-rsync -r --copy-links ../Deployments/Example_WebGL/Builds/Example_WebGL dhopkins@donhopkins.com:/home/struct/htdocs/apps
+rsync -r --copy-links ../Deployments/Example_WebGL/Builds/Example_WebGL admin@struct.studio:/home/admin/htdocs/apps

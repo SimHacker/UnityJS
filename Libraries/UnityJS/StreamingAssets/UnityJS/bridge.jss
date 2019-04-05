@@ -86,7 +86,7 @@ class UnityJSBridge {
 
     handleLoadFailed(errorMessage)
     {
-        console.log("Bridge: handleLoadFailed: errorMessage:", errorMessage, "handleLoadFailedScript:", handleLoadFailedScript);
+        console.log("Bridge: handleLoadFailed: errorMessage:", errorMessage, "handleLoadFailedScript:", this.handleLoadFailedScript);
         if (this.handleLoadFailedScript) {
             eval(this.handleLoadFailedScript);
         }
@@ -151,14 +151,14 @@ class UnityJSBridge {
     }
 
 
-    createPrefab(template) {
+    createObject(template)
+    {
 
-        if (template == null) {
-            console.log("Bridge: createPrefab: template is null");
-            return null;
+        if (!template) {
+            template = {};
         }
 
-        //console.log("Bridge: createPrefab: template:", JSON.stringify(template, null, 4));
+        //console.log("Bridge: createObject: template:", JSON.stringify(template, null, 4));
 
         // obj, prefab, component, preEvents, parent, worldPositionStays, update, interests, postEvents
 
@@ -172,7 +172,13 @@ class UnityJSBridge {
         var interests = template.interests || null;
         var postEvents = template.postEvents || null;
 
-        //console.log("Bridge: createPrefab: obj:", obj, "prefab:", prefab, "component:", component, "preEvents:", preEvents, "parent:", parent, "worldPositionStays:", worldPositionStays, "update:", update, "interests:", JSON.stringify(interests), "postEvents:", postEvents);
+        //console.log("Bridge: createObject: obj:", obj, "prefab:", prefab, "component:", component, "preEvents:", preEvents, "parent:", parent, "worldPositionStays:", worldPositionStays, "update:", update, "interests:", JSON.stringify(interests), "postEvents:", postEvents);
+
+        if ((parent !== null) &&
+            (typeof parent === "object") &&
+            parent.id) {
+            parent = 'object:' + parent.id;
+        }
 
         var remoteInterests = {};
         if (interests) {
@@ -189,7 +195,7 @@ class UnityJSBridge {
             }
         }
 
-        //console.log("Bridge: createPrefab: remoteInterests:", JSON.stringify(remoteInterests));
+        //console.log("Bridge: createObject: remoteInterests:", JSON.stringify(remoteInterests));
 
         var id = this.makeID(prefab || 'GameObject');
 
@@ -272,23 +278,6 @@ class UnityJSBridge {
     }
 
 
-    animateObject(obj, data)
-    {
-        if (obj == null) {
-            console.log("Bridge: animateObject: obj is null", "data", JSON.stringify(data));
-            return;
-        }
-
-        //console.log("Bridge: animateObject: data:", JSON.stringify(data, null, 4));
-
-        this.sendEvent({
-            event: 'Animate',
-            id: obj.id,
-            data: data
-        });
-    }
-
-
     queryObject(obj, query, callback)
     {
         if (obj == null) {
@@ -307,6 +296,23 @@ class UnityJSBridge {
 
         this.sendEvent({
             event: 'Query',
+            id: obj.id,
+            data: data
+        });
+    }
+
+
+    animateObject(obj, data)
+    {
+        if (obj == null) {
+            console.log("Bridge: animateObject: obj is null", "data", JSON.stringify(data));
+            return;
+        }
+
+        //console.log("Bridge: animateObject: data:", JSON.stringify(data, null, 4));
+
+        this.sendEvent({
+            event: 'Animate',
             id: obj.id,
             data: data
         });
@@ -772,14 +778,14 @@ class UnityJSBridge {
     {
         var world = bridge.world;
 
-        world.leanTweenBridge = bridge.createPrefab({
+        world.leanTweenBridge = bridge.createObject({
             "prefab": "Prefabs/LeanTweenBridge",
             "update": {
                 "maxTweens": 1000
             }
         });
 
-        world.light = bridge.createPrefab({
+        world.light = bridge.createObject({
             "prefab": "Prefabs/Light",
             "update": {
                 "component:Light/type": "Directional",
@@ -790,7 +796,7 @@ class UnityJSBridge {
             }
         });
 
-        world.camera = bridge.createPrefab({
+        world.camera = bridge.createObject({
             "prefab": "Prefabs/ProCamera",
             "update": {
                 "transform/localPosition": {
@@ -823,7 +829,7 @@ class UnityJSBridge {
             }
         });
 
-        world.ground = bridge.createPrefab({
+        world.ground = bridge.createObject({
             obj: {
                 pieID: null,
                 getPieID: (obj, results, target) => {

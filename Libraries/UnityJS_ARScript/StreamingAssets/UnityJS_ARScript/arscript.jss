@@ -24,34 +24,16 @@ function LoadObjects()
 {
     console.log("arscript.js: LoadObjects");
 
-    globals.ar = CreatePrefab({
-        prefab: 'Prefabs/ARKitBridge',
-        obj: {
-        },
-        update: {
-        },
-        interests: {
-        }
+    globals.ar = bridge.createObject({
+        prefab: 'Prefabs/ARKitBridge'
     });
 
-    globals.light = CreatePrefab({
-        prefab: 'Prefabs/ARKitLight',
-        obj: {
-        },
-        update: {
-        },
-        interests: {
-        }
+    globals.light = bridge.createObject({
+        prefab: 'Prefabs/ARKitLight'
     });
 
-    globals.pointCloud = CreatePrefab({
-        prefab: 'Prefabs/ARKitPointCloud',
-        obj: {
-        },
-        update: {
-        },
-        interests: {
-        }
+    globals.pointCloud = bridge.createObject({
+        prefab: 'Prefabs/ARKitPointCloud'
     });
 
 }

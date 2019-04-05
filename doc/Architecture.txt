@@ -433,7 +433,7 @@ JavaScript pie JSON API.
 
 JavaScript API
 
-CreatePrefab(template)
+bridge.createObject(template)
 
     template.obj
     template.prefab
@@ -444,5 +444,20 @@ CreatePrefab(template)
     template.update
     template.interests
     template.postEvents
+
+bridge.deleteObject
+
+bridge.updateObject
+
+bridge.queryObject
+
+bridge.animateObject
+
+bridge.updateObject
+
+bridge.drawToCanvas
+
+interests
+    Event handlers can provide a general query template to cherry-pick event parameters. 
 
 ----

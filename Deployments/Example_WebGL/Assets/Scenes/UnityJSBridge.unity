@@ -172,6 +172,14 @@ PrefabInstance:
       value: Example
       objectReference: {fileID: 0}
     - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: deployment
+      value: Example_WebGL
+      objectReference: {fileID: 0}
+    - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: title
+      value: Example
+      objectReference: {fileID: 0}
+    - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
       propertyPath: url
       value: example.html
       objectReference: {fileID: 0}
@@ -184,12 +192,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
-      propertyPath: deployment
-      value: Example_WebGL
-      objectReference: {fileID: 0}
-    - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
-      propertyPath: title
-      value: Example
+      propertyPath: socketIOAddress
+      value: ws://localhost:3000/socket.io/?EIO=4&transport=websocket
       objectReference: {fileID: 0}
     - target: {fileID: 933, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
       propertyPath: bootConfigurationsKey

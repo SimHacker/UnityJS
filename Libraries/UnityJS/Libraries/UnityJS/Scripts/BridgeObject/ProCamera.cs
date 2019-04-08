@@ -352,7 +352,11 @@ public class ProCamera : BridgeObject {
 
                             //Debug.Log("ProCamera: Update: Interpolate: interpolateRows: " + interpolateRows + " interpolateColumns: " + interpolateColumns + " mouse: " + dragMousePosition.x + " " + dragMousePosition.y);
 
-                            float x = (float)dragMousePosition.x / (float)Screen.width;
+                            float x = 
+                                Mathf.Clamp(
+                                    (float)dragMousePosition.x / (float)Screen.width,
+                                    0.0f,
+                                    1.0f);
                             float xColumn = x * interpolateColumns;
                             int column0 = (int)Mathf.Floor(xColumn);
                             float columnFactor = xColumn - column0;
@@ -361,7 +365,11 @@ public class ProCamera : BridgeObject {
                             int column1 = column0 + 1;
                             if (column1 >= interpolateColumns) column1 = interpolateColumns - 1;
 
-                            float y = (float)dragMousePosition.y / (float)Screen.height;
+                            float y = 
+                                Mathf.Clamp(
+                                    (float)dragMousePosition.y / (float)Screen.height,
+                                    0.0f,
+                                    1.0f);
                             float yRow = y * interpolateRows;
                             int row0 = (int)Mathf.Floor(yRow);
                             float rowFactor = yRow - row0;

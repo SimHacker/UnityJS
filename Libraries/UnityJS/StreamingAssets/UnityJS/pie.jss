@@ -1648,14 +1648,20 @@ function CreatePies()
 }
 
 
-function PieDistance(pie, scale)
+function PieDistance(pie, scale, plateau)
 {
     var world = bridge.world;
     var pieTracker = world.pieTracker;
 
-    return (scale *
-            (pieTracker.distance -
-             bridge.searchDefault('inactiveDistance', pie, pieTracker.inactiveDistance)));
+    plateau |= 0;
+
+    var inactiveDistance = bridge.searchDefault('inactiveDistance', pie, pieTracker.inactiveDistance);
+    var distance = pieTracker.distance - inactiveDistance - plateau;
+    if (distance < 0) {
+        return 0;
+    }
+
+    return scale * distance;
 }
 
 

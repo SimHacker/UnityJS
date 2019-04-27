@@ -150,7 +150,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.ground-up-software.unityjs
     Standalone: studio.struct.example
-    WebGL: studio.struct.example
+    WebGL: studio.struct.optionality
     iOS: studio.struct.arscript
   buildNumber:
     iOS: 100
@@ -606,7 +606,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: PROJECT:UnityJS_Example
+  webGLTemplate: PROJECT:UnityJS_Optionality
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 1
@@ -616,7 +616,7 @@ PlayerSettings:
     1: CROSS_PLATFORM_INPUT
     4: CROSS_PLATFORM_INPUT;MOBILE_INPUT;USE_SOCKETIO;USE_GLTF;USE_ARKIT
     7: CROSS_PLATFORM_INPUT;MOBILE_INPUT
-    13: CROSS_PLATFORM_INPUT;MOBILE_INPUT;USE_SOCKETIO;USE_GLTF
+    13: CROSS_PLATFORM_INPUT;MOBILE_INPUT;USE_SOCKETIO;USE_SPLINEMESH
     14: MOBILE_INPUT
     17: MOBILE_INPUT
     20: MOBILE_INPUT

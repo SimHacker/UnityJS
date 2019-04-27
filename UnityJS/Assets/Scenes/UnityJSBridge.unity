@@ -199,5 +199,33 @@ PrefabInstance:
       propertyPath: bootConfigurationsKey
       value: BootConfigurations_Optionality
       objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: gameID
+      value: Optionality
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: deployment
+      value: Optionality_WebGL
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: title
+      value: Optionality
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: url
+      value: optionality.html
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: spreadsheetID
+      value: 1m7FANuMTPAfugSTw20pHSSpTF-Ugj0Hg11Z52nRtuLY
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: configuration
+      value: optionality
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: bootConfigurationsKey
+      value: BootConfigurations_Optionality
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}

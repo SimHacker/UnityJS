@@ -169,33 +169,61 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
       propertyPath: gameID
-      value: ARScript
+      value: Optionality
       objectReference: {fileID: 0}
     - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
       propertyPath: deployment
-      value: ARScript_iOS
+      value: Optionality_WebGL
       objectReference: {fileID: 0}
     - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
       propertyPath: title
-      value: ARScript
+      value: Optionality
       objectReference: {fileID: 0}
     - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
       propertyPath: url
-      value: arscript.html
+      value: optionality.html
       objectReference: {fileID: 0}
     - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
       propertyPath: spreadsheetID
-      value: 
+      value: 1m7FANuMTPAfugSTw20pHSSpTF-Ugj0Hg11Z52nRtuLY
       objectReference: {fileID: 0}
     - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
       propertyPath: configuration
-      value: 
+      value: optionality
       objectReference: {fileID: 0}
     - target: {fileID: 932, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
       propertyPath: socketIOAddress
       value: ws://localhost:3000/socket.io/?EIO=4&transport=websocket
       objectReference: {fileID: 0}
     - target: {fileID: 933, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: bootConfigurationsKey
+      value: BootConfigurations_Optionality
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: gameID
+      value: ARScript
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: deployment
+      value: ARScript_iOS
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: title
+      value: ARScript
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: url
+      value: arscript.html
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: spreadsheetID
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
+      propertyPath: configuration
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054, guid: c8990e5c1a5c94d57b47fba8d356fbfd, type: 3}
       propertyPath: bootConfigurationsKey
       value: BootConfigurations_ARScript
       objectReference: {fileID: 0}

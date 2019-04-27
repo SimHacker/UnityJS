@@ -540,7 +540,7 @@ if (gGoogleSheets) {
 
     function MakeNamedRanges(sheet)
     {
-        console.log("sheets.js: MakeNamedRanges: sheet:", sheet);
+        //console.log("sheets.js: MakeNamedRanges: sheet:", sheet);
 
         var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
         if (!sheet) {
@@ -567,7 +567,7 @@ if (gGoogleSheets) {
             parts.push(rangeSchema);
         });
 
-        console.log("headers:", JSON.stringify(headers));
+        //console.log("headers:", JSON.stringify(headers));
 
         var fullRange = 
             sheet.getRange(1, 1, sheet.getMaxRows(), sheet.getMaxColumns());
@@ -604,7 +604,7 @@ if (gGoogleSheets) {
                 //headerRange.setHorizontalAlignment('right');
                 //headerRange.setFontWeight('bold');
 
-                console.log("header", header, "row", row, "rows", rows, "columns", columns, "column", column, "parts", parts);
+                //console.log("header", header, "row", row, "rows", rows, "columns", columns, "column", column, "parts", parts);
 
                 parts.forEach((part, partIndex) => {
 
@@ -625,7 +625,7 @@ if (gGoogleSheets) {
 
                     var rangeName = name + '_' + part.suffix;
 
-                   console.log("part", JSON.stringify(part), "rangeRow", rangeRow, "rangeColumn", rangeColumn, "name", name, "rangeName", rangeName);
+                   //console.log("part", JSON.stringify(part), "rangeRow", rangeRow, "rangeColumn", rangeColumn, "name", name, "rangeName", rangeName);
 
                     //console.log("header", header, "rangeName", rangeName, "rowOffset", part.rowOffset, "columnOffset", part.columnOffset, "type", part.type, "layer", part.layer, "suffix", part.suffix, "row", row, "column", column, "rangeRow", rangeRow, "rangeColumn", rangeColumn, "rowToColumnRows[rangeRow]", rowToColumnRows[rangeRow], "columnToRowColumns[rangeColumn]", columnToRowColumns[rangeColumn]);
 
@@ -702,7 +702,7 @@ if (gGoogleSheets) {
                         //range.setNote(note)
                     }
 */
-                    console.log("sheets.js: MakeNamedRanges: setNamedRange: rangeName", rangeName, "rangeRow", rangeRow, "rangeColumn", rangeColumn, "rangeRows", rangeRows, "rangeColumns", rangeColumns, "layer", part.layer);
+                    //console.log("sheets.js: MakeNamedRanges: setNamedRange: rangeName", rangeName, "rangeRow", rangeRow, "rangeColumn", rangeColumn, "rangeRows", rangeRows, "rangeColumns", rangeColumns, "layer", part.layer);
 
                     spreadsheet.setNamedRange(rangeName, range);
 
@@ -717,7 +717,7 @@ if (gGoogleSheets) {
 
     function UpdateAllMetaData()
     {
-        console.log("UpdateAllMetaData");
+        //console.log("UpdateAllMetaData");
 
         MakeAllMetaDataSheets();
     }
@@ -732,7 +732,7 @@ if (gGoogleSheets) {
         for (var index = 0, n = sheets.length; index < n; index++) {
             var sheet = sheets[index];
             var sheetName = sheet.getName();
-            console.log("MakeAllMetaDataSheets: sheetName:", sheetName);
+            //console.log("MakeAllMetaDataSheets: sheetName:", sheetName);
             if (sheetName.indexOf('$') != -1) {
                 continue;
             }
@@ -759,7 +759,7 @@ if (gGoogleSheets) {
                 var value = values[row][column];
                 if (value == 'Layers:') {
                     value = values[row][column + 1] || '';
-                    console.log("MakeMetaDataSheets: sheetName:", sheetName, "row:", row, "column:", column, "Layers:", value);
+                    //console.log("MakeMetaDataSheets: sheetName:", sheetName, "row:", row, "column:", column, "Layers:", value);
                     value.split(',').forEach((token) => {
                         token = token.trim();
                         if (token.length > 0) {
@@ -776,7 +776,7 @@ if (gGoogleSheets) {
         }
 
         if (layers) {
-            console.log("MakeMetaDataSheets: sheetName:", sheetName, "layers:", layers);
+            //console.log("MakeMetaDataSheets: sheetName:", sheetName, "layers:", layers);
             var lastActiveSheet = spreadsheet.getActiveSheet();
             layers.forEach((layer) => {
                 if (layer == "namedRange") {
@@ -785,20 +785,20 @@ if (gGoogleSheets) {
                     var layerSheetName = sheetName + '$' + layer;
                     var layerSheet = spreadsheet.getSheetByName(layerSheetName);
                     if (layerSheet) {
-                        console.log("MakeMetaDataSheets: sheetName:", sheetName, "found layerSheetName:", layerSheetName, layerSheet);
+                        //console.log("MakeMetaDataSheets: sheetName:", sheetName, "found layerSheetName:", layerSheetName, layerSheet);
                     } else {
-                        console.log("MakeMetaDataSheets: sheetName:", sheetName, "making layerSheetName:", layerSheetName);
+                        //console.log("MakeMetaDataSheets: sheetName:", sheetName, "making layerSheetName:", layerSheetName);
                         var nowSheets = spreadsheet.getSheets();
                         for (var insertSheetIndex = nowSheets.length - 1; insertSheetIndex > 0; insertSheetIndex--) {
                             var nowSheetName = nowSheets[insertSheetIndex].getName();
-                            console.log("MakeMetaDataSheets: sheetName:", sheetName, "layerSheetName:", layerSheetName, "insertSheetIndex:", insertSheetIndex, "nowSheetName:", nowSheetName);
+                            //console.log("MakeMetaDataSheets: sheetName:", sheetName, "layerSheetName:", layerSheetName, "insertSheetIndex:", insertSheetIndex, "nowSheetName:", nowSheetName);
                             if ((nowSheetName == sheetName) ||
                                 nowSheetName.indexOf(sheetName + '$') == 0) { // startsWith is missing!
                                 insertSheetIndex++;
                                 break;
                             }
                         }
-                        console.log("MakeMetaDataSheets: sheetName:", sheetName, "layerSheetName:", layerSheetName, "insertSheetIndex:", insertSheetIndex);
+                        //console.log("MakeMetaDataSheets: sheetName:", sheetName, "layerSheetName:", layerSheetName, "insertSheetIndex:", insertSheetIndex);
                         spreadsheet.insertSheet(layerSheetName, insertSheetIndex);
                         layerSheet = spreadsheet.getActiveSheet();
                     }
@@ -813,7 +813,7 @@ if (gGoogleSheets) {
                         Math.random() + 
                         '))';
                     topLeftRange.setFormula(formula);
-                    console.log("MakeMetaDataSheets: sheetName:", sheetName, "layerSheetName:", layerSheetName, "formula:", formula);
+                    //console.log("MakeMetaDataSheets: sheetName:", sheetName, "layerSheetName:", layerSheetName, "formula:", formula);
                 }
             });
             spreadsheet.setActiveSheet(lastActiveSheet);
@@ -909,7 +909,7 @@ if (gGoogleSheets) {
                     }
                     dataList.push(data);
                     var json = JSON.stringify(dataList);
-                    console.log("GenerateLayerSheet:", "sheetName:", sheetName, "layer:", layer, "row:", row, "column:", column, "image:", image, "json:", json);
+                    //console.log("GenerateLayerSheet:", "sheetName:", sheetName, "layer:", layer, "row:", row, "column:", column, "image:", image, "json:", json);
                     results[row][column] = json;
                 });
                 return results;
@@ -939,7 +939,7 @@ if (gGoogleSheets) {
             Math.random() +
             '))';
         topLeftRange.setFormula(formula);
-        console.log("Updated Named Ranges", rangesSheet);
+        //console.log("Updated Named Ranges", rangesSheet);
     }
 
 
@@ -1088,7 +1088,7 @@ if (gGoogleSheets) {
                                     var rangeRow = rangesTable[i];
                                     data.ranges[rangeRow.rangeName] = rangeRow;
                                 }
-                                console.log("sheets.js: LoadObjects: LoadSheetsSuccess: Loaded ranges:", data.ranges, "scope:", scope);
+                                //console.log("sheets.js: LoadObjects: LoadSheetsSuccess: Loaded ranges:", data.ranges, "scope:", scope);
                             }
 
                         }
@@ -1122,7 +1122,7 @@ if (gGoogleSheets) {
 
         var xhr = new XMLHttpRequest();
 
-        console.log("sheets.js: LoadSheetsFromApp: url: " + url);
+        //console.log("sheets.js: LoadSheetsFromApp: url: " + url);
 
         xhr.onload = () => {
             var text = xhr.responseText;

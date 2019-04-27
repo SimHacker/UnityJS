@@ -261,7 +261,7 @@ public class BridgeTransportWebView : BridgeTransport
 
     public void HandleError(string message)
     {
-        Debug.Log("BridgeTransportWebView: HandleError: message: " + message, this);
+        //Debug.Log("BridgeTransportWebView: HandleError: message: " + message, this);
     }
 
 

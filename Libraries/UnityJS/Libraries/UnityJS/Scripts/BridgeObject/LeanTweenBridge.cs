@@ -276,7 +276,7 @@ public class LeanTweenBridge : BridgeObject {
                     if (data.ContainsKey("position")) {
 
                         Vector3 position = Vector3.zero;
-                        if (!Bridge.bridge.ConvertToType<Vector3>(data["position"], ref position)) {
+                        if (!Bridge.mainBridge.ConvertToType<Vector3>(data["position"], ref position)) {
                             Debug.LogError("LeanTweenBridge: AnimateData: position must be a Vector3. data: " + data);
                             return;
                         }
@@ -343,7 +343,7 @@ public class LeanTweenBridge : BridgeObject {
                     } else if (data.ContainsKey("path")) {
 
                         Vector3[] path = null;
-                        if (!Bridge.bridge.ConvertToType<Vector3[]>(data["path"], ref path)) {
+                        if (!Bridge.mainBridge.ConvertToType<Vector3[]>(data["path"], ref path)) {
                             Debug.LogError("LeanTweenBridge: AnimateData: path must be an Vector3[]. data: " + data);
                             return;
                         }
@@ -371,7 +371,7 @@ public class LeanTweenBridge : BridgeObject {
                     } else if (data.ContainsKey("spline")) {
 
                         LTSpline spline = null;
-                        if (!Bridge.bridge.ConvertToType<LTSpline>(data["spline"], ref spline)) {
+                        if (!Bridge.mainBridge.ConvertToType<LTSpline>(data["spline"], ref spline)) {
                             Debug.LogError("LeanTweenBridge: AnimateData: spline must be a LTSpline. data: " + data);
                             return;
                         }
@@ -441,7 +441,7 @@ public class LeanTweenBridge : BridgeObject {
                     }
 
                     Vector3 rotateTo = Vector3.zero;
-                    if (!Bridge.bridge.ConvertToType<Vector3>(data["to"], ref rotateTo)) {
+                    if (!Bridge.mainBridge.ConvertToType<Vector3>(data["to"], ref rotateTo)) {
                         Debug.LogError("LeanTweenBridge: AnimateData: to must be an Vector3. data: " + data);
                         return;
                     }
@@ -511,7 +511,7 @@ public class LeanTweenBridge : BridgeObject {
                     }
 
                     Vector3 rotateAroundAxis = Vector3.zero;
-                    if (!Bridge.bridge.ConvertToType<Vector3>(data["axis"], ref rotateAroundAxis)) {
+                    if (!Bridge.mainBridge.ConvertToType<Vector3>(data["axis"], ref rotateAroundAxis)) {
                         Debug.LogError("LeanTweenBridge: AnimateData: to must be an Vector3. data: " + data);
                         return;
                     }
@@ -549,7 +549,7 @@ public class LeanTweenBridge : BridgeObject {
                         float s = (float)toToken;
                         to = new Vector3(s, s, s);
                     } else if (toToken.IsObject()) {
-                        if (!Bridge.bridge.ConvertToType<Vector3>(toToken, ref to)) {
+                        if (!Bridge.mainBridge.ConvertToType<Vector3>(toToken, ref to)) {
                             Debug.LogError("LeanTweenBridge: AnimateData: error converting to object to Vector3. data: " + data);
                             return;
                         }

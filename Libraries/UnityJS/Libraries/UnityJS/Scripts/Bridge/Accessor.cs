@@ -516,7 +516,7 @@ public class Accessor {
 
         } else {
 
-            if (!Bridge.bridge.ConvertToType(jsonValue, targetType, ref value)) {
+            if (!Bridge.mainBridge.ConvertToType(jsonValue, targetType, ref value)) {
                 if (!accessor.conditional) {
                     Debug.LogError("Accessor: SetProperty: can't convert jsonValue: " + jsonValue + " to targetType: " + targetType);
                     return false;
@@ -1126,7 +1126,7 @@ public class Accessor {
     public bool Get_Object(ref object result)
     {
         object obj = 
-            Bridge.bridge.GetObject(str);
+            Bridge.mainBridge.GetObject(str);
 
         if (obj != null) {
             result = obj;
@@ -1451,7 +1451,7 @@ public class Accessor {
             JToken jsParameter = paramArray[i - staticStart];
             object val = null;
             //Debug.Log("Accessor: Set_Method: about to convert to type jsParameter: " + jsParameter + " parameterType: " + parameterType);
-            bool success = Bridge.bridge.ConvertToType(jsParameter, parameterType, ref val);
+            bool success = Bridge.mainBridge.ConvertToType(jsParameter, parameterType, ref val);
             if (!success) {
                 Debug.LogError("Accessor: Set_Method: can't convert parameter to type: " + parameterType + " jsParameters: " + jsParameter + " parameterInfo: " + parameterInfo);
                 return false;

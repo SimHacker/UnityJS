@@ -101,6 +101,7 @@ public class BridgeObject : MonoBehaviour {
                 JObject dataObject = (JObject)data;
                 JObject query = (JObject)dataObject["query"];
                 string callbackID = (string)dataObject["callbackID"];
+                //Debug.Log("BridgeObject: HandleEvent: Query: dataObject: " + dataObject + " query: " + query + " callbackID: " + callbackID + " bridge: " + bridge);
                 bridge.SendQueryData(this, query, callbackID);
                 break;
             }

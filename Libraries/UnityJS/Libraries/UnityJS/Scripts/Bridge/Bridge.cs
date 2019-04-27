@@ -18,7 +18,7 @@ using Newtonsoft.Json.Linq;
 namespace UnityJS {
 
 
-public class Bridge : MonoBehaviour {
+public class Bridge : BridgeObject {
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ public class Bridge : MonoBehaviour {
     // Static Variables
 
 
-    public static Bridge bridge;
+    public static Bridge mainBridge;
     public static JsonSerializer jsonSerializer;
 
 
@@ -45,6 +45,7 @@ public class Bridge : MonoBehaviour {
     public Dictionary<string, object> idToObject = new Dictionary<string, object>();
     public Dictionary<object, string> objectToID = new Dictionary<object, string>();
     public Dictionary<string, TextureChannelDelegate> textureChannels = new Dictionary<string, TextureChannelDelegate>();
+    public Booter booter;
     public string gameID = "";
     public string deployment = "";
     public string title = "";
@@ -226,13 +227,15 @@ public class Bridge : MonoBehaviour {
 
     public void Awake()
     {
-        Debug.Log("Bridge: Awake: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled + " spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: Awake: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled + " spreadsheetID: " + this.spreadsheetID);
 
-        if (bridge == null) {
-            bridge = this;
+        if (mainBridge == null) {
+            mainBridge = this;
         } else {
-            Debug.LogError("Bridge: Awake: There should only be one bridge!");
+            Debug.LogError("Bridge: Awake: There should only be one mainBridge!");
         }
+
+        bridge = this;
 
         if (jsonSerializer == null) {
             jsonSerializer = new JsonSerializer();
@@ -244,7 +247,7 @@ public class Bridge : MonoBehaviour {
 
     public void Start()
     {
-        Debug.Log("Bridge: Start: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled + " spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: Start: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled + " spreadsheetID: " + this.spreadsheetID);
 
         StartBridge();
     }
@@ -252,7 +255,7 @@ public class Bridge : MonoBehaviour {
 
     public void OnDestroy()
     {
-        Debug.Log("Bridge: OnDestroy: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled);
+        //Debug.Log("Bridge: OnDestroy: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled);
 
         if (bridge == this) {
             bridge = null;
@@ -266,13 +269,17 @@ public class Bridge : MonoBehaviour {
 
     public void StartBridge()
     {
-        Debug.Log("Bridge: StartBridge: creating maps");
+        //Debug.Log("Bridge: StartBridge: creating maps");
         idToObject = new Dictionary<string, object>();
         objectToID = new Dictionary<object, string>();
+        idToObject["bridge"] = this;
+        objectToID[this] = "bridge";
+
         textureChannels = new Dictionary<string, TextureChannelDelegate>();
-        Debug.Log("Bridge: StartBridge: creating transport");
+
+        //Debug.Log("Bridge: StartBridge: creating transport");
         CreateTransport();
-        Debug.Log("Bridge: StartBridge: created transport");
+        //Debug.Log("Bridge: StartBridge: created transport");
     }
     
 
@@ -287,7 +294,7 @@ public class Bridge : MonoBehaviour {
 
     public void CreateTransport()
     {
-        Debug.Log("Bridge: CreateTransport: spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: CreateTransport: spreadsheetID: " + this.spreadsheetID);
 
         if (transport != null) {
             Debug.LogError("Bridge: CreateTransport: called multiple times!");
@@ -324,14 +331,14 @@ public class Bridge : MonoBehaviour {
             #endif
         #endif
 
-        Debug.Log("Bridge: CreateTransport: created transport: " + transport + " spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: CreateTransport: created transport: " + transport + " spreadsheetID: " + this.spreadsheetID);
         
-        Debug.Log("Bridge: CreateTransport: initializing transport: this: " + this + " spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: CreateTransport: initializing transport: this: " + this + " spreadsheetID: " + this.spreadsheetID);
         transport.Init(this);
 
-        Debug.Log("Bridge: CreateTransport: starting transport: spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: CreateTransport: starting transport: spreadsheetID: " + this.spreadsheetID);
         transport.StartTransport();
-        Debug.Log("Bridge: CreateTransport: started transport: spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: CreateTransport: started transport: spreadsheetID: " + this.spreadsheetID);
     }
 
 
@@ -345,7 +352,7 @@ public class Bridge : MonoBehaviour {
 
     public void HandleTransportStarted()
     {
-        Debug.Log("Bridge: HandleTransportStarted: this: " + this + " spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: HandleTransportStarted: this: " + this + " spreadsheetID: " + this.spreadsheetID);
 
         string js = "";
 
@@ -379,7 +386,7 @@ public class Bridge : MonoBehaviour {
           JsonConvert.ToString(configuration) + 
           "); ";
 
-        Debug.Log("Bridge: HandleTransportStarted: EvaluateJS: " + js);
+        //Debug.Log("Bridge: HandleTransportStarted: EvaluateJS: " + js);
 
         transport.EvaluateJS(js);
 
@@ -393,7 +400,7 @@ public class Bridge : MonoBehaviour {
 
     public void HandleTransportStopped()
     {
-        Debug.Log("Bridge: HandleTransportStopped: this: " + this);
+        //Debug.Log("Bridge: HandleTransportStopped: this: " + this);
     }
 
 
@@ -646,7 +653,7 @@ public class Bridge : MonoBehaviour {
 
     public void Boot()
     {
-        Debug.Log("Bridge: Boot: calling JS: bridge.boot();");
+        //Debug.Log("Bridge: Boot: calling JS: bridge.boot();");
 
         transport.EvaluateJS("bridge.boot();");
 
@@ -661,6 +668,11 @@ public class Bridge : MonoBehaviour {
 
         idToObject = new Dictionary<string, object>();
         objectToID = new Dictionary<object, string>();
+        idToObject["bridge"] = this;
+        objectToID[this] = "bridge";
+
+        textureChannels = new Dictionary<string, TextureChannelDelegate>();
+
         startedJS = false;
         restarting = false;
 
@@ -668,7 +680,7 @@ public class Bridge : MonoBehaviour {
         objectToID = new Dictionary<object, string>();
         startedJS = false;
 
-        Debug.Log("Bridge: HardBoot: calling HandleTranportStarted");
+        //Debug.Log("Bridge: HardBoot: calling HandleTranportStarted");
         HandleTransportStarted();
     }
 
@@ -717,6 +729,7 @@ public class Bridge : MonoBehaviour {
         }
 
         if ((id != null) &&
+            (id != "bridge") &&
             idToObject.ContainsKey(id)) {
             idToObject.Remove(bridgeObject.id);
         } else {
@@ -794,6 +807,52 @@ public class Bridge : MonoBehaviour {
 
         }
 
+    }
+
+
+    public override void HandleEvent(JObject ev)
+    {
+        base.HandleEvent(ev);
+
+        //Debug.Log("Bridge: HandleEvent: this: " + this + " ev: " + ev, this);
+
+        string eventName = (string)ev["event"];
+        //Debug.Log("Bridge: HandleEvent: eventName: " + eventName, this);
+        if (string.IsNullOrEmpty(eventName)) {
+            Debug.LogError("Bridge: HandleEvent: missing event name in ev: " + ev);
+            return;
+        }
+
+        JObject data = (JObject)ev["data"];
+        //Debug.Log("Bridge: HandleEvent: eventName: " + eventName, this);
+
+        switch (eventName) {
+
+            case "ResetBootConfigurations": {
+                //Debug.Log("Bridge: HandleEvent: ResetBootConfigurations: ev: " + ev);
+                if (booter != null) {
+                    booter.ResetBootConfigurations();
+                }
+                break;
+            }
+
+            case "ShowBootCanvas": {
+                //Debug.Log("Bridge: HandleEvent: Boot: ev: " + ev);
+                if (booter != null) {
+                    booter.ShowBootCanvas();
+                }
+                break;
+            }
+
+            case "Boot": {
+                //Debug.Log("Bridge: HandleEvent: Boot: ev: " + ev);
+                if (booter != null) {
+                    booter.BootNow();
+                }
+                break;
+            }
+
+        }
     }
 
 

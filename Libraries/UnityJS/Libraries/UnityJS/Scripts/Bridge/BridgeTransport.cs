@@ -31,40 +31,40 @@ public class BridgeTransport : MonoBehaviour
     public void Init(Bridge bridge0)
     {
         bridge = bridge0;
-        Debug.Log("BridgeTransport: Init: bridge: " + bridge + " spreadsheetID: " + bridge.spreadsheetID);
+        //Debug.Log("BridgeTransport: Init: bridge: " + bridge + " spreadsheetID: " + bridge.spreadsheetID);
         HandleInit();
     }
     
 
     public virtual void HandleInit()
     {
-        Debug.Log("BridgeTransport: HandleInit: this: " + this + " bridge: " + bridge + " spreadsheetID: " + bridge.spreadsheetID);
+        //Debug.Log("BridgeTransport: HandleInit: this: " + this + " bridge: " + bridge + " spreadsheetID: " + bridge.spreadsheetID);
     }
 
 
     void Awake()
     {
-        Debug.Log("BridgeTransport: Awake: this: " + this + " bridge: " + bridge);
+        //Debug.Log("BridgeTransport: Awake: this: " + this + " bridge: " + bridge);
         HandleAwake();
     }
     
 
     public virtual void HandleAwake()
     {
-        Debug.Log("BridgeTransport: HandleAwake: this: " + this + " bridge: " + bridge);
+        //Debug.Log("BridgeTransport: HandleAwake: this: " + this + " bridge: " + bridge);
     }
 
 
     void Start()
     {
-        Debug.Log("BridgeTransport: Start: this: " + this + " bridge: " + bridge);
+        //Debug.Log("BridgeTransport: Start: this: " + this + " bridge: " + bridge);
         HandleStart();
     }
     
 
     public virtual void HandleStart()
     {
-        Debug.Log("BridgeTransport: HandleStart: this: " + this + " bridge: " + bridge);
+        //Debug.Log("BridgeTransport: HandleStart: this: " + this + " bridge: " + bridge);
     }
 
 

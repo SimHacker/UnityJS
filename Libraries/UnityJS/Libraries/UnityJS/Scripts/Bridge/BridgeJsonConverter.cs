@@ -934,7 +934,7 @@ public class BridgeJsonConverter : JsonConverter {
 
                         case "sharedtexture": {
                             int id = obj.GetInteger("id");
-                            Texture2D sharedTexture = Bridge.bridge.GetSharedTexture(id);
+                            Texture2D sharedTexture = Bridge.mainBridge.GetSharedTexture(id);
                             result = sharedTexture;
                             if (result == null) {
                                 return false;

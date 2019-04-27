@@ -175,7 +175,7 @@ public class Booter: MonoBehaviour {
 
     void Awake()
     {
-        Debug.Log("Booter: Awake");
+        //Debug.Log("Booter: Awake");
 
         //ResetBootConfigurations();
 
@@ -193,7 +193,7 @@ public class Booter: MonoBehaviour {
                 Input.GetKey(KeyCode.LeftControl) ||
                 Input.GetKey(KeyCode.RightControl);
 
-            Debug.Log("Booter: Update: firstUpdate: resetKey: " + resetKey);
+            //Debug.Log("Booter: Update: firstUpdate: resetKey: " + resetKey);
 
             if (resetKey) {
                 ResetBootConfigurations();
@@ -290,7 +290,7 @@ public class Booter: MonoBehaviour {
         }
 
         int index = PlayerPrefs.GetInt(currentBootConfigurationIndexKey, 0);
-        Debug.Log("Booter: UpdateInterface: got currentBootConfigurationIndex: " + currentBootConfigurationIndex + " bootConfigurations.Count: " + bootConfigurations.Count);
+        //Debug.Log("Booter: UpdateInterface: got currentBootConfigurationIndex: " + currentBootConfigurationIndex + " bootConfigurations.Count: " + bootConfigurations.Count);
         if (index < 0) {
             index = 0;
         } else if (index >= bootConfigurations.Count) {
@@ -301,7 +301,7 @@ public class Booter: MonoBehaviour {
 
         currentBootConfiguration = (JObject)bootConfigurations[currentBootConfigurationIndex];
 
-        Debug.Log("Booter: UpdateInterface: currentBootConfigurationIndex: " + currentBootConfigurationIndex + " currentBootConfiguration: " + currentBootConfiguration);
+        //Debug.Log("Booter: UpdateInterface: currentBootConfigurationIndex: " + currentBootConfigurationIndex + " currentBootConfiguration: " + currentBootConfiguration);
 
         bootDropdown.value = currentBootConfigurationIndex;
         bootDropdown.RefreshShownValue();
@@ -458,23 +458,23 @@ public class Booter: MonoBehaviour {
 
     public void BootNow()
     {
-        Debug.Log("Booter: BootNow: currentBootConfigurationIndex: " + currentBootConfigurationIndex + " currentBootConfiguration: " + currentBootConfiguration);
+        //Debug.Log("Booter: BootNow: currentBootConfigurationIndex: " + currentBootConfigurationIndex + " currentBootConfiguration: " + currentBootConfiguration);
 
         if (currentBootConfiguration == null) {
 
-            Debug.Log("Booter: BootNow: currentBootConfiguration is null!");
+            //Debug.Log("Booter: BootNow: currentBootConfiguration is null!");
 
         } else {
 
             string spreadsheetID = (string)currentBootConfiguration["spreadsheetID"];
-            Debug.Log("Booter: BootNow: spreadsheetID: " + spreadsheetID);
+            //Debug.Log("Booter: BootNow: spreadsheetID: " + spreadsheetID);
             if (spreadsheetID == null) {
                 spreadsheetID = "";
             }
             bridge.spreadsheetID = spreadsheetID;
 
             string configuration = (string)currentBootConfiguration["configuration"];
-            Debug.Log("Booter: BootNow: configuration: " + configuration);
+            //Debug.Log("Booter: BootNow: configuration: " + configuration);
             if (configuration == null) {
                 configuration = "";
             }
@@ -485,14 +485,14 @@ public class Booter: MonoBehaviour {
             bool useSocketIO = 
                 currentBootConfiguration.ContainsKey("useSocketIO") &&
                 (bool)currentBootConfiguration["useSocketIO"];
-            Debug.Log("Booter: BootNow: useSocketIO: " + useSocketIO);
+            //Debug.Log("Booter: BootNow: useSocketIO: " + useSocketIO);
             bridge.useSocketIO = useSocketIO;
 
             string socketIOAddress = (string)currentBootConfiguration["socketIOAddress"];
             if (socketIOAddress == null) {
                 socketIOAddress = "";
             }
-            Debug.Log("Booter: BootNow: socketIOAddress: " + socketIOAddress);
+            //Debug.Log("Booter: BootNow: socketIOAddress: " + socketIOAddress);
             bridge.socketIOAddress = socketIOAddress;
 
 #endif
@@ -501,30 +501,30 @@ public class Booter: MonoBehaviour {
             if (handleStartedScript == null) {
                 handleStartedScript = "";
             }
-            Debug.Log("Booter: BootNow: handleStartedScript: " + handleStartedScript);
+            //Debug.Log("Booter: BootNow: handleStartedScript: " + handleStartedScript);
             bridge.handleStartedScript = handleStartedScript;
 
             string handleLoadedScript = (string)currentBootConfiguration["handleLoadedScript"];
             if (handleLoadedScript == null) {
                 handleLoadedScript = "";
             }
-            Debug.Log("Booter: BootNow: handleLoadedScript: " + handleLoadedScript);
+            //Debug.Log("Booter: BootNow: handleLoadedScript: " + handleLoadedScript);
             bridge.handleLoadedScript = handleLoadedScript;
 
             string handleLoadFailedScript = (string)currentBootConfiguration["handleLoadFailedScript"];
             if (handleLoadFailedScript != null) {
                 handleLoadFailedScript = "";
             }
-            Debug.Log("Booter: BootNow: handleLoadFailedScript: " + handleLoadFailedScript);
+            //Debug.Log("Booter: BootNow: handleLoadFailedScript: " + handleLoadFailedScript);
             bridge.handleLoadFailedScript = handleLoadFailedScript;
 
         }
 
         if (bridge.enabled) {
-            Debug.Log("Booter: BootNow: bridge was enabled so bridge.Restart()");
+            //Debug.Log("Booter: BootNow: bridge was enabled so bridge.Restart()");
             bridge.Boot();
         } else {
-            Debug.Log("Booter: BootNow: bridge was disabled so bridge.enabled = true");
+            //Debug.Log("Booter: BootNow: bridge was disabled so bridge.enabled = true");
             bridge.enabled = true;
         }
     }
@@ -541,7 +541,7 @@ public class Booter: MonoBehaviour {
         currentBootConfigurationIndex = val;
         currentBootConfiguration = (JObject)bootConfigurations[currentBootConfigurationIndex];
         PlayerPrefs.SetInt(currentBootConfigurationIndexKey, currentBootConfigurationIndex);
-        Debug.Log("Booter: HandleBootChanged: Saved: currentBootConfigurationIndex: " + currentBootConfigurationIndex);
+        //Debug.Log("Booter: HandleBootChanged: Saved: currentBootConfigurationIndex: " + currentBootConfigurationIndex);
 
         UpdateInterfaceConfiguration();
     }
@@ -700,7 +700,7 @@ public class Booter: MonoBehaviour {
 
     public void HandlePropertyChanged(int val)
     {
-        Debug.Log("Booter: HandlePropertyChanged: propertyDropdown.value: " + propertyDropdown.value + " val: " + val);
+        //Debug.Log("Booter: HandlePropertyChanged: propertyDropdown.value: " + propertyDropdown.value + " val: " + val);
 
         currentPropertyIndex = val;
 
@@ -710,7 +710,7 @@ public class Booter: MonoBehaviour {
 
     public void HandleStringChanged(string val)
     {
-        Debug.Log("Booter: HandleStringChanged: stringInputField.text: " + stringInputField.text + " val: " + val);
+        //Debug.Log("Booter: HandleStringChanged: stringInputField.text: " + stringInputField.text + " val: " + val);
 
         if (booterPanelState != BooterPanelState.Edit) {
             return;
@@ -766,7 +766,7 @@ public class Booter: MonoBehaviour {
 
     public void HandleBooleanChanged(bool val)
     {
-        Debug.Log("Booter: HandleBooleanChanged: booleanToggle.isOn: " + booleanToggle.isOn + " val: " + val);
+        //Debug.Log("Booter: HandleBooleanChanged: booleanToggle.isOn: " + booleanToggle.isOn + " val: " + val);
 
         if (booterPanelState != BooterPanelState.Edit) {
             return;
@@ -793,7 +793,7 @@ public class Booter: MonoBehaviour {
 
     public void HandleScriptChanged(string val)
     {
-        Debug.Log("Booter: HandleScriptChanged: scriptInputField.text: " + scriptInputField.text + " val: " + val);
+        //Debug.Log("Booter: HandleScriptChanged: scriptInputField.text: " + scriptInputField.text + " val: " + val);
 
         if (booterPanelState != BooterPanelState.Edit) {
             return;
@@ -892,7 +892,7 @@ public class Booter: MonoBehaviour {
         }
 
         currentBootConfigurationIndex = PlayerPrefs.GetInt(currentBootConfigurationIndexKey, 0);
-        Debug.Log("Booter: LoadBootConfigurations: got currentBootConfigurationIndex: " + currentBootConfigurationIndex + " bootConfigurations: " + bootConfigurations);
+        //Debug.Log("Booter: LoadBootConfigurations: got currentBootConfigurationIndex: " + currentBootConfigurationIndex + " bootConfigurations: " + bootConfigurations);
 
         if (bootConfigurations.Count == 0) {
             currentBootConfigurationIndex = -1;
@@ -913,7 +913,7 @@ public class Booter: MonoBehaviour {
 
         PlayerPrefs.SetInt(currentBootConfigurationIndexKey, currentBootConfigurationIndex);
 
-        Debug.Log("Booter: LoadBootConfigurations: currentBootConfigurationIndex: " + currentBootConfigurationIndex + " currentBootConfiguration: " + currentBootConfiguration);
+        //Debug.Log("Booter: LoadBootConfigurations: currentBootConfigurationIndex: " + currentBootConfigurationIndex + " currentBootConfiguration: " + currentBootConfiguration);
     }
 
 
@@ -931,7 +931,7 @@ public class Booter: MonoBehaviour {
 
     public void ResetBootConfigurations()
     {
-        Debug.Log("Booter: ResetBootConfigurations");
+        //Debug.Log("Booter: ResetBootConfigurations");
 
         PlayerPrefs.DeleteKey(bootConfigurationsKey);
         PlayerPrefs.DeleteKey(currentBootConfigurationIndexKey);

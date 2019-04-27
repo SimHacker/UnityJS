@@ -16,7 +16,8 @@ class UnityJSBridge {
 
     constructor()
     {
-        console.log("Bridge: constructor: this:", this);
+        //console.log("Bridge: constructor: this:", this);
+        this.id = 'bridge';
         this.startedUnity = false;
         this.startedJS = false;
         this.driver = null;
@@ -25,7 +26,9 @@ class UnityJSBridge {
         this.configuration = null;
         this.nextID = 0;
         this.blobID = 0;
-        this.objects = {};
+        this.objects = {
+            bridge: this
+        };
         this.callbacks = {};
         this.sheets = {};
         this.ranges = {};
@@ -48,7 +51,7 @@ class UnityJSBridge {
 
     start(driver, spreadsheetID, configuration)
     {
-        console.log("Bridge: start: driver:", driver, "spreadsheetID:", spreadsheetID, "configuration:", configuration);
+        //console.log("Bridge: start: driver:", driver, "spreadsheetID:", spreadsheetID, "configuration:", configuration);
 
         this.driver = driver || "Unknown";
         this.spreadsheetID = spreadsheetID || "";
@@ -68,7 +71,7 @@ class UnityJSBridge {
 
     handleStarted()
     {
-        console.log("Bridge: handleStarted: handleStartedScript:", this.handleStartedScript);
+        //console.log("Bridge: handleStarted: handleStartedScript:", this.handleStartedScript);
         if (this.handleStartedScript) {
             eval(this.handleStartedScript);
         }
@@ -77,7 +80,7 @@ class UnityJSBridge {
 
     handleLoaded()
     {
-        console.log("Bridge: handleLoaded: handleLoadedScript:", this.handleLoadedScript);
+        //console.log("Bridge: handleLoaded: handleLoadedScript:", this.handleLoadedScript);
         if (this.handleLoadedScript) {
             eval(this.handleLoadedScript);
         }
@@ -572,7 +575,7 @@ class UnityJSBridge {
                     var endTime = new Date();
                     var duration = endTime - startTime;
 
-                    console.log("Bridge: load: success: duration: " + duration);
+                    //console.log("Bridge: load: success: duration: " + duration);
 
                     this.spreadsheetName = data.name;
                     this.sheets = data.sheets;
@@ -620,7 +623,9 @@ class UnityJSBridge {
 
         this.nextID = 0;
         this.blobID = 0;
-        this.objects = {};
+        this.objects = {
+            'bridge': this
+        };
         this.callbacks = {};
         this.sheets = {};
         this.ranges = {};

@@ -1,2 +1,0 @@
-echo "Pushing Optionality WebGl Unity app JavaScript code..."
-rsync -r --copy-links ../../UnityJS_Optionality/Deployments/Optionality_WebGL/Assets/StreamingAssets admin@struct.studio:/home/admin/htdocs/apps/optionality_dev

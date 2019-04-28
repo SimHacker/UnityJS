@@ -1,2 +1,0 @@
-echo "Pushing optionality-dev WebGL Unity app..."
-rsync -r --copy-links --delete ../../UnityJS_Optionality/Deployments/Optionality_WebGL/Builds/Optionality_WebGL/ admin@struct.studio:/home/admin/htdocs/apps/optionality-dev

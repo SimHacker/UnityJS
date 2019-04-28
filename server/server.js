@@ -139,7 +139,7 @@ io.on('connection', function(socket) {
 
         var displayEngine = socket.friendTypes.DisplayEngine;
         if (displayEngine == null) {
-            console.log('SendEventList: no DisplayEngine', 'socket.id:', socket.id);
+            console.log('SendBlob: no DisplayEngine', 'socket.id:', socket.id);
             return;
         }
 

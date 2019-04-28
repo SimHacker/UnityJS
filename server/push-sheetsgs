@@ -1,3 +1,0 @@
-echo "Pushing Google Sheets JavaScript code..."
-(cd sheets/JSONster ; clasp push)
-(cd sheets/JSONsterPrivate ; clasp push)

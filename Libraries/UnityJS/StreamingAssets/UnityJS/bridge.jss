@@ -12,8 +12,6 @@
 
 
 class UnityJSBridge {
-
-
     constructor()
     {
         //console.log("Bridge: constructor: this:", this);

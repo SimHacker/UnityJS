@@ -153,10 +153,11 @@ public class ProCamera : BridgeObject {
 
                 switch (tracking) {
 
-                    case ProCameraTracking.Drag:
+                    case ProCameraTracking.Drag: {
                         break;
+                    }
 
-                    case ProCameraTracking.Orbit:
+                    case ProCameraTracking.Orbit: {
 
                         Vector3 orbitCameraDirection =
                             transform.rotation * Vector3.forward;
@@ -186,19 +187,23 @@ public class ProCamera : BridgeObject {
                         //Debug.Log("ProCamera: Update: Start Orbit: orbitCameraDirection: " + orbitCameraDirection.x + " " + orbitCameraDirection.y + " " + orbitCameraDirection.z + " orbitYaw: " + orbitYaw + " orbitPitch: " + orbitPitch + " dragMousePosition: " + dragMousePosition.x + " " + dragMousePosition.y + " " + dragMousePosition.z + " dragStartPosition: " + dragStartPosition.x + " " + dragStartPosition.y + " " + dragStartPosition.z + " transform.position: " + transform.position.x + " " + transform.position.y + " " + transform.position.z + " offset: " + offset.x + " " + offset.y + " " + offset.z + " orbitOffset: " + orbitOffset.x + " " + orbitOffset.y + " " + orbitOffset.z);
 
                         break;
+                    }
 
-                    case ProCameraTracking.Approach:
+                    case ProCameraTracking.Approach: {
                         approachRay = new Ray(dragStartPosition, -startRay.direction);
                         approachDistance = dragStartDistance;
                         break;
+                    }
 
-                    case ProCameraTracking.Interpolate:
+                    case ProCameraTracking.Interpolate: {
                         break;
+                    }
 
-                    case ProCameraTracking.Pedestal:
+                    case ProCameraTracking.Pedestal: {
                         break;
+                    }
 
-                    case ProCameraTracking.Tilt:
+                    case ProCameraTracking.Tilt: {
 
                         Vector3 rotatedDirection =
                             transform.rotation * Vector3.forward;
@@ -222,9 +227,11 @@ public class ProCamera : BridgeObject {
                         //Debug.Log("ProCamera: Update: Start Tilt: rotatedDirection: " + rotatedDirection.x + " " + rotatedDirection.y + " " + rotatedDirection.z + " tiltYaw: " + tiltYaw + " unrotatedDirection: " + unrotatedDirection.x + " " + unrotatedDirection.y + " " + unrotatedDirection.z + " tiltPitch: " + tiltPitch);
 
                         break;
+                    }
 
-                    case ProCameraTracking.Zoom:
+                    case ProCameraTracking.Zoom: {
                         break;
+                    }
 
                 }
 
@@ -243,7 +250,7 @@ public class ProCamera : BridgeObject {
 
                     switch (tracking) {
 
-                        case ProCameraTracking.Drag:
+                        case ProCameraTracking.Drag: {
 
                             Ray lastDragRay =
                                 proCamera.ScreenPointToRay(
@@ -266,13 +273,15 @@ public class ProCamera : BridgeObject {
                             //Debug.Log("ProCamera: Update: Drag: dragDistance: " + dragDistance + " dragPosition: " + dragPosition.x + " " + dragPosition.y + " " + dragPosition.z);
 
                             Vector3 offset = dragPosition - lastDragPosition;
-                            //Debug.Log("ProCamera: Update: Drag: offset: " + offset.x + " " + offset.y + " " + offset.z);
-
-                            transform.position -= offset;
+                            if (offset != Vector3.zero) {
+                                transform.position -= offset;
+                                //Debug.Log("ProCamera: Update: Drag: offset: " + offset.x + " " + offset.y + " " + offset.z);
+                            }
 
                             break;
+                        }
 
-                        case ProCameraTracking.Orbit:
+                        case ProCameraTracking.Orbit: {
 
                             float turn =
                                 dragScreenDistance.x * orbitScale;
@@ -290,14 +299,15 @@ public class ProCamera : BridgeObject {
                                 dragStartPosition -
                                 rotatedOffset;
 
-                            //Debug.Log("ProCamera: Update: Orbit: turn: " + turn + " orbitPitch: " + orbitPitch + " orbitYaw: " + orbitYaw + " dragStartPosition: " + dragStartPosition.x + " " + dragStartPosition.y + " "  + dragStartPosition.z + " orbitOffset: " + orbitOffset.x + " " + orbitOffset.y + " " + orbitOffset.z + " rotatedOffset: " + rotatedOffset.x + " " + rotatedOffset.y + " " + rotatedOffset.z + " orbitPosition: " + orbitPosition.x + " " + orbitPosition.y + " " + orbitPosition.z);
-
-                            transform.position =
-                                orbitPosition;
+                            if (orbitPosition != transform.position) {
+                                //Debug.Log("ProCamera: Update: Orbit: turn: " + turn + " orbitPitch: " + orbitPitch + " orbitYaw: " + orbitYaw + " dragStartPosition: " + dragStartPosition.x + " " + dragStartPosition.y + " "  + dragStartPosition.z + " orbitOffset: " + orbitOffset.x + " " + orbitOffset.y + " " + orbitOffset.z + " rotatedOffset: " + rotatedOffset.x + " " + rotatedOffset.y + " " + rotatedOffset.z + " orbitPosition: " + orbitPosition.x + " " + orbitPosition.y + " " + orbitPosition.z);
+                                transform.position = orbitPosition;
+                            }
 
                             break;
+                        }
 
-                        case ProCameraTracking.Approach:
+                        case ProCameraTracking.Approach: {
 
                             float change =
                                 approachScale *
@@ -314,13 +324,15 @@ public class ProCamera : BridgeObject {
                             Vector3 position =
                                 approachRay.GetPoint(approachDistance);
 
-                            //Debug.Log("ProCamera: Update: Approach: approachDistance: " + approachDistance + " position: " + position.x + " " + position.y + " " + position.z);
-
-                            transform.position = position;
+                            if (transform.position != position) {
+                                //Debug.Log("ProCamera: Update: Approach: approachDistance: " + approachDistance + " position: " + position.x + " " + position.y + " " + position.z);
+                                transform.position = position;
+                            }
 
                             break;
+                        }
 
-                        case ProCameraTracking.Tilt:
+                        case ProCameraTracking.Tilt: {
 
                             float pitchChange =
                                 tiltPitchScale *
@@ -347,8 +359,9 @@ public class ProCamera : BridgeObject {
                                 Quaternion.Euler(pitch, yaw, 0.0f);
 
                             break;
+                        }
 
-                        case ProCameraTracking.Interpolate:
+                        case ProCameraTracking.Interpolate: {
 
                             //Debug.Log("ProCamera: Update: Interpolate: interpolateRows: " + interpolateRows + " interpolateColumns: " + interpolateColumns + " mouse: " + dragMousePosition.x + " " + dragMousePosition.y);
 
@@ -397,7 +410,9 @@ public class ProCamera : BridgeObject {
                                     position1,
                                     rowFactor);
 
-                            transform.position = pos;
+                            if (transform.position != pos) {
+                                transform.position = pos;
+                            }
 
                             Quaternion rotation0 = 
                                 Quaternion.Slerp(
@@ -418,8 +433,9 @@ public class ProCamera : BridgeObject {
                             transform.rotation = rot;
 
                             break;
+                        }
 
-                        case ProCameraTracking.Pedestal:
+                        case ProCameraTracking.Pedestal: {
 
                             float height = transform.position.y;
                             height =
@@ -429,15 +445,20 @@ public class ProCamera : BridgeObject {
                                         positionMax.y,
                                         (height +
                                          (dragScreenDistance.y * pedestalScale))));
-                            transform.position =
+                            Vector3 pos =
                                 new Vector3(
                                     transform.position.x,
                                     height,
                                     transform.position.z);
 
-                            break;
+                            if (transform.position != pos) {
+                                transform.position = pos;
+                            }
 
-                        case ProCameraTracking.Zoom:
+                            break;
+                        }
+
+                        case ProCameraTracking.Zoom: {
 
                             float fov = proCamera.fieldOfView;
                             fov = 
@@ -447,9 +468,12 @@ public class ProCamera : BridgeObject {
                                         fieldOfViewMax,
                                         (fov +
                                          (dragScreenDistance.y * fieldOfViewScale))));
-                            proCamera.fieldOfView = fov;
+                            if (proCamera.fieldOfView != fov) {
+                                proCamera.fieldOfView = fov;
+                            }
 
                             break;
+                        }
 
                     }
 
@@ -529,23 +553,6 @@ public class ProCamera : BridgeObject {
             orbitPitchDelta -= orbitPitchSpeed * deltaTime;
         }
 
-        float scrollX =
-            Mathf.Clamp(Input.mouseScrollDelta.x, -mouseScrollDeltaMax, mouseScrollDeltaMax);
-        float scrollY = 
-            Mathf.Clamp(Input.mouseScrollDelta.y, -mouseScrollDeltaMax, mouseScrollDeltaMax);
-
-#if false
-        if (scrollX != 0.0f) {
-            Debug.Log("scrollX: " + scrollX + " deltaTime: " + Time.deltaTime + " smoothDeltaTime: " + Time.smoothDeltaTime);
-        }
-        if (scrollY != 0.0f) {
-            Debug.Log("scrollY: " + scrollY + " deltaTime: " + Time.deltaTime + " smoothDeltaTime: " + Time.smoothDeltaTime);
-        }
-#endif
-
-        wheelZoomDelta += scrollY * wheelZoomSpeed * deltaTime;
-        wheelPanDelta += scrollX * wheelPanSpeed * deltaTime;
-
         if ((yawDelta != 0.0f) || 
             (pitchDelta != 0.0f)) {
 
@@ -594,9 +601,28 @@ public class ProCamera : BridgeObject {
                     Mathf.Clamp(pos.y, positionMin.y, positionMax.y),
                     Mathf.Clamp(pos.z, positionMin.z, positionMax.z));
 
-            transform.position = pos;
+            if (transform.position != pos) {
+                transform.position = pos;
+            }
         }
 
+
+        float scrollX =
+            Mathf.Clamp(Input.mouseScrollDelta.x, -mouseScrollDeltaMax, mouseScrollDeltaMax);
+        float scrollY = 
+            Mathf.Clamp(Input.mouseScrollDelta.y, -mouseScrollDeltaMax, mouseScrollDeltaMax);
+
+#if false
+        if (scrollX != 0.0f) {
+            Debug.Log("ProCamera: Update: scrollX: " + scrollX + " deltaTime: " + Time.deltaTime + " smoothDeltaTime: " + Time.smoothDeltaTime);
+        }
+        if (scrollY != 0.0f) {
+            Debug.Log("ProCamera: Update: scrollY: " + scrollY + " deltaTime: " + Time.deltaTime + " smoothDeltaTime: " + Time.smoothDeltaTime);
+        }
+#endif
+
+        wheelZoomDelta += scrollY * wheelZoomSpeed * deltaTime;
+        wheelPanDelta += scrollX * wheelPanSpeed * deltaTime;
 
         if (wheelZoomDelta != 0.0f) {
             zoomDeltaRotated =
@@ -612,7 +638,10 @@ public class ProCamera : BridgeObject {
                     Mathf.Clamp(pos.y, positionMin.y, positionMax.y),
                     Mathf.Clamp(pos.z, positionMin.z, positionMax.z));
 
-            transform.position = pos;
+            if (transform.position != pos) {
+                //Debug.Log("ProCamera: Update: Zoom: wheelZoomDelta: " + wheelZoomDelta + " zoomDeltaRotated: " + zoomDeltaRotated.x + " " + zoomDeltaRotated.y + " " + zoomDeltaRotated.z + " pos: " + pos.x + " " + pos.y + " " + pos.z + " transform.position: " + transform.position.x + " " + transform.position.y + " " + transform.position.z + " delta: " + (pos.x - transform.position.z) + " " + (pos.y - transform.position.y) + " " + (pos.z - transform.position.z));
+                transform.position = pos;
+            }
 
         }
 

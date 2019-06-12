@@ -335,7 +335,9 @@ public class DeploymentBuilder : MonoBehaviour {
                 return;
             }
 
-        }
+        } // switch buildTarget
+
+        EditorUserBuildSettings.SwitchActiveBuildTarget(buildTargetGroup, buildTarget);
 
         // Make sure all the changes are saved.
 
@@ -370,7 +372,7 @@ public class DeploymentBuilder : MonoBehaviour {
 
             AssetDatabase.Refresh();
 
-        }
+        } // if copyFiles != null
 
         // Deploy this configuration if deploy is enabled.
 
@@ -675,7 +677,7 @@ public class DeploymentBuilder : MonoBehaviour {
 
             }
 
-        }
+        } // if deploy
 
         // Build this configuration if build is enabled.
 
@@ -702,7 +704,7 @@ public class DeploymentBuilder : MonoBehaviour {
                 throw new Exception("Build failed!");
             }
 
-        }
+        } // if build
 
     }
     

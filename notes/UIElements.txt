@@ -1,0 +1,76 @@
+UIElements
+
+UIElements, a new UI system for the editor - Unite LA
+
+We designed a new UI system (targeted for 2019.1 release) that will
+replace IMGUI for extending the Editor. Learn how the new system,
+built for performance and scalability, will have a comprehensible and
+conventional API and enable designers to easily contribute to styling
+and layout with Damian Campeanu and Benoit Dupuis (Unity Technologies)
+
+https://www.youtube.com/watch?v=MNNURw0LeoQ
+
+https://github.com/Unity-Technologies/UIElementsUniteLATurretDemo
+
+https://docs.unity3d.com/2018.3/Documentation/Manual/UIElements.html
+
+https://docs.unity3d.com/2018.3/Documentation/Manual/UIE-Controls.html
+
+https://docs.unity3d.com/2018.3/Documentation/Manual/UIE-LayoutEngine.html
+
+The layout engine is the Yoga open source project that implements a
+subset of Flexbox: a HTML/CSS layout system.
+
+https://github.com/facebook/yoga
+
+Yoga official documentation: the mapping of properties is almost 1-to–1
+
+https://yogalayout.com/
+
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+Intro To UIElements (2018.3 - Experimental)
+https://www.youtube.com/watch?v=sVEmJ5-dr5E
+
+Binding C# component properties to xml attributes:
+https://docs.unity3d.com/Manual/UIE-UXML.html
+
+What’s new with UIElements in 2019.1
+Damian Campeanu, April 23, 2019
+https://blogs.unity3d.com/2019/04/23/whats-new-with-uielements-in-2019-1/?utm_source=twitter&utm_medium=social&utm_campaign=engine_global_generalpromo_2019-05-01_2019.1&utm_content=blog_uielements
+
+
+https://forum.unity.com/threads/uielements-how-extract-native-uxml.567565/
+
+var myXml = EditorGUIUtility.Load ("UXML/GraphView/Node.uxml") as VisualTreeAsset;
+AssetDatabase.CreateAsset (myXml, "Assets/Node.uxml");
+
+https://github.com/Unity-Technologies/UnityCsReference/blob/master/Modules/GraphViewEditor/Elements/Node.cs
+
+https://docs.unity3d.com/2019.2/Documentation/ScriptReference/Experimental.GraphView.ContentZoomer.DefaultScaleStep.html
+
+https://docs.unity3d.com/2019.2/Documentation/ScriptReference/UIElements.VisualElement.html
+
+https://docs.unity3d.com/2019.2/Documentation/ScriptReference/UnityEngine.UIElementsModule.html
+
+https://docs.unity3d.com/2019.2/Documentation/Manual/UIElements.html
+
+https://forum.unity.com/forums/ui-systems-previews.178/
+
+UIElements upgrade guide
+In 2019.1 UIElements is officially releasing and not experimental anymore.
+https://docs.google.com/document/d/1mdMtTQVUkzQi7UIBXf1Eg1FzP7krmLVXCt-NwXm1APQ/edit
+
+How To Create A Layout Visual Element? (lifecycle)
+RadialLayout VisualElement
+https://forum.unity.com/threads/how-to-create-a-layout-visual-element-lifecycle.661636/
+
+Example code: Creating a drag-scrollable view in an editor window with UIElement
+https://forum.unity.com/threads/example-code-creating-a-drag-scrollable-view-in-an-editor-window-with-uielement.516150/
+
+https://docs.unity3d.com/2019.2/Documentation/Manual/UIE-USS-PropertyTypes.html
+You can extend USS with the Custom Properties API. Custom Properties require the -- prefix.
+
+https://docs.unity3d.com/2019.2/Documentation/Manual/UIE-USS-SupportedProperties.html
+
+https://github.com/Unity-Technologies/UnityCsReference/tree/master/Modules/UIElements

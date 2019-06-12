@@ -1,0 +1,47 @@
+Chakra JavaScript Engine
+
+https://en.wikipedia.org/wiki/Chakra_(JavaScript_engine)
+
+Chakra is a JavaScript engine developed by Microsoft for its Microsoft
+Edge web browser. It is a fork of the JScript engine used in Internet
+Explorer. Like the Edge layout engine and unlike previous versions in
+Internet Explorer the declared intention is that it will reflect the
+"Living Web".[1] On December 5, 2015, it was announced that core
+components of Chakra will be open-sourced as ChakraCore.
+
+https://github.com/microsoft/react-native-windows/tree/master/current/ReactWindows/ChakraBridge
+
+ChakraCore
+
+Following an initial announcement on December 5, 2015, Microsoft
+open sourced the Chakra engine as ChakraCore, including all the key
+components of the JavaScript engine powering Microsoft Edge on their
+GitHub page under the MIT license on January 13, 2016.
+ChakraCore is essentially the same as the Chakra engine that powers
+the Microsoft Edge browser, but with platform-agnostic bindings, i.e.
+without the specific interfaces utilised within the Windows Universal
+App platform.
+
+Microsoft has also created a project on GitHub that allows Node.js to
+use ChakraCore as its JavaScript engine instead of V8.
+
+https://github.com/nodejs/node-chakracore
+
+Node.js on ChakraCore
+
+This project enables Node.js to optionally use the ChakraCore
+JavaScript engine. This project is still work in progress and not an
+officially supported Node.js branch. For more context into this
+project, please refer to the original PR.
+
+How it works
+
+To enable building and running Node.js with the ChakraCore JavaScript
+engine, a V8 API shim (ChakraShim) is created on top of the ChakraCore
+runtime hosting API (JSRT. ChakraShim implements the most essential V8
+APIs so that the underlying JavaScript engine change is transparent to
+Node.js and other native addon modules written for V8.
+
+A rebuild of node and native addon modules with ChakraCore is required
+for this to work.
+

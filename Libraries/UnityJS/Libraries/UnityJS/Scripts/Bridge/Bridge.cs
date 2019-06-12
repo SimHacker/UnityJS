@@ -253,9 +253,11 @@ public class Bridge : BridgeObject {
     }
 
 
-    public void OnDestroy()
+    public override void OnDestroy()
     {
         //Debug.Log("Bridge: OnDestroy: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled);
+
+        base.OnDestroy();
 
         if (bridge == this) {
             bridge = null;
@@ -653,16 +655,22 @@ public class Bridge : BridgeObject {
 
     public void Boot()
     {
-        //Debug.Log("Bridge: Boot: calling JS: bridge.boot();");
+        string js = "bridge.boot();";
 
-        transport.EvaluateJS("bridge.boot();");
+        Debug.Log("Bridge: Boot: destroying objects");
 
         restarting = true;
 
         string[] keys = new string[idToObject.Keys.Count];
         idToObject.Keys.CopyTo(keys, 0);
         foreach (string objectID in keys) {
-            //Debug.Log("Bridge: DistributeUnityEvent: HardBoot: destroying object: " + objectID);
+
+            // Don't destroy the bridge itself.
+            if (objectID == "bridge") {
+                continue;
+            }
+
+            Debug.Log("Bridge: DistributeUnityEvent: HardBoot: destroying object: " + objectID);
             DestroyObject(idToObject[objectID]);
         }
 
@@ -680,8 +688,11 @@ public class Bridge : BridgeObject {
         objectToID = new Dictionary<object, string>();
         startedJS = false;
 
-        //Debug.Log("Bridge: HardBoot: calling HandleTranportStarted");
+        Debug.Log("Bridge: HardBoot: calling HandleTranportStarted");
         HandleTransportStarted();
+
+        Debug.Log("Bridge: Boot: transport: " + transport + " calling EvaluateJS: " + js);
+        transport.EvaluateJS(js);
     }
 
 

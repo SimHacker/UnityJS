@@ -50,8 +50,7 @@ public class Bridge : BridgeObject {
     public string deployment = "";
     public string title = "";
     public string url = "bridge.html";
-    public string spreadsheetID = "1nh8tlnanRaTmY8amABggxc0emaXCukCYR18EGddiC4w";
-    public string configuration = "world";
+    public string configuration = "null";
 #if USE_SOCKETIO && UNITY_EDITOR
     public bool useSocketIO = false;
     public string socketIOAddress;
@@ -227,7 +226,7 @@ public class Bridge : BridgeObject {
 
     public void Awake()
     {
-        //Debug.Log("Bridge: Awake: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled + " spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: Awake: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled);
 
         if (mainBridge == null) {
             mainBridge = this;
@@ -247,7 +246,7 @@ public class Bridge : BridgeObject {
 
     public void Start()
     {
-        //Debug.Log("Bridge: Start: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled + " spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: Start: this: " + this + " bridge: " +  ((bridge == null) ? "null" : ("" + bridge)) + " enabled: " + this.enabled);
 
         StartBridge();
     }
@@ -296,7 +295,7 @@ public class Bridge : BridgeObject {
 
     public void CreateTransport()
     {
-        //Debug.Log("Bridge: CreateTransport: spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: CreateTransport");
 
         if (transport != null) {
             Debug.LogError("Bridge: CreateTransport: called multiple times!");
@@ -333,14 +332,14 @@ public class Bridge : BridgeObject {
             #endif
         #endif
 
-        //Debug.Log("Bridge: CreateTransport: created transport: " + transport + " spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: CreateTransport: created transport: " + transport);
         
-        //Debug.Log("Bridge: CreateTransport: initializing transport: this: " + this + " spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: CreateTransport: initializing transport: this: " + this);
         transport.Init(this);
 
-        //Debug.Log("Bridge: CreateTransport: starting transport: spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: CreateTransport: starting transport");
         transport.StartTransport();
-        //Debug.Log("Bridge: CreateTransport: started transport: spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: CreateTransport: started transport");
     }
 
 
@@ -354,7 +353,7 @@ public class Bridge : BridgeObject {
 
     public void HandleTransportStarted()
     {
-        //Debug.Log("Bridge: HandleTransportStarted: this: " + this + " spreadsheetID: " + this.spreadsheetID);
+        //Debug.Log("Bridge: HandleTransportStarted: this: " + this);
 
         string js = "";
 
@@ -382,8 +381,6 @@ public class Bridge : BridgeObject {
         js +=
           "bridge.start(" + 
           JsonConvert.ToString(transport.driver) +
-          ", " +
-          JsonConvert.ToString(spreadsheetID) +
           ", " + 
           JsonConvert.ToString(configuration) + 
           "); ";

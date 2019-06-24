@@ -28,7 +28,7 @@ if (gGoogleSheets) {
 
 
     console = {
-        log: () => {
+        log: function () {
             var args = Array.prototype.slice.call(arguments);
             var str = args.join(' ');
             Logger.log(str);
@@ -107,7 +107,7 @@ if (gGoogleSheets) {
 
             var sheets = ss.getSheets();
 
-            sheets.forEach((sheet, index) => {
+            sheets.forEach(function (sheet, index) {
                 var sheetID = sheet.getSheetId();
                 var sheetName = sheet.getName();
                 var sheetRows = sheet.getLastRow();
@@ -139,7 +139,7 @@ if (gGoogleSheets) {
 
             var namedRanges = ss.getNamedRanges();
 
-            namedRanges.forEach((namedRange, index) => {
+            namedRanges.forEach(function (namedRange, index) {
                 var rangeName = namedRange.getName();
                 var range = namedRange.getRange();
                 var row = range.getRow();
@@ -183,7 +183,7 @@ if (gGoogleSheets) {
         var namedRanges = spreadsheet.getNamedRanges();
         var ranges = {};
 
-        namedRanges.forEach((namedRange, index) => {
+        namedRanges.forEach(function (namedRange, index) {
             var rangeName = namedRange.getName();
             var range = namedRange.getRange();
             var sheet = range.getSheet();
@@ -211,7 +211,7 @@ if (gGoogleSheets) {
         var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
         var namedRanges = spreadsheet.getNamedRanges();
 
-        namedRanges.forEach((namedRange) => {
+        namedRanges.forEach(function (namedRange) {
             namedRange.remove();
         });
     }
@@ -557,7 +557,7 @@ if (gGoogleSheets) {
         //console.log("sheets.js: MakeNamedRanges: got rangeSchemas:", JSON.stringify(rangeSchemas));
 
         var headers = {};
-        rangeSchemas.forEach((rangeSchema) => {
+        rangeSchemas.forEach(function (rangeSchema) {
             var header = rangeSchema.name + ':';
             var parts = headers[header];
             if (!parts) {
@@ -575,7 +575,7 @@ if (gGoogleSheets) {
         //fullRange.setNote(null);
 
         var namedRanges = spreadsheet.getNamedRanges();
-        namedRanges.forEach((namedRange) => {
+        namedRanges.forEach(function (namedRange) {
             var rangeSheetName = namedRange.getRange().getSheet().getName();
             if ((sheetName == rangeSheetName) ||
                 (rangeSheetName.indexOf(sheetName + '$') == 0)) { // startsWith is missing!
@@ -606,7 +606,7 @@ if (gGoogleSheets) {
 
                 //console.log("header", header, "row", row, "rows", rows, "columns", columns, "column", column, "parts", parts);
 
-                parts.forEach((part, partIndex) => {
+                parts.forEach(function (part, partIndex) {
 
                     // part:
                     //     name string
@@ -625,7 +625,7 @@ if (gGoogleSheets) {
 
                     var rangeName = name + '_' + part.suffix;
 
-                   //console.log("part", JSON.stringify(part), "rangeRow", rangeRow, "rangeColumn", rangeColumn, "name", name, "rangeName", rangeName);
+                    //console.log("part", JSON.stringify(part), "rangeRow", rangeRow, "rangeColumn", rangeColumn, "name", name, "rangeName", rangeName);
 
                     //console.log("header", header, "rangeName", rangeName, "rowOffset", part.rowOffset, "columnOffset", part.columnOffset, "type", part.type, "layer", part.layer, "suffix", part.suffix, "row", row, "column", column, "rangeRow", rangeRow, "rangeColumn", rangeColumn, "rowToColumnRows[rangeRow]", rowToColumnRows[rangeRow], "columnToRowColumns[rangeColumn]", columnToRowColumns[rangeColumn]);
 
@@ -654,11 +654,12 @@ if (gGoogleSheets) {
 
                         rowToColumnRows[rangeRow] = 1;
 
+                        console.log("DOING", "header", header, "ROW", "part.type", part.type, "rangeRow", rangeRow, "rangeColumn", rangeColumn, "c2rc", columnToRowColumns[rangeColumn], "columns", columns);
                         if ((part.type == 'row') &&
                             !columnToRowColumns[rangeColumn]) {
                             for (var rowColumns = 0, maxColumns = columns - rangeColumn; rowColumns < maxColumns; rowColumns++) {
                                 var value = values[rangeRow][rangeColumn + rowColumns];
-                                //console.log("SCAN", rangeRow, rangeColumn + rowColumns, value);
+                                console.log("SCAN", "rowColumns", rowColumns, "maxColumns", maxColumns, "rangeRow", rangeRow, "index", rangeColumn + rowColumns, "volue", value);
                                 if (!value) {
                                     break;
                                 }
@@ -760,7 +761,7 @@ if (gGoogleSheets) {
                 if (value == 'Layers:') {
                     value = values[row][column + 1] || '';
                     //console.log("MakeMetaDataSheets: sheetName:", sheetName, "row:", row, "column:", column, "Layers:", value);
-                    value.split(',').forEach((token) => {
+                    value.split(',').forEach(function (token) {
                         token = token.trim();
                         if (token.length > 0) {
                             if (layers === null) {
@@ -778,7 +779,7 @@ if (gGoogleSheets) {
         if (layers) {
             //console.log("MakeMetaDataSheets: sheetName:", sheetName, "layers:", layers);
             var lastActiveSheet = spreadsheet.getActiveSheet();
-            layers.forEach((layer) => {
+            layers.forEach(function (layer) {
                 if (layer == "namedRange") {
                     MakeNamedRanges(sheet);
                 } else {
@@ -880,7 +881,7 @@ if (gGoogleSheets) {
                     }
                 }
                 var images = sheet.getImages();
-                images.forEach((image) => {
+                images.forEach(function (image) {
                     var anchorCell = image.getAnchorCell();
                     var row = anchorCell.getRow();
                     var column = anchorCell.getColumn();
@@ -970,7 +971,7 @@ if (gGoogleSheets) {
         }
 
         result.sort(
-            (a, b) => (a[1] < b[1]) ? -1 : ((a[1] > b[1]) ? 1 : 0));
+            function (a, b) { return (a[1] < b[1]) ? -1 : ((a[1] > b[1]) ? 1 : 0); });
 
         result.unshift(
             ["table"],
@@ -1014,31 +1015,27 @@ if (gGoogleSheets) {
         var calledError = false;
         var xhrs = {};
         var data = {
-            spreadsheetName: "Untitled",
-            sheets: {},
-            ranges: {}
+            spreadsheets: {}
         };
 
         for (var index = sheetSpecs.length - 1; index >= 0; index--) {
 
-            ((index) => {
+            (function (index) {
 
                 var sheetSpec = sheetSpecs[index];
-                var name = sheetSpec[0];
-                if (xhrs[sheetSpec.sheetName]) {
+                var sheetKey = sheetSpec.spreadsheetName + '.' + sheetSpec.sheetName;
+                if (xhrs[sheetKey]) {
                     return;
                 }
 
                 var url = GetSheetURL(sheetSpec, live);
-
                 var xhr = new XMLHttpRequest();
-                xhrs[sheetSpec.sheetName] = xhr;
+                xhrs[sheetKey] = xhr;
 
-                //console.log("sheets.js: LoadSheets: sheetName: " + sheetSpec.sheetName + " url: " + url);
+                //console.log("sheets.js: LoadSheets: spreadsheetName: " + sheetSpec.spreadsheetName + " sheetName: " + sheetSpec.sheetName + " url: " + url);
 
-                xhr.onload = () => {
+                xhr.onload = function () {
                     var text = xhr.responseText;
-
                     var sheet = ParseTSVToSheet(text);
 
                     var rows = sheet.length;
@@ -1050,8 +1047,19 @@ if (gGoogleSheets) {
                         }
                     }
 
-                    data.sheets[sheetSpec.sheetName] = {
+                    var spreadsheet = data.spreadsheets[sheetSpec.spreadsheetName];
+                    if (!spreadsheet) {
+                        spreadsheet = data.spreadsheets[sheetSpec.spreadsheetName] = {
+                            spreadsheetName: sheetSpec.spreadsheetName,
+                            spreadsheetID: sheetSpec.spreadsheetID,
+                            sheets: {},
+                            ranges: {}
+                        };
+                    }
+
+                    spreadsheet.sheets[sheetSpec.sheetName] = {
                         sheetName: sheetSpec.sheetName,
+                        spreadsheetName: sheetSpec.spreadsheetName,
                         spreadsheetID: sheetSpec.spreadsheetID,
                         sheetID: sheetSpec.sheetID,
                         index: index,
@@ -1060,7 +1068,7 @@ if (gGoogleSheets) {
                         values: sheet
                     };
 
-                    delete xhrs[sheetSpec.sheetName];
+                    delete xhrs[sheetKey];
 
                     var sheetsLeft = Object.keys(xhrs).length;
 
@@ -1068,38 +1076,42 @@ if (gGoogleSheets) {
 
                     if (sheetsLeft === 0) {
 
-                        // If there was a sheet called ranges, then load the ranges from it.
-                        if (data.sheets.ranges) {
-                            var scope = SheetToScope(data.sheets, {}, 'ranges');
-                            var rangesTable = scope.value;
+                        Object.keys(data.spreadsheets).forEach(function (spreadsheetName) {
+                            var spreadsheet = data.spreadsheets[spreadsheetName];
 
-                            if (scope.error) {
-                                console.log("sheets.js: LoadSheets: Error loading ranges. Error in sheet name:", scope.errorScope.errorSheetName, "row:", scope.errorScope.errorRow, "column:", scope.errorScope.errorColumn, "error:", error, "errorScope:", scope.errorScope);
-                            } else if (!rangesTable) {
-                                console.log("sheets.js: LoadSheets: Loaded ranges but it was null.", "scope:", scope);
-                                if (!calledError) {
-                                    calledError = true;
-                                    error();
+                            // If there was a sheet called ranges, then load the ranges from it.
+                            if (spreadsheet.sheets['ranges']) {
+                                var scope = SheetToScope(spreadsheet.sheets, {}, 'ranges');
+                                var rangesTable = scope.value;
+
+                                if (scope.error) {
+                                    console.log("sheets.js: LoadSheets: Error loading ranges. Error in sheet name:", scope.errorScope.errorSheetName, "row:", scope.errorScope.errorRow, "column:", scope.errorScope.errorColumn, "error:", error, "errorScope:", scope.errorScope);
+                                } else if (!rangesTable) {
+                                    console.log("sheets.js: LoadSheets: Loaded ranges but it was null.", "scope:", scope);
+                                    if (!calledError) {
+                                        calledError = true;
+                                        error();
+                                    }
+                                    return;
+                                } else {
+                                    // Add each row of the range table to the range map by its rangeName.
+                                    for (var i = 0, n = rangesTable.length; i < n; i++) {
+                                        var rangeRow = rangesTable[i];
+                                        spreadsheet.ranges[rangeRow.rangeName] = rangeRow;
+                                    }
+                                    //console.log("sheets.js: LoadObjects: LoadSheetsSuccess: Loaded spreadsheetName:", spreadsheet.spreadsheetName, "ranges:", spreadsheet.ranges, "scope:", scope);
                                 }
-                                return;
-                            } else {
-                                // Add each row of the range table to the range map by its rangeName.
-                                for (var i = 0, n = rangesTable.length; i < n; i++) {
-                                    var rangeRow = rangesTable[i];
-                                    data.ranges[rangeRow.rangeName] = rangeRow;
-                                }
-                                //console.log("sheets.js: LoadObjects: LoadSheetsSuccess: Loaded ranges:", data.ranges, "scope:", scope);
+
                             }
-
-                        }
+                        });
 
                         success(data);
                     }
 
                 };
 
-                xhr.onerror = (progressEvent) => {
-                    console.log("sheets.js: LoadSheets: error loading sheet name: " + name + " url:", url, "xhr:", xhr, "REPLIED:", xhr.statusText, "progressEvent:", progressEvent);
+                xhr.onerror = function (progressEvent) {
+                    console.log("sheets.js: LoadSheets: error loading spreadsheet name: " + sheetSpec.spreadsheetName + " sheet name: " + sheetSpec.sheetName + " url:", url, "xhr:", xhr, "REPLIED:", xhr.statusText, "progressEvent:", progressEvent);
                     if (!calledError) {
                         calledError = true;
                         error();
@@ -1116,6 +1128,7 @@ if (gGoogleSheets) {
     }
 
 
+    // This may be unused and broken.
     function LoadSheetsFromApp(appURL, success, error)
     {
         var url = appURL;
@@ -1124,7 +1137,7 @@ if (gGoogleSheets) {
 
         //console.log("sheets.js: LoadSheetsFromApp: url: " + url);
 
-        xhr.onload = () => {
+        xhr.onload = function () {
             var text = xhr.responseText;
             var result = JSON.parse(text);
             if (result.status != 'success') {
@@ -1136,8 +1149,8 @@ if (gGoogleSheets) {
             success(result.data);
         };
 
-        xhr.onerror = (err) => {
-            console.log("sheets.js: LoadSheets: error loading url: " + url, "xhr:", xhr, "REPLIED:", xhr.statusText, "err:", err);
+        xhr.onerror = function (err) {
+            console.log("sheets.js: LoadSheetsFromApp: error loading url: " + url, "xhr:", xhr, "REPLIED:", xhr.statusText, "err:", err);
             error();
         };
 
@@ -1215,7 +1228,7 @@ if (gGoogleSheets) {
             return sheetData.values;
         }
 
-        console.log("GetSheetValues: undefined sheetName: " + sheetName);
+        console.log("GetSheetValues: undefined sheetName:", sheetName, "from", Object.keys(sheets));
 
         return null;
     }

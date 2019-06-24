@@ -22,7 +22,6 @@ class UnityJSBridge {
         this.startedJS = false;
         this.driver = null;
         this.live = false;
-        this.spreadsheetID = null;
         this.configuration = null;
         this.nextID = 0;
         this.blobID = 0;
@@ -30,8 +29,7 @@ class UnityJSBridge {
             bridge: this
         };
         this.callbacks = {};
-        this.sheets = {};
-        this.ranges = {};
+        this.spreadsheets = {};
         this.world = {};
         this.pollCount = 0;
         this.jsToUnityEventQueueTimer = null;
@@ -49,13 +47,12 @@ class UnityJSBridge {
     }
 
 
-    start(driver, spreadsheetID, configuration)
+    start(driver, configuration)
     {
-        //console.log("Bridge: start: driver:", driver, "spreadsheetID:", spreadsheetID, "configuration:", configuration);
+        //console.log("Bridge: start: driver:", driver, "configuration:", configuration);
 
         this.driver = driver || "Unknown";
-        this.spreadsheetID = spreadsheetID || "";
-        this.configuration = configuration || "world";
+        this.configuration = configuration || "{}";
         this.startedUnity = true;
         this.startedJS = true;
 
@@ -564,9 +561,7 @@ class UnityJSBridge {
 
     load()
     {
-        //console.log("Bridge: load: spreadsheetID:", this.spreadsheetID);
-
-        if (this.spreadsheetID) {
+        if (gSheetsIndex) {
             var startTime = new Date();
             LoadSheets(
                 gSheetsIndex, // gSheetsIndex global is defined in dynamically generated sheets-index.js
@@ -577,32 +572,49 @@ class UnityJSBridge {
 
                     //console.log("Bridge: load: success: duration: " + duration);
 
-                    this.spreadsheetName = data.name;
-                    this.sheets = data.sheets;
-                    this.ranges = data.ranges;
+                    this.spreadsheets = data.spreadsheets;
 
-                    //console.log("sheets", this.sheets, "ranges", this.ranges);
+                    console.log("configuration JSON", this.configuration);
 
-                    if (!this.sheets[this.configuration]) {
-                        console.log("Bridge: load: Finished loading sheets, but configuration sheet '" + this.configuration + "' was not loaded!");
-                        return;
-                    }
+                    var configuration = JSON.parse(this.configuration);
 
-                    var scope = SheetToScope(this.sheets, this.ranges, this.configuration);
-                    this.scope = scope;
+                    console.log("configuration Object", configuration);
 
-                    var error = scope.error;
-                    var world = scope.value;
+                    configuration.forEach(importSpec => {
+                        var spreadsheetName = importSpec['spreadsheetName'];
+                        var sheetName = importSpec['sheetName'];
+                        var as = importSpec['as'];
+                        var spreadsheet = this.spreadsheets[spreadsheetName];
+                        if (!spreadsheet) {
+                            console.log("Bridge: load: configuration", configuration, "missing spreadsheetName", spreadsheetName, "from", Object.keys(this.spreadsheets));
+                            return;
+                        }
+                        var sheet = spreadsheet.sheets[sheetName];
+                        if (!spreadsheet) {
+                            console.log("Bridge: load: configuration", configuration, "missing sheetName", sheetName, "from spreadsheetName", spreadsheetName, "from", Object.keys(spreadsheet.sheets));
+                            return;
+                        }
 
-                    if (error) {
-                        console.log("Bridge: load: success: Error loading world. Error in sheetName:", scope.errorScope.errorSheetName, "row:", scope.errorScope.errorRow, "column:", scope.errorScope.errorColumn, "error:", error, "errorScope:", scope.errorScope);
-                    } else if (!world) {
-                        console.log("Bridge: load: success: Loaded world but it was null.", "scope:", scope);
-                    } else {
-                        Object.assign(this.world, world);
-                        //console.log("Bridge: load: success: Loaded world:", world, "scope:", scope);
-                        this.handleLoaded();
-                    }
+                        var scope = SheetToScope(spreadsheet.sheets, spreadsheet.ranges, sheetName);
+                        var error = scope.error;
+                        var value = scope.value;
+
+                        if (error) {
+                            console.log("Bridge: load: success: Error loading world. Error in spreadsheetName:", spreadsheetName, "sheetName:", scope.errorScope.errorSheetName, "row:", scope.errorScope.errorRow, "column:", scope.errorScope.errorColumn, "error:", error, "errorScope:", scope.errorScope);
+                        } else if (!value) {
+                            console.log("Bridge: load: success: Loaded value but it was null.", "scope:", scope);
+                        } else {
+                            console.log("Bridge: load: importing spreadsheetName", spreadsheetName, "sheetName", sheetName, "as", as, "keys", Object.keys(value));
+                            if (!as) {
+                                Object.assign(this.world, value);
+                            } else {
+                                this.world[as] = value;
+                            }
+                        }
+
+                    });
+
+                    this.handleLoaded();
 
                 },
                 () => { // error
@@ -627,8 +639,7 @@ class UnityJSBridge {
             'bridge': this
         };
         this.callbacks = {};
-        this.sheets = {};
-        this.ranges = {};
+        this.spreadsheets = {};
         this.world = {};
     }
 

@@ -31,14 +31,14 @@ public class BridgeTransport : MonoBehaviour
     public void Init(Bridge bridge0)
     {
         bridge = bridge0;
-        //Debug.Log("BridgeTransport: Init: bridge: " + bridge + " spreadsheetID: " + bridge.spreadsheetID);
+        //Debug.Log("BridgeTransport: Init: bridge: " + bridge);
         HandleInit();
     }
     
 
     public virtual void HandleInit()
     {
-        //Debug.Log("BridgeTransport: HandleInit: this: " + this + " bridge: " + bridge + " spreadsheetID: " + bridge.spreadsheetID);
+        //Debug.Log("BridgeTransport: HandleInit: this: " + this + " bridge: " + bridge);
     }
 
 

@@ -217,10 +217,6 @@ public class DeploymentBuilder : MonoBehaviour {
         //Debug.Log("DeploymentBuilder: ConfigureDeployment: url: " + url);
         bridge.url = url;
 
-        string spreadsheetID = (string)config["spreadsheetID"];
-        //Debug.Log("DeploymentBuilder: ConfigureDeployment: spreadsheetID: " + spreadsheetID);
-        bridge.spreadsheetID = spreadsheetID;
-
         string configuration = (string)config["configuration"];
         //Debug.Log("DeploymentBuilder: ConfigureDeployment: configuration: " + configuration);
         bridge.configuration = configuration;

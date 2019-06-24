@@ -122,18 +122,6 @@ public class Booter: MonoBehaviour {
             description="Boot configuration description.", 
             type=PropertyType.String,
         },
-        new PropertyData {
-            key="spreadsheetID",
-            name="Spreadsheet ID",
-            description="Google Sheets spreadsheet ID to load.",
-            type=PropertyType.String,
-        },
-        new PropertyData {
-            key="configuration",
-            name="Configuration",
-            description="Configuration name of sheet in spreadsheet.",
-            type=PropertyType.String,
-        },
 #if USE_SOCKETIO && UNITY_EDITOR
         new PropertyData {
             key="useSocketIO",
@@ -465,20 +453,6 @@ public class Booter: MonoBehaviour {
             Debug.Log("Booter: BootNow: currentBootConfiguration is null!");
 
         } else {
-
-            string spreadsheetID = (string)currentBootConfiguration["spreadsheetID"];
-            Debug.Log("Booter: BootNow: spreadsheetID: " + spreadsheetID);
-            if (spreadsheetID == null) {
-                spreadsheetID = "";
-            }
-            bridge.spreadsheetID = spreadsheetID;
-
-            string configuration = (string)currentBootConfiguration["configuration"];
-            Debug.Log("Booter: BootNow: configuration: " + configuration);
-            if (configuration == null) {
-                configuration = "";
-            }
-            bridge.configuration = configuration;
 
 #if USE_SOCKETIO && UNITY_EDITOR
 

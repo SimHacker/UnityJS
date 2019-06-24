@@ -10,7 +10,64 @@
   <assembly fullname="UnityEngine" preserve="all"/>
   <assembly fullname="UnityEngine.CoreModule" preserve="all"/>
   <assembly fullname="UnityEngine.PhysicsModule" preserve="all"/>
+<!--
   <assembly fullname="UnityEngine.ParticleSystemModule" preserve="all"/>
+This is disabled because it was causing the following functions to be undefined in the latest release of Unity.
+Note that they are now all marked as obsolete in this new version.
+
+        function __Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_get_birth0_Injectedv() {
+            err("missing function: _Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_get_birth0_Injectedv");
+            abort(-1)
+        }
+        function __Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_get_birth1_Injectedv() {
+            err("missing function: _Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_get_birth1_Injectedv");
+            abort(-1)
+        }
+        function __Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_get_death0_Injectedv() {
+            err("missing function: _Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_get_death0_Injectedv");
+            abort(-1)
+        }
+        function __Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_get_death1_Injectedv() {
+            err("missing function: _Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_get_death1_Injectedv");
+            abort(-1)
+        }
+        function __Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_set_birth0_Injectedv() {
+            err("missing function: _Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_set_birth0_Injectedv");
+            abort(-1)
+        }
+        function __Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_set_birth1_Injectedv() {
+            err("missing function: _Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_set_birth1_Injectedv");
+            abort(-1)
+        }
+        function __Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_set_death0_Injectedv() {
+            err("missing function: _Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_set_death0_Injectedv");
+            abort(-1)
+        }
+        function __Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_set_death1_Injectedv() {
+            err("missing function: _Z73Register_UnityEngine_ParticleSystem_SubEmittersModule_set_death1_Injectedv");
+            abort(-1)
+        }
+        function __Z77Register_UnityEngine_ParticleSystem_SubEmittersModule_get_collision0_Injectedv() {
+            err("missing function: _Z77Register_UnityEngine_ParticleSystem_SubEmittersModule_get_collision0_Injectedv");
+            abort(-1)
+        }
+        function __Z77Register_UnityEngine_ParticleSystem_SubEmittersModule_get_collision1_Injectedv() {
+            err("missing function: _Z77Register_UnityEngine_ParticleSystem_SubEmittersModule_get_collision1_Injectedv");
+            abort(-1)
+        }
+        function __Z77Register_UnityEngine_ParticleSystem_SubEmittersModule_set_collision0_Injectedv() {
+            err("missing function: _Z77Register_UnityEngine_ParticleSystem_SubEmittersModule_set_collision0_Injectedv");
+            abort(-1)
+        }
+        function __Z77Register_UnityEngine_ParticleSystem_SubEmittersModule_set_collision1_Injectedv() {
+            err("missing function: _Z77Register_UnityEngine_ParticleSystem_SubEmittersModule_set_collision1_Injectedv");
+            abort(-1)
+        }
+        function __ZN6il2cpp2os9Semaphore11GetOSHandleEv() {
+            err("missing function: _ZN6il2cpp2os9Semaphore11GetOSHandleEv");
+            abort(-1)
+        }
+-->
 
   <!-- This assembly contains user defined classes. -->
   <assembly fullname="Assembly-CSharp" preserve="all"/>

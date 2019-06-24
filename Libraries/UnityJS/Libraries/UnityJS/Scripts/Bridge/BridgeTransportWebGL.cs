@@ -108,7 +108,7 @@ public class BridgeTransportWebGL : BridgeTransport
 
         startedJS = true;
 
-        Debug.Log("BridgeTransportWebGL: HandleAwake: calling HandleTransportStarted: bridge: " + bridge + " spreadsheetID: " + bridge.spreadsheetID);
+        Debug.Log("BridgeTransportWebGL: HandleAwake: calling HandleTransportStarted: bridge: " + bridge);
 
         bridge.HandleTransportStarted();
     }
@@ -299,7 +299,7 @@ public class BridgeTransportWebGL : BridgeTransport
 
     public override void HandleAwake()
     {
-        Debug.Log("BridgeTransportWebGL: HandleAwake: this: " + this + " bridge: " + bridge + " spreadsheetID: " + bridge.spreadsheetID);
+        Debug.Log("BridgeTransportWebGL: HandleAwake: this: " + this + " bridge: " + bridge);
     }
 
 

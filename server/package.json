@@ -13,7 +13,7 @@
     "cookie-parser": "^1.4.4",
     "csv": "^3.1.0",
     "csv-generate": "^2.2.2",
-    "csv-parse": "^2.5.0",
+    "csv-parse": "^4.4.6",
     "csv-stringify": "^3.1.1",
     "delay": "^2.0.0",
     "express": "^4.16.4",

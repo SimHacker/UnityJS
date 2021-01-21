@@ -24,7 +24,7 @@
     "install": "^0.12.2",
     "node-fetch": "^2.4.1",
     "npm": "^6.9.0",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.4.0",
     "socket.io-redis": "^5.2.0",
     "stream-transform": "^1.0.8",
     "webpack": "^4.30.0",

@@ -57,13 +57,13 @@
         <DefineConstants>$(DefineConstants);NETFX_CORE;WINDOWS_UWP</DefineConstants>
       </PropertyGroup>
       <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
         <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.9" />
       </ItemGroup>
     </When>
     <When Condition="'$(IsNETTargetFramework)' == 'true'">
       <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
         <PackageReference Include="Microsoft.Net.Compilers" Version="2.7.0">
           <IncludeAssets>all</IncludeAssets>
           <ExcludeAssets>contentFiles</ExcludeAssets>
@@ -73,7 +73,7 @@
     </When>
     <When Condition="'$(IsNETStandardTargetFramework)' == 'true'">
       <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
       </ItemGroup>
     </When>
   </Choose>

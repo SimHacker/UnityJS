@@ -28,7 +28,7 @@
     "socket.io-redis": "^5.2.0",
     "stream-transform": "^1.0.8",
     "webpack": "^4.30.0",
-    "webpack-dev-server": "^3.3.1"
+    "webpack-dev-server": "^3.11.3"
   },
   "devDependencies": {}
 }

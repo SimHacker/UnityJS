@@ -20,7 +20,7 @@
     "express-session": "^1.16.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "google-trends-api": "^4.9.0",
-    "googleapis": "^32.0.0",
+    "googleapis": "^109.0.1",
     "install": "^0.12.2",
     "node-fetch": "^2.6.7",
     "npm": "^6.9.0",
